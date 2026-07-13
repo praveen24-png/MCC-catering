@@ -1,0 +1,154 @@
+/* ========================================================================= */
+/* ANIMATED FOOD DOODLES — corner/edge background, stroke draw + living motion */
+/* ========================================================================= */
+
+.afd-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.afd-item {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  will-change: transform, opacity;
+  z-index: 1;
+  animation: afd-auto-reveal 2s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes afd-auto-reveal {
+  to { opacity: var(--afd-opacity, 0.45); }
+}
+
+.afd-item svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* When JS adds is-visible, use the transition instead */
+.afd-item.is-visible {
+  animation: none;
+  opacity: var(--afd-opacity, 0.45);
+}
+
+/* STROKE DRAW */
+.afd-item.is-drawn svg path,
+.afd-item.is-drawn svg circle,
+.afd-item.is-drawn svg ellipse,
+.afd-item.is-drawn svg line {
+  stroke-dasharray: var(--sd-length, 300);
+  stroke-dashoffset: var(--sd-length, 300);
+}
+
+.afd-item.is-visible.is-drawn svg path,
+.afd-item.is-visible.is-drawn svg circle,
+.afd-item.is-visible.is-drawn svg ellipse,
+.afd-item.is-visible.is-drawn svg line {
+  animation: afd-stroke-draw 2.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.afd-item.is-visible.is-drawn svg *:nth-child(1)  { animation-delay: 0ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(2)  { animation-delay: 120ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(3)  { animation-delay: 240ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(4)  { animation-delay: 360ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(5)  { animation-delay: 480ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(6)  { animation-delay: 600ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(7)  { animation-delay: 720ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(8)  { animation-delay: 840ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(9)  { animation-delay: 960ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(10) { animation-delay: 1080ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(11) { animation-delay: 1200ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(12) { animation-delay: 1320ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(13) { animation-delay: 1440ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(14) { animation-delay: 1560ms; }
+.afd-item.is-visible.is-drawn svg *:nth-child(15) { animation-delay: 1680ms; }
+
+@keyframes afd-stroke-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* LIVING ANIMATIONS */
+@keyframes afd-float {
+  0%, 100% { transform: translateY(0) rotate(var(--afd-rot, 0deg)); }
+  25%      { transform: translateY(-4px) rotate(calc(var(--afd-rot, 0deg) + 1deg)); }
+  50%      { transform: translateY(-7px) rotate(var(--afd-rot, 0deg)); }
+  75%      { transform: translateY(-3px) rotate(calc(var(--afd-rot, 0deg) - 1deg)); }
+}
+
+@keyframes afd-sway {
+  0%, 100% { transform: translateX(0) rotate(var(--afd-rot, 0deg)); }
+  33%      { transform: translateX(5px) rotate(calc(var(--afd-rot, 0deg) + 2deg)); }
+  66%      { transform: translateX(-4px) rotate(calc(var(--afd-rot, 0deg) - 2deg)); }
+}
+
+@keyframes afd-breathe {
+  0%, 100% { transform: scale(1) rotate(var(--afd-rot, 0deg)); }
+  50%      { transform: scale(1.05) rotate(var(--afd-rot, 0deg)); }
+}
+
+@keyframes afd-drift {
+  0%, 100% { transform: translate(0, 0) rotate(var(--afd-rot, 0deg)); }
+  25%      { transform: translate(3px, -3px) rotate(calc(var(--afd-rot, 0deg) + 1deg)); }
+  50%      { transform: translate(2px, -6px) rotate(var(--afd-rot, 0deg)); }
+  75%      { transform: translate(-2px, -2px) rotate(calc(var(--afd-rot, 0deg) - 1deg)); }
+}
+
+.afd-item.is-living[data-motion="float"] {
+  animation: afd-float var(--afd-duration, 28s) ease-in-out infinite;
+}
+.afd-item.is-living[data-motion="sway"] {
+  animation: afd-sway var(--afd-duration, 32s) ease-in-out infinite;
+}
+.afd-item.is-living[data-motion="breathe"] {
+  animation: afd-breathe var(--afd-duration, 24s) ease-in-out infinite;
+}
+.afd-item.is-living[data-motion="drift"] {
+  animation: afd-drift var(--afd-duration, 36s) ease-in-out infinite;
+}
+
+/* STEAM */
+.afd-steam {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.afd-steam-wisp {
+  position: absolute;
+  width: 2px;
+  height: 12px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  animation: afd-steam-rise 3.5s ease-out infinite;
+}
+
+.afd-steam-wisp:nth-child(1) { left: -3px; animation-delay: 0s; }
+.afd-steam-wisp:nth-child(2) { left: 1px;  animation-delay: 1.2s; }
+.afd-steam-wisp:nth-child(3) { left: 5px;  animation-delay: 2.4s; }
+
+@keyframes afd-steam-rise {
+  0%   { opacity: 0; transform: translate3d(0, 0, 0) scaleY(0.5); }
+  15%  { opacity: 0.4; }
+  50%  { opacity: 0.2; transform: translate3d(2px, -16px, 0) scaleY(1); }
+  100% { opacity: 0; transform: translate3d(-1px, -32px, 0) scaleY(0.6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .afd-item { animation: none !important; opacity: var(--afd-opacity, 0.45) !important; }
+  .afd-item.is-drawn svg path,
+  .afd-item.is-drawn svg circle,
+  .afd-item.is-drawn svg ellipse,
+  .afd-item.is-drawn svg line {
+    stroke-dashoffset: 0 !important;
+  }
+  .afd-item.is-living { animation: none !important; }
+  .afd-steam-wisp { animation: none !important; display: none; }
+}

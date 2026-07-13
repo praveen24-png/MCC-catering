@@ -1,0 +1,89 @@
+/* ========================================================================= */
+/* DOODLE LAYER — positioned absolutely inside a relative section           */
+/* ========================================================================= */
+
+.doodle-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.doodle {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity 0.4s ease;
+}
+
+.doodle svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: currentColor;
+}
+
+/* Draw-on-scroll: paths start hidden, animated via JS */
+.doodle.is-drawn svg path,
+.doodle.is-drawn svg circle,
+.doodle.is-drawn svg ellipse,
+.doodle.is-drawn svg line {
+  stroke-dasharray: var(--sd-length, 300);
+  stroke-dashoffset: var(--sd-length, 300);
+  transition: none;
+}
+
+.doodle.is-drawn.is-visible svg path,
+.doodle.is-drawn.is-visible svg circle,
+.doodle.is-drawn.is-visible svg ellipse,
+.doodle.is-drawn.is-visible svg line {
+  animation: doodle-draw 1.6s ease-out forwards;
+}
+
+.doodle.is-drawn.is-visible svg path:nth-child(1) { animation-delay: 0ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(2) { animation-delay: 80ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(3) { animation-delay: 160ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(4) { animation-delay: 240ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(5) { animation-delay: 320ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(6) { animation-delay: 400ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(7) { animation-delay: 480ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(8) { animation-delay: 560ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(9) { animation-delay: 640ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(10) { animation-delay: 720ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(11) { animation-delay: 800ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(12) { animation-delay: 880ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(13) { animation-delay: 960ms; }
+.doodle.is-drawn.is-visible svg path:nth-child(14) { animation-delay: 1040ms; }
+
+.doodle.is-drawn.is-visible svg circle:nth-child(1) { animation-delay: 0ms; }
+.doodle.is-drawn.is-visible svg circle:nth-child(2) { animation-delay: 80ms; }
+.doodle.is-drawn.is-visible svg circle:nth-child(3) { animation-delay: 160ms; }
+
+.doodle.is-drawn.is-visible svg ellipse:nth-child(1) { animation-delay: 0ms; }
+.doodle.is-drawn.is-visible svg ellipse:nth-child(2) { animation-delay: 80ms; }
+
+.doodle.is-drawn.is-visible svg line:nth-child(1) { animation-delay: 0ms; }
+.doodle.is-drawn.is-visible svg line:nth-child(2) { animation-delay: 80ms; }
+.doodle.is-drawn.is-visible svg line:nth-child(3) { animation-delay: 160ms; }
+.doodle.is-drawn.is-visible svg line:nth-child(4) { animation-delay: 240ms; }
+
+@keyframes doodle-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle.is-drawn svg path,
+  .doodle.is-drawn svg circle,
+  .doodle.is-drawn svg ellipse,
+  .doodle.is-drawn svg line {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .doodle {
+    transform: none !important;
+  }
+}

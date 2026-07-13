@@ -1,0 +1,84 @@
+/* ========================================================================= */
+/* SCROLL CUTOUTS — cut-out images, variant controls visibility              */
+/* ========================================================================= */
+
+.scroll-cutouts-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scroll-cutout {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: rotate(var(--sc-rot, 0deg));
+  animation: cutout-auto-reveal 2s ease-out forwards;
+}
+
+/* ---- BACKGROUND variant: subtle watermark ---- */
+.scroll-cutouts-layer--background .scroll-cutout {
+  mix-blend-mode: multiply;
+  filter: saturate(0.3) brightness(1.1);
+}
+
+.scroll-cutouts-layer--background .scroll-cutout img {
+  filter: drop-shadow(0 8px 20px rgba(58, 16, 41, 0.1));
+}
+
+@keyframes cutout-auto-reveal {
+  0%   { opacity: 0; transform: rotate(var(--sc-rot, 0deg)) scale(0.92); }
+  100% { opacity: var(--sc-target-opacity, 0.12); transform: rotate(var(--sc-rot, 0deg)) scale(1); }
+}
+
+/* ---- PROMINENT variant: visible feature image ---- */
+.scroll-cutouts-layer--prominent .scroll-cutout {
+  filter: none;
+}
+
+.scroll-cutouts-layer--prominent .scroll-cutout img {
+  filter: drop-shadow(0 20px 40px rgba(58, 16, 41, 0.3))
+          drop-shadow(0 4px 12px rgba(58, 16, 41, 0.15));
+}
+
+.scroll-cutouts-layer--prominent .scroll-cutout {
+  --sc-target-opacity: 1;
+  opacity: 1 !important;
+}
+
+.scroll-cutouts-layer--background .scroll-cutout {
+  --sc-target-opacity: 0.12;
+}
+
+.scroll-cutout.is-revealed {
+  animation: none;
+  opacity: var(--sc-target-opacity, 1) !important;
+}
+
+.scroll-cutout img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1023px) {
+  .scroll-cutout {
+    opacity: 1 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cutout {
+    animation: none !important;
+    transform: none !important;
+  }
+  .scroll-cutouts-layer--background .scroll-cutout {
+    opacity: 0.12 !important;
+  }
+  .scroll-cutouts-layer--prominent .scroll-cutout {
+    opacity: 0.85 !important;
+  }
+}

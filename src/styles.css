@@ -1,0 +1,692 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Alex+Brush&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/poppins/300.css";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Great Vibes", "Alex Brush", cursive;
+  --color-plum: var(--plum);
+  --color-plum-dark: var(--plum-dark);
+  --color-plum-light: var(--plum-light);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-light: var(--gold-light);
+  --color-leaf: var(--leaf);
+  --color-leaf-dark: var(--leaf-dark);
+  --color-leaf-light: var(--leaf-light);
+  --color-cream: var(--cream);
+  --color-party-peach: #e0bb9b;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.875rem;
+  /* Brand palette — Traditional South Indian Catering Visual Identity */
+  --cream: oklch(0.9723 0.0075 88.59); /* Premium Warm Cream (#FAF6F0) */
+  --plum: oklch(0.2668 0.165 306.94);       /* Royal South Indian Plum (#3A235A) */
+  --plum-dark: oklch(0.2268 0.076 312.38);  /* Deep Plum (#2A163F) */
+  --plum-light: oklch(0.4425 0.134 312.38); /* Light Plum (#513675) */
+  --gold: oklch(0.79 0.13 85);       /* Brass Gold */
+  --gold-dark: oklch(0.69 0.12 80);  /* Dark Brass Gold */
+  --gold-light: oklch(0.87 0.14 90); /* Light Brass Gold */
+  --leaf: oklch(0.45 0.12 142);      /* Banana Leaf Green */
+  --leaf-dark: oklch(0.35 0.10 142); /* Dark Banana Leaf Green */
+  --leaf-light: oklch(0.55 0.13 142);/* Light Banana Leaf Green */
+
+  --background: var(--cream);
+  --foreground: oklch(0.1475 0.035 301.12); /* Deep Slate Charcoal (#1C1424) */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1475 0.035 301.12);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1475 0.035 301.12);
+  --primary: var(--plum);
+  --primary-foreground: oklch(0.98 0.01 88.59);
+  --secondary: oklch(0.94 0.025 82);
+  --secondary-foreground: var(--plum);
+  --muted: oklch(0.94 0.02 82);
+  --muted-foreground: oklch(0.48 0.03 25);
+  --accent: var(--gold);
+  --accent-foreground: var(--plum-dark);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.89 0.02 82);
+  --input: oklch(0.89 0.02 82);
+  --ring: var(--gold);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility text-gold-gradient {
+  background-image: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility shadow-glow-gold {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--gold) 30%, transparent),
+              0 18px 40px -18px color-mix(in oklab, var(--gold) 55%, transparent);
+}
+
+@utility shadow-glow-plum {
+  box-shadow: 0 25px 60px -25px color-mix(in oklab, var(--plum) 70%, transparent);
+}
+
+@utility gold-divider {
+  background-image: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  height: 1px;
+}
+
+@utility temple-border {
+  background-image: 
+    linear-gradient(45deg, var(--gold) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--gold) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--gold) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--gold) 75%);
+  background-size: 12px 12px;
+  background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+  height: 6px;
+  width: 100%;
+}
+
+/* ========================================================================= */
+/* LEAVES OF LIFE DESIGN SYSTEM & ANIMATIONS                                 */
+/* ========================================================================= */
+
+@keyframes leafSway {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0px) scale(1);
+  }
+  50% {
+    transform: rotate(6deg) translateY(-8px) scale(1.03);
+  }
+}
+
+@keyframes leafFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-15px) rotate(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes goldenShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+}
+
+@keyframes sparkle-pulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+}
+
+.animate-leaf-sway {
+  animation: leafSway 6s ease-in-out infinite;
+}
+
+.animate-leaf-sway-reverse {
+  animation: leafSway 7s ease-in-out infinite reverse;
+}
+
+.animate-leaf-float {
+  animation: leafFloat 8s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-sparkle-pulse {
+  animation: sparkle-pulse 3s ease-in-out infinite;
+}
+
+.shimmer-gold {
+  background: linear-gradient(90deg, #d97706 0%, #fbbf24 50%, #d97706 100%);
+  background-size: 200% 100%;
+  animation: goldenShimmer 4s infinite linear;
+}
+
+/* Pulse animation for soft glow effect */
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 4s ease-in-out infinite;
+}
+
+/* Sparkle pulse animation */
+@keyframes sparklePulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+}
+
+.animate-sparkle-pulse {
+  animation: sparklePulse 3s ease-in-out infinite;
+}
+
+/* ========================================================================= */
+/* FULL-BLEED UTILITY                                                        */
+/* ========================================================================= */
+.full-bleed {
+  margin-inline: calc(50% - 50vw);
+  width: 100vw;
+  max-width: 100vw;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Global responsive safety net */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+img, video, svg, canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Touch target minimum — 44×44px per WCAG 2.5.5 / Apple HIG */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* 100dvh fallback — use 100dvh where supported, 100vh fallback */
+@supports (height: 100dvh) {
+  .h-screen-dynamic { height: 100dvh; }
+}
+@supports not (height: 100dvh) {
+  .h-screen-dynamic { height: 100vh; }
+}
+
+/* ========================================================================= */
+/* PAGE BANNER                                                                */
+/* ========================================================================= */
+.page-banner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.page-banner-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.page-banner-scrim {
+  position: absolute;
+  inset: 0;
+}
+
+/* warm tone — dark scrim for photos (heavy to kill watermark text in source images) */
+.page-banner--warm .page-banner-scrim {
+  background: linear-gradient(to bottom, rgba(20,10,5,0.78), rgba(20,10,5,0.92));
+}
+
+/* leaf tone — green-tinted scrim (heavy to kill watermark text in source images) */
+.page-banner--leaf .page-banner-scrim {
+  background: linear-gradient(to bottom, rgba(30,60,30,0.78), rgba(20,40,20,0.93));
+}
+
+/* ink tone — light scrim for line art (unchanged — no photo watermark on light backgrounds) */
+.page-banner--ink .page-banner-scrim {
+  background: linear-gradient(to bottom, rgba(250,246,240,0.85), rgba(250,246,240,0.95));
+}
+
+.page-banner-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem 1.5rem;
+}
+
+.page-banner--warm .page-banner-content,
+.page-banner--leaf .page-banner-content {
+  color: #fff;
+}
+
+.page-banner--ink .page-banner-content {
+  color: var(--plum);
+}
+
+.page-banner-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.page-banner-subtitle {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  opacity: 0.85;
+  margin-top: 0.5rem;
+}
+
+/* Gold hairlines */
+.gold-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+  opacity: 0.6;
+}
+
+/* ========================================================================= */
+/* SELF-DRAWING SVG                                                          */
+/* ========================================================================= */
+.sd-shape {
+  stroke-dasharray: var(--sd-length);
+  stroke-dashoffset: var(--sd-length);
+  transition: none;
+  fill: none;
+}
+
+.sd-shape.sd-drawn {
+  transition: stroke-dashoffset var(--sd-duration, 1400ms) var(--sd-ease, cubic-bezier(0.4, 0, 0.2, 1));
+  stroke-dashoffset: 0;
+}
+
+/* For fillOnComplete */
+.sd-shape.sd-filled {
+  transition: stroke-dashoffset var(--sd-duration, 1400ms) var(--sd-ease, cubic-bezier(0.4, 0, 0.2, 1)),
+              fill 300ms ease;
+  stroke-dashoffset: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sd-shape {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+}
+
+/* ========================================================================= */
+/* SKYLINE DIVIDER                                                           */
+/* ========================================================================= */
+.skyline-divider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--cream);
+  line-height: 0;
+}
+
+.skyline-divider-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* the sketch is 1663x624 — uncapped it swallows a whole viewport on wide screens */
+  max-height: 220px;
+  object-fit: cover;
+  object-position: bottom;
+  /* white background of the sketch drops out; only the graphite lines remain */
+  mix-blend-mode: multiply;
+  /* warm it to match the plum/gold palette instead of cold grey */
+  filter: sepia(0.35) saturate(0.85) contrast(1.05) brightness(1.02);
+  opacity: 0.62;
+}
+
+/* fades the top of the sketch into the cream page so it doesn't sit as a hard block */
+.skyline-divider-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--cream) 0%,
+    rgba(250, 247, 240, 0.65) 22%,
+    rgba(250, 247, 240, 0) 55%
+  );
+}
+
+/* ========================================================================= */
+/* MORPHING DISH                                                             */
+/* ========================================================================= */
+@keyframes steam-rise {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+  50% { opacity: 0.6; transform: translateY(-8px) scale(1.1); }
+}
+
+.steam-path {
+  animation: steam-rise 2.5s ease-in-out infinite;
+}
+
+.steam-path:nth-child(2) { animation-delay: 0.4s; }
+.steam-path:nth-child(3) { animation-delay: 0.8s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .steam-path { animation: none; opacity: 0.3; }
+}
+
+/* ========================================================================= */
+/* LINE ART STRIP                                                            */
+/* ========================================================================= */
+.line-art-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.line-art-strip > * {
+  flex: 0 0 auto;
+}
+
+/* Reduced motion for everything */
+@media (prefers-reduced-motion: reduce) {
+  .page-banner-bg {
+    animation: none !important;
+  }
+}
+
+/* ========================================================================= */
+/* KOLAM VINE — fixed left-edge scroll-bound SVG                            */
+/* ========================================================================= */
+
+.kolam-vine {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.kolam-vine svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================================================= */
+/* GRAIN OVERLAY — subtle noise texture                                       */
+/* ========================================================================= */
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 1;
+  mix-blend-mode: overlay;
+}
+
+.grain-overlay svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================================================= */
+/* BANANA LEAF DIVIDER — wavy leaf-vein section border                       */
+/* ========================================================================= */
+
+.banana-leaf-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.banana-leaf-divider__svg {
+  display: block;
+  width: 100%;
+  height: 30px;
+}
+
+/* ========================================================================= */
+/* REDUCED MOTION — global disable                                           */
+/* ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .kolam-vine path {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+
+  .doodle-layer .doodle {
+    transform: none !important;
+  }
+
+  .food-peek,
+  .food-peek-chip {
+    transition: opacity 0.1s ease !important;
+    transform: none !important;
+  }
+
+  .food-peek--visible,
+  .food-peek-chip--active {
+    opacity: 1 !important;
+  }
+}
+
+/* ========================================================================= */
+/* FOOD PEEK EDGE — cut-out dish hanging off a section edge                  */
+/* ========================================================================= */
+
+.food-peek-edge {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: peek-auto-reveal 2s ease-out forwards;
+}
+
+@keyframes peek-auto-reveal {
+  to { opacity: 1; }
+}
+
+.food-peek-edge img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* grounds the cut-out so it doesn't look pasted on */
+  filter: drop-shadow(0 24px 40px rgba(58, 16, 41, 0.28))
+          drop-shadow(0 4px 10px rgba(58, 16, 41, 0.15));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .food-peek-edge {
+    transform: none !important;
+    opacity: 1;
+    transition: none;
+  }
+}
