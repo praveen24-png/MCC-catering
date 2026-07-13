@@ -7,7 +7,7 @@ export default function MobileAppHeader() {
   return (
     <header className="xl:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       {/* Top Promo Strip */}
-      <div className="bg-[#1E1108] text-amber-300 text-[9px] py-1.5 px-4 text-center font-extrabold tracking-[0.18em] uppercase">
+      <div className="bg-[#1E1108] text-amber-300 text-[10px] py-1.5 px-4 text-center font-extrabold tracking-[0.18em] uppercase">
         ✦ Free Sample Tasting for Weddings &amp; Engagements ✦
       </div>
 
@@ -25,7 +25,7 @@ export default function MobileAppHeader() {
 
         {/* CENTER: MCC Logo + Location badge */}
         <Link to="/" className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform flex-1">
-          <div className="w-[54px] h-[54px] rounded-full bg-white border-2 border-amber-300 shadow-md overflow-hidden flex items-center justify-center">
+          <div className="w-[64px] h-[64px] rounded-full bg-white border-2 border-amber-300 shadow-md overflow-hidden flex items-center justify-center">
             <img
               src={logoImg}
               alt="MCC — My Chennai Catering"
@@ -34,7 +34,7 @@ export default function MobileAppHeader() {
           </div>
           {/* Location badge centred below logo */}
           <div className="flex flex-col items-center gap-0.5">
-            <span className="text-[7px] uppercase tracking-[0.18em] text-neutral-400 font-semibold leading-none">
+            <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-400 font-semibold leading-none">
               Service Location
             </span>
             <div className="flex items-center gap-1 bg-amber-50 border border-amber-200 rounded-lg px-2.5 py-1">
@@ -49,7 +49,7 @@ export default function MobileAppHeader() {
 
         {/* RIGHT: Contacts */}
         <div className="flex flex-col items-end gap-1 shrink-0">
-          <span className="text-[7px] uppercase tracking-[0.18em] text-neutral-400 font-semibold leading-none mb-0.5">
+          <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-400 font-semibold leading-none mb-0.5">
             Call Us
           </span>
           <a
@@ -73,7 +73,7 @@ export default function MobileAppHeader() {
       <div className="flex items-center justify-center gap-3 px-4 py-2 bg-amber-50/80 border-b border-amber-100">
         <a
           href="tel:+919940396005"
-          className="flex items-center gap-1.5 bg-[#1E1108] text-amber-300 px-4 py-1.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform"
+          className="flex items-center gap-1.5 bg-[#1E1108] text-amber-300 px-4 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform"
         >
           <Phone className="w-3 h-3" /> Call Now
         </a>
@@ -81,13 +81,13 @@ export default function MobileAppHeader() {
           href="https://wa.me/919940396005"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 bg-emerald-600 text-white px-4 py-1.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform"
+          className="flex items-center gap-1.5 bg-emerald-600 text-white px-4 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform"
         >
           <MessageCircle className="w-3 h-3" /> WhatsApp
         </a>
         <Link
           to="/builder"
-          className="flex items-center gap-1.5 bg-amber-500 text-white px-4 py-1.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform"
+          className="flex items-center gap-1.5 bg-amber-500 text-white px-4 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform"
         >
           Build Menu
         </Link>

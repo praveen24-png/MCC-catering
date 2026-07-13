@@ -132,7 +132,7 @@ function RootComponent() {
         <GrainOverlay />
         <KolamVine />
         <Header />
-        <main className="flex-1" style={{ paddingTop: "clamp(70px, 8.5vw, 120px)" }}>
+        <main className="flex-1" style={{ paddingTop: "clamp(140px, 13vw, 170px)" }}>
           <Outlet />
           <SkylineDivider />
         </main>

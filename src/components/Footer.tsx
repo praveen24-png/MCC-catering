@@ -38,7 +38,7 @@ export default function Footer() {
           </svg>
         </div>
 
-        <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10" style={{ gap: "clamp(16px, 2vw, 24px)" }}>
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between relative z-10" style={{ gap: "clamp(16px, 2vw, 24px)" }}>
           
           <div className="flex items-center gap-4 text-left">
             <div className="w-14 h-14 rounded-full bg-emerald-950/80 border-2 border-emerald-400/70 p-2 shrink-0 shadow-lg flex items-center justify-center overflow-hidden animate-leaf-float">
@@ -58,7 +58,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center justify-end" style={{ gap: "clamp(12px, 1.5vw, 24px)" }}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-end" style={{ gap: "clamp(12px, 1.5vw, 24px)" }}>
             <a 
               href="tel:+919940396005"
               className="flex items-center gap-2.5 font-semibold text-white hover:text-amber-300 transition-colors duration-300 group py-2 px-4 rounded-full bg-white/10 hover:bg-white/20 border border-amber-300/30"
@@ -89,7 +89,7 @@ export default function Footer() {
         <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(#15803d_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
         {/* RIGHT SIDE DISH SHOWCASE */}
-        <div className="absolute right-0 top-0 bottom-0 pointer-events-none select-none z-10 items-end justify-end overflow-hidden" style={{ width: "clamp(200px, 26vw, 420px)", display: "flex" }}>
+        <div className="absolute right-0 top-0 bottom-0 pointer-events-none select-none z-10 items-end justify-end overflow-hidden hidden lg:flex" style={{ width: "clamp(200px, 26vw, 420px)" }}>
           <div className="relative w-full h-full flex items-end justify-end">
             <div className="absolute bottom-6 right-10 w-72 h-72 rounded-full bg-emerald-500/10 blur-3xl animate-pulse-slow"></div>
             <div className="relative w-full h-full flex items-end justify-end">
@@ -104,7 +104,7 @@ export default function Footer() {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-20" style={{ padding: "clamp(32px, 4vw, 64px) clamp(16px, 3vw, 48px)" }}>
-          <div className="grid grid-cols-4 gap-8 w-full" style={{ maxWidth: "calc(100% - clamp(200px, 26vw, 420px))" }}>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 w-full" style={{ maxWidth: "calc(100% - clamp(0px, 26vw, 420px))" }}>
             
             {/* COLUMN 1: MCC LOGO */}
             <div className="space-y-5 text-left">
@@ -229,7 +229,7 @@ export default function Footer() {
 
       {/* ── 3. SUB-FOOTER BOTTOM BAR ── */}
       <div className="bg-[#EFEDE6] border-t border-emerald-900/10 relative z-20" style={{ padding: "clamp(12px, 1.5vw, 16px) clamp(16px, 3vw, 48px)" }}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 text-left font-medium" style={{ fontSize: "clamp(10px, 0.8vw, 12px)" }}>
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left font-medium" style={{ fontSize: "clamp(10px, 0.8vw, 12px)" }}>
           <div className="flex items-center gap-2">
             <img src={lotusIcon} alt="" className="w-4 h-4 object-contain" />
             <span>© {currentYear} <span className="font-semibold text-slate-900">My Chennai Catering Services</span>. All Rights Reserved.</span>

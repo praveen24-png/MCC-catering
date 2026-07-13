@@ -36,7 +36,7 @@ export default function MobileAppTabBar() {
                 >
                   <Icon className="w-6 h-6 text-amber-400" />
                 </Link>
-                <span className={`text-[8px] font-extrabold uppercase tracking-widest mt-1.5 ${
+                <span className={`text-[10px] font-extrabold uppercase tracking-widest mt-1.5 ${
                   active ? "text-amber-600" : "text-neutral-500"
                 }`}>
                   {tab.label}
@@ -54,7 +54,6 @@ export default function MobileAppTabBar() {
               <div className={`relative flex flex-col items-center gap-1 transition-all duration-200 ${
                 active ? "scale-105" : ""
               }`}>
-                {/* Active indicator dot */}
                 {active && (
                   <span className="absolute -top-1 w-1 h-1 rounded-full bg-amber-500" />
                 )}
@@ -64,7 +63,7 @@ export default function MobileAppTabBar() {
                   }`}
                   strokeWidth={active ? 2.5 : 1.8}
                 />
-                <span className={`text-[8.5px] font-bold uppercase tracking-widest transition-colors ${
+                <span className={`text-[10px] font-bold uppercase tracking-widest transition-colors ${
                   active ? "text-amber-600" : "text-neutral-400"
                 }`}>
                   {tab.label}
@@ -74,7 +73,6 @@ export default function MobileAppTabBar() {
           );
         })}
       </div>
-      {/* iOS safe area fill */}
       <div className="h-safe-bottom bg-white" />
     </div>
   );

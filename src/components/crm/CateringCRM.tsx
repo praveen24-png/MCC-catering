@@ -264,17 +264,17 @@ const SEED_CLIENTS: ClientItem[] = [
 export default function CateringCRM({ onSwitchToCustomizer }: { onSwitchToCustomizer?: () => void }) {
   const [activeTab, setActiveTab] = useState<TabType>("dashboard");
   
-  // ADMIN AUTHENTICATION STATE
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return sessionStorage.getItem("mcc_crm_authenticated") === "true";
-  });
+  // ADMIN AUTHENTICATION STATE — SSR-safe defaults; browser storage read in effect below
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [adminPin, setAdminPin] = useState("9940396005");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [adminPin, setAdminPin] = useState<string>(() => {
-    return localStorage.getItem("mcc_crm_admin_pin") || "9940396005";
-  });
-
-  // API AUTHENTICATION STATE
-  const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem('feast_crm_token'));
+  // Hydrate from browser storage after mount (server never touches these)
+  useEffect(() => {
+    setIsAuthenticated(sessionStorage.getItem("mcc_crm_authenticated") === "true");
+    setAdminPin(localStorage.getItem("mcc_crm_admin_pin") || "9940396005");
+    setIsLoggedIn(!!localStorage.getItem("feast_crm_token"));
+  }, []);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');

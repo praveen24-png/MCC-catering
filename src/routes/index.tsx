@@ -42,6 +42,11 @@ import lotusIcon from "@/assets/lotus icon.png";
 import banner1 from "@/assets/banner1.jpg";
 import banner2 from "@/assets/banner 2.jpg";
 import banner3 from "@/assets/banner 3.jpg";
+import {
+  HERO_SLIDES, PORTRAIT_SLIDES, TAMIL_MESSAGES, SERVICES_OFFERED,
+  MENU_CATEGORIES, FAQS, FOOD_PEEK_ITEMS, GALLERY_ITEMS, TESTIMONIALS,
+  PHILOSOPHY_BADGES,
+} from "@/data/homeContent";
 import CateringMenusSection from "@/components/CateringMenusSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import BookingForm from "@/components/BookingForm";
@@ -384,224 +389,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-interface HeroSlide {
-  t: string;
-  bg: string;
-  title: string;
-  sub: string;
-  d: string;
-  cta: string;
-  link: string;
-  logo?: string;
-}
-
-const HERO_SLIDES: HeroSlide[] = [
-  {
-    t: "Authentic Flavours",
-    bg: banner2,
-    title: "Premium Catering Services in Chennai",
-    sub: "Authentic flavours, exceptional service, and memorable celebrations.",
-    d: "Experience the authentic flavor of Chennai with our hygienic, delicious and memorable catering services.",
-    cta: "Get a Free Quote",
-    link: "#book",
-  },
-  {
-    t: "Memorable Events",
-    bg: banner3,
-    title: "Weddings ❖ Corporate Events ❖ Celebrations",
-    sub: "Customized menus crafted with tradition, taste, and care.",
-    d: "Modern reception spreads, premium buffet counters, and traditional sit-down services styled to perfection.",
-    cta: "Explore Services",
-    link: "/services",
-  },
-  {
-    t: "20+ Years Legacy",
-    bg: banner1,
-    title: "Trusted Catering Partner in Chennai",
-    sub: "Over 20 years of delivering quality food and professional hospitality.",
-    d: "Premium veg and non-veg taste prepared with strict hygiene by experienced traditional chefs.",
-    cta: "Book Your Event",
-    link: "#book",
-  },
-  {
-    t: "Traditional Menu",
-    bg: bananaLeafFeastBlended,
-    title: "Authentic Banana Leaf Menu",
-    sub: "Traditional sit-down virundhu saapadu served with pure ghee and love.",
-    d: "Experience a royal South Indian wedding menu with 20+ traditional delicacies cooked by traditional chefs.",
-    cta: "Explore Our Menu",
-    link: "/menu",
-  },
-  {
-    t: "Divine Desserts",
-    bg: gulabJamun,
-    title: "Traditional Sweets & Divine Payasam",
-    sub: "Indulge in pure ghee sweets and creamy tender coconut payasam.",
-    d: "Stone-ground ingredients and rich desserts cooked to round off your auspicious meal perfectly.",
-    cta: "View Sweets",
-    link: "/menu",
-  },
-  {
-    t: "Corporate Catering",
-    bg: buffetCounter,
-    title: "Professional Corporate Catering",
-    sub: "Hygienic packed meals and premium buffets delivered punctually.",
-    d: "Hygienic corporate lunch packs, buffet stations, and tea-break catering for offices.",
-    cta: "Get a Custom Quote",
-    link: "#book",
-  },
-];
-
-const PORTRAIT_SLIDES = [
-  {
-    img: aiWeddingFeast,
-    title: "Royal Banana Leaf Virundhu",
-    desc: "Grand South Indian wedding menu with 20+ traditional delicacies on fresh banana leaf.",
-  },
-  {
-    img: bananaLeafFeastBlended,
-    title: "Thala Vazhai Saapadu",
-    desc: "Authentic course-by-course menu served with pure ghee and hand-pounded spices.",
-  },
-  {
-    img: aiTiffinFeast,
-    title: "Mangala Udhayam Tiffin",
-    desc: "Piping hot Idlis, ghee Dosa, Medu Vada, chutneys and authentic Filter Coffee.",
-  },
-  {
-    img: realFeastMeal,
-    title: "Traditional Indian Menu",
-    desc: "Traditional recipes slow-cooked over open flames for rich, authentic taste.",
-  },
-  {
-    img: aiSweetsFeast,
-    title: "Elaneer Payasam & Sweets",
-    desc: "Creamy tender coconut payasam and traditional pure ghee South Indian sweets.",
-  },
-  {
-    img: gulabJamun,
-    title: "Traditional Desserts",
-    desc: "Stone-ground ingredients and rich desserts cooked to round off your meal.",
-  },
-];
-
-// TAMIL WELCOME / PHILOSOPHY TIMED CAROUSEL STATEMENTS
-const TAMIL_MESSAGES = [
-  {
-    heading: "My Chennai Catering Services-க்கு வரவேற்கிறோம்",
-    body: "எங்கள் பாரம்பரிய உணவுகள் உங்கள் வீட்டில் நடைபெறும் புனித நிகழ்வுகளை மேலும் சிறப்படையச் செய்கின்றன.",
-    badge: "வரவேற்புச் செய்தி",
-  },
-  {
-    heading: "அனைத்து சிறப்பு நிகழ்வுகளுக்கும்",
-    body: "திருமணம், நிச்சயதார்த்தம், பிறந்தநாள் விழா, நிறுவன நிகழ்ச்சிகள், வீட்டுவிழாக்கள் என அனைத்து சிறப்பு நிகழ்வுகளுக்கும் தரமான சைவ மற்றும் அசைவ கேட்டரிங் சேவையை வழங்கி வருகிறோம்.",
-    badge: "எங்கள் சேவைகள்",
-  },
-  {
-    heading: "எங்கள் அடையாளம்",
-    body: "பாரம்பரிய சுவை, தரமான பொருட்கள், சுத்தமான சமையல் மற்றும் அன்பான பரிமாறுதல் ஆகியவை எங்கள் அடையாளம். ஒவ்வொரு விருந்தினரும் திருப்தியுடன் உணவருந்த வேண்டும் என்பதே எங்கள் நோக்கம்.",
-    badge: "எங்கள் நோக்கம்",
-  },
-  {
-    heading: "மறக்க முடியாத அனுபவம்",
-    body: "உங்கள் நிகழ்வை சுவையான உணவுகளாலும் சிறந்த சேவையாலும் மறக்க முடியாத அனுபவமாக மாற்றுவதே எங்கள் உறுதி.",
-    badge: "எங்கள் உறுதி",
-  },
-];
-
-// SERVICES WE OFFER DATA
-const SERVICES_OFFERED = [
-  {
-    title: "Wedding Catering",
-    desc: "Complete wedding catering with traditional taste and exceptional service",
-    img: weddingHall,
-    icon: UtensilsCrossed,
-  },
-  {
-    title: "Engagement & Reception Catering",
-    desc: "Customized menus to make your engagement and reception memorable",
-    img: aiWeddingFeast,
-    icon: Heart,
-  },
-  {
-    title: "Corporate Event Catering",
-    desc: "Professional catering and custom food menus for corporate events",
-    img: corporateCatering,
-    icon: Briefcase,
-  },
-  {
-    title: "Housewarming Catering",
-    desc: "Traditional menus and catering for your auspicious new home celebrations",
-    img: brassLamps,
-    icon: Home,
-  },
-  {
-    title: "Traditional Banana Leaf Meal Service",
-    desc: "Authentic South Indian banana leaf meals served for traditional events and gatherings",
-    img: realFeastMeal,
-    icon: Utensils,
-  },
-  {
-    title: "Festival & Special Occasion Catering",
-    desc: "Special menus and catering services for traditional festivals and family functions",
-    img: buffetCounter,
-    icon: Sparkles,
-  },
-];
-
-// EXPLORE OUR MENUS DATA
-const MENU_CATEGORIES = [
-  {
-    title: "Traditional Banana Leaf Meals",
-    img: realFeastMeal,
-    icon: Utensils,
-  },
-  {
-    title: "Breakfast Specials",
-    img: aiTiffinFeast,
-    icon: Coffee,
-  },
-  {
-    title: "Lunch & Dinner Menus",
-    img: buffetCounter,
-    icon: ChefHat,
-  },
-  {
-    title: "Signature Sweets & Desserts",
-    img: gulabJamun,
-    icon: IceCream,
-  },
-  {
-    title: "Live Food Counters",
-    img: liveCounter,
-    icon: Soup,
-  },
-  {
-    title: "Seasonal Special Menus",
-    img: aiSweetsFeast,
-    icon: Sparkles,
-  },
-];
-
-const FAQS = [
-  {
-    q: "Do you provide catering across Chennai?",
-    a: "Yes, we offer catering services throughout Chennai and nearby locations.",
-  },
-  {
-    q: "Can the menu be customized?",
-    a: "Yes, every menu is tailored to your event, preferences, and budget.",
-  },
-  {
-    q: "Do you provide both vegetarian and non-vegetarian catering?",
-    a: "Yes, we offer premium quality vegetarian and non-vegetarian catering options tailored to your preferences.",
-  },
-  {
-    q: "How early should I book?",
-    a: "We recommend booking in advance, especially during the wedding season.",
-  },
-];
-
 function Index() {
   const ref = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLElement>(null);
@@ -744,7 +531,13 @@ function Index() {
 
   return (
     <>
-      <div className="relative overflow-x-hidden w-full">
+      {/* Mobile */}
+      <div className="block xl:hidden">
+        <MobileAppHome />
+      </div>
+
+      {/* Desktop */}
+      <div className="hidden xl:block relative overflow-x-hidden w-full">
         {/* Scroll-Driven Floating Spices & Floral Elements */}
         <FloatingDecorElement
           type="branch"
@@ -870,7 +663,7 @@ function Index() {
         {/* ========================================================================= */}
         <section
           ref={ref}
-          className="relative -mt-[132px] min-h-screen text-cream flex items-center justify-center pt-[180px] pb-24 overflow-hidden bg-black select-none"
+          className="relative -mt-[132px] min-h-screen text-cream flex items-center justify-center pt-[250px] pb-24 overflow-hidden bg-black select-none"
         >
           <DoodleLayer section="hero" />
           {/* Background Image Carousel */}
@@ -1463,11 +1256,7 @@ function Index() {
 
               <Reveal delay={0.2}>
                 <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-2">
-                  {[
-                    { i: ChefHat, t: "Custom Menus" },
-                    { i: Award, t: "20+ Years" },
-                    { i: Users, t: "Family-led" },
-                  ].map(({ i: Icon, t }) => (
+                  {PHILOSOPHY_BADGES.map(({ icon: Icon, t }) => (
                     <div
                       key={t}
                       className="text-center p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-gold/20 bg-plum/30"
@@ -1504,20 +1293,7 @@ function Index() {
               </div>
             </Reveal>
             <div className="grid md:grid-cols-3 gap-5">
-              {[
-                {
-                  n: "Lakshmi · Avadi",
-                  q: "Every dish tasted like my paati's kitchen. Our wedding guests are still talking about the Arachuvitta Sambar.",
-                },
-                {
-                  n: "Ravi & Priya · Poonamallee",
-                  q: "From the silk-saree hosts to the rose-petal newlywed table, MCC made our reception feel royal.",
-                },
-                {
-                  n: "Mr. Subramanian · Ambattur",
-                  q: "Punctual, pure, and absolutely delicious. We have booked them for three family functions already.",
-                },
-              ].map((t) => (
+              {TESTIMONIALS.map((t) => (
                 <Reveal key={t.n}>
                   <div className="bg-plum-dark/60 backdrop-blur rounded-3xl p-7 border border-gold/20 h-full">
                     <div className="flex gap-1 text-gold mb-4">
@@ -1570,12 +1346,7 @@ function Index() {
             </Reveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { img: realFeastMeal, title: "Traditional Virundhu Saapadu" },
-                { img: liveCounter, title: "Live Chaat & Counter Stations" },
-                { img: weddingHall, title: "Grand Mandapam Setup" },
-                { img: gulabJamun, title: "Traditional Sweet Payasam" },
-              ].map((item, idx) => (
+              {GALLERY_ITEMS.map((item, idx) => (
                 <Reveal key={idx} delay={idx * 0.05}>
                   <div className="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-md border border-gold/15 transition-all duration-500 hover:shadow-xl hover:border-gold/30">
                     <img
