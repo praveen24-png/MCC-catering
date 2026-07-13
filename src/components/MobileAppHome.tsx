@@ -2,638 +2,979 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
+  Award,
+  Users,
+  UtensilsCrossed,
+  Heart,
+  Briefcase,
+  Home,
+  Utensils,
   Sparkles,
+  Coffee,
   ChefHat,
-  Star,
+  IceCream,
+  Soup,
+  ChevronLeft,
   ChevronRight,
-  Plus,
-  Trash,
-  Phone,
-  ArrowRight,
+  ChevronDown,
+  Star,
+  Target,
+  Crown,
+  Leaf,
 } from "lucide-react";
+import lotusIcon from "@/assets/lotus icon.png";
+import feastFood2 from "@/assets/feast-food-2.png";
+import {
+  HERO_SLIDES,
+  PORTRAIT_SLIDES,
+  TAMIL_MESSAGES,
+  SERVICES_OFFERED,
+  MENU_CATEGORIES,
+  FAQS,
+  TESTIMONIALS,
+  GALLERY_ITEMS,
+} from "@/data/homeContent";
+import {
+  realFeastMeal,
+  liveCounter,
+  weddingHall,
+  gulabJamun,
+  aiWeddingFeast,
+} from "@/data/homeContent";
 
-import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
-import gulabJamun from "@/assets/IMG-20260327-WA0010.jpg.jpeg";
-import bananaLeafFeastBlended from "@/assets/banana-leaf-feast-blended.png";
-import bananaLeafReal from "@/assets/banana-leaf-real.jpg";
-import weddingHall from "@/assets/IMG_4558.webp";
-import realFeastMeal from "@/assets/2_20260624_020643_0001.png";
-import buffetCounter from "@/assets/images-32.jpeg";
-import corporateCatering from "@/assets/corporate-catering.jpg";
-import banner1 from "@/assets/banner1.jpg";
-import banner2 from "@/assets/banner 2.jpg";
-import banner3 from "@/assets/banner 3.jpg";
-import engagementCatering from "@/assets/engagement-catering.jpg";
-import aiWeddingFeast from "@/assets/ai-wedding-feast.png";
-import aiTiffinFeast from "@/assets/ai-tiffin-feast.png";
-import aiSweetsFeast from "@/assets/ai-sweets-feast.png";
-import BookingForm from "./BookingForm";
+import BookingForm from "@/components/BookingForm";
+import { Reveal } from "@/components/Reveal";
+import MarigoldGarland from "@/components/MarigoldGarland";
+import { CenterKolam } from "@/components/Kolam";
+import { BananaLeafDivider } from "@/components/GrainDivider";
+import { FoodPeek } from "@/components/FoodPeek";
+import { SectionDoodleDivider } from "@/components/FloatingDoodles";
+import HowItWorks from "@/components/HowItWorks";
+import WhyChooseUsSection from "@/components/WhyChooseUsSection";
+import CateringMenusSection from "@/components/CateringMenusSection";
 
-const HERO_CAROUSEL_SLIDES = [
-  {
-    eyebrow: "Premium Catering",
-    title: "Authentic Flavours",
-    sub: "Expert catering for weddings, corporate events & all celebrations.",
-    img: banner2,
-    cta: "Get Free Quote",
-    link: "#book",
-    accent: "from-amber-900/70 via-black/40 to-transparent",
-  },
-  {
-    eyebrow: "Engagement Catering",
-    title: "Engagement\nCatering",
-    sub: "Elegant sit-down menus on banana leaves with floral décor & warm hospitality.",
-    img: engagementCatering,
-    cta: "Book Your Engagement",
-    link: "/engagement-catering-services-in-chennai",
-    accent: "from-orange-900/60 via-black/40 to-transparent",
-  },
-  {
-    eyebrow: "Wedding Specialists",
-    title: "Wedding\nCelebrations",
-    sub: "Customised menus crafted with tradition, taste, and care.",
-    img: banner3,
-    cta: "Explore Services",
-    link: "/services",
-    accent: "from-purple-900/60 via-black/40 to-transparent",
-  },
-  {
-    eyebrow: "20+ Years Legacy",
-    title: "Trusted\nSince 2004",
-    sub: "Over two decades of delivering quality food & professional hospitality.",
-    img: banner1,
-    cta: "Book Your Event",
-    link: "#book",
-    accent: "from-red-900/60 via-black/40 to-transparent",
-  },
-  {
-    eyebrow: "Traditional Menu",
-    title: "Traditional\nMenus",
-    sub: "Pure ghee, fresh ingredients, 24+ items — served with love.",
-    img: bananaLeafReal,
-    cta: "View Menus",
-    link: "/menu",
-    accent: "from-green-900/60 via-black/40 to-transparent",
-  },
-];
-
-const STORIES = [
-  {
-    label: "Weddings",
-    img: weddingHall,
-    to: "/wedding-catering-services-in-chennai",
-    emoji: "💒",
-  },
-  {
-    label: "Engagements",
-    img: engagementCatering,
-    to: "/engagement-catering-services-in-chennai",
-    emoji: "💍",
-  },
-  {
-    label: "Corporate",
-    img: corporateCatering,
-    to: "/corporate-catering-services-in-chennai",
-    emoji: "🏢",
-  },
-  {
-    label: "Our Menu",
-    img: realFeastMeal,
-    to: "/menu",
-    emoji: "🍃",
-  },
-  {
-    label: "Gallery",
-    img: brassLamps,
-    to: "/gallery",
-    emoji: "🖼️",
-  },
-];
-
-const PACKAGES = [
-  {
-    id: "pkg1",
-    title: "Royal Banana Leaf Menu",
-    desc: "Grand menu served course-by-course on fresh banana leaves.",
-    img: realFeastMeal,
-    rating: "4.9",
-    reviews: "1,240+",
-    itemsCount: 24,
-    badge: "Premium",
-    badgeColor: "bg-amber-100 text-amber-800 border-amber-300",
-    highlights: ["Sarkkarai Pongal", "Authentic Sambar", "Elaneer Payasam", "Live Appam"],
-  },
-  {
-    id: "pkg2",
-    title: "Engagement Menu",
-    desc: "Elegant sit-down engagement meal with floral décor & warm hospitality.",
-    img: engagementCatering,
-    rating: "4.9",
-    reviews: "560+",
-    itemsCount: 20,
-    badge: "Special",
-    badgeColor: "bg-rose-100 text-rose-800 border-rose-300",
-    highlights: ["Bridal Table Setup", "Traditional Saapadu", "Ghee Sweets", "Tender Coconut"],
-  },
-  {
-    id: "pkg3",
-    title: "Elite Corporate Buffet",
-    desc: "Professional buffet spreads with live counters for corporate events & conferences.",
-    img: corporateCatering,
-    rating: "4.8",
-    reviews: "820+",
-    itemsCount: 30,
-    badge: "Corporate",
-    badgeColor: "bg-sky-100 text-sky-800 border-sky-300",
-    highlights: ["Live Chat Station", "Veg Biryani", "Tandoori Platters", "Filter Coffee"],
-  },
-];
-
-const TASTING_ITEMS = [
-  { id: "t1", name: "Elaneer Payasam", category: "Desserts", img: gulabJamun },
-  { id: "t2", name: "Ghee Mysore Pak", category: "Sweets", img: aiSweetsFeast },
-  { id: "t3", name: "Mini Podi Idli", category: "Starters", img: aiTiffinFeast },
-  { id: "t4", name: "Kasi Halwa", category: "Sweets", img: brassLamps },
-  { id: "t5", name: "Banana Leaf Menu", category: "Menu", img: realFeastMeal },
-];
-
-
+const ICON_MAP: Record<string, any> = {
+  UtensilsCrossed,
+  Heart,
+  Briefcase,
+  Home,
+  Utensils,
+  Sparkles,
+  Coffee,
+  ChefHat,
+  IceCream,
+  Soup,
+};
 
 export default function MobileAppHome() {
-  const [tastingTray, setTastingTray] = useState<typeof TASTING_ITEMS>([]);
-  const [activePkg, setActivePkg] = useState(0);
   const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
-  const pkgScrollRef = useRef<HTMLDivElement>(null);
+  const [portraitSlide, setPortraitSlide] = useState(0);
+  const [tamilSlide, setTamilSlide] = useState(0);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const bookRef = useRef<HTMLDivElement>(null);
 
+  const scrollToBook = () => {
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    bookRef.current?.scrollIntoView({
+      behavior: prefersReduced ? "auto" : "smooth",
+      block: "start",
+    });
+  };
+
+  /* ── Hero auto-advance ─────────────────────────────────────────────────── */
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentHeroSlide((prev) => (prev + 1) % HERO_CAROUSEL_SLIDES.length);
+      setCurrentHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 5000);
     return () => clearInterval(timer);
   }, []);
 
+  /* ── Portrait carousel auto-advance ────────────────────────────────────── */
   useEffect(() => {
-    if (pkgScrollRef.current) {
-      const cards = pkgScrollRef.current.children;
-      if (cards[activePkg]) {
-        (cards[activePkg] as HTMLElement).scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center",
+    const timer = setInterval(() => {
+      setPortraitSlide((prev) => (prev + 1) % PORTRAIT_SLIDES.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
+
+  /* ── Tamil timed text carousel ─────────────────────────────────────────── */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTamilSlide((prev) => (prev + 1) % TAMIL_MESSAGES.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
+  /* ── Stats counter animation ───────────────────────────────────────────── */
+  useEffect(() => {
+    const statsSection = document.getElementById("stats-banner");
+    if (!statsSection) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const targets = [
+              { sel: ".mstat-1", val: 15 },
+              { sel: ".mstat-2", val: 3000 },
+              { sel: ".mstat-3", val: 4500 },
+              { sel: ".mstat-4", val: 120 },
+            ];
+            targets.forEach(({ sel, val }) => {
+              const el = document.querySelector(sel);
+              if (!el) return;
+              let start = 0;
+              const step = Math.max(1, Math.floor(val / 40));
+              const iv = setInterval(() => {
+                start += step;
+                if (start >= val) {
+                  start = val;
+                  clearInterval(iv);
+                }
+                el.textContent = start.toLocaleString() + "+";
+              }, 40);
+            });
+            observer.unobserve(entry.target);
+          }
         });
-      }
-    }
-  }, [activePkg]);
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(statsSection);
+    return () => observer.disconnect();
+  }, []);
 
-  const toggleTastingItem = (item: typeof TASTING_ITEMS[number]) => {
-    if (tastingTray.some((t) => t.id === item.id)) {
-      setTastingTray(tastingTray.filter((t) => t.id !== item.id));
-    } else {
-      if (tastingTray.length >= 4) return;
-      setTastingTray([...tastingTray, item]);
-    }
-  };
-
-  const slide = HERO_CAROUSEL_SLIDES[currentHeroSlide];
+  const handleHeroPrev = () =>
+    setCurrentHeroSlide(
+      (prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length,
+    );
+  const handleHeroNext = () =>
+    setCurrentHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length);
 
   return (
-    <div className="bg-[#FAF7F3] min-h-screen pb-24 text-[#1A1208]">
+    <div className="bg-[#FAF7F2] min-h-screen pb-24 text-[#1A1208]">
 
-      {/* ── HERO CAROUSEL ───────────────────────────────────────────────── */}
-      <div className="relative h-[70vh] h-[70dvh] w-full overflow-hidden select-none bg-black">
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 1. HERO CAROUSEL                                                  */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative h-[70dvh] w-full overflow-hidden select-none bg-black">
+        {/* Background crossfade */}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentHeroSlide}
             initial={{ opacity: 0, scale: 1.06 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.9, ease: "easeInOut" }}
+            transition={{ duration: 1.0, ease: "easeInOut" }}
             className="absolute inset-0"
           >
             <img
-              src={slide.img}
-              alt={slide.title}
+              src={HERO_SLIDES[currentHeroSlide].bg}
+              alt=""
               className="w-full h-full object-cover"
             />
-            {/* Gradient overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-t ${slide.accent} to-40%`} />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60" />
+            <div className="absolute inset-0 bg-black/30" />
           </motion.div>
         </AnimatePresence>
 
-        {/* Slide Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 pb-8 z-10 text-center">
+        {/* Marigold garland at top */}
+        <MarigoldGarland
+          count={10}
+          className="absolute top-0 left-0 right-0 z-20 h-5"
+        />
+
+        {/* Slide content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-5 pb-12 z-10 text-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentHeroSlide}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.55, ease: "easeOut" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="flex flex-col items-center"
             >
-              {/* Eyebrow label */}
-              <span className="inline-flex items-center gap-1.5 text-[9px] font-extrabold uppercase tracking-[0.2em] text-amber-300 mb-3">
-                <span className="w-4 h-px bg-amber-400 inline-block" />
-                {slide.eyebrow}
-                <span className="w-4 h-px bg-amber-400 inline-block" />
+              {/* Headline in script font */}
+              <span className="font-script text-white text-[clamp(2.2rem,8vw,3.5rem)] leading-tight whitespace-pre-line drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] tracking-wide">
+                {HERO_SLIDES[currentHeroSlide].t}
               </span>
 
-              {/* Title — Great Vibes script font */}
-              <h2 className="font-script text-[3rem] sm:text-[3.5rem] font-normal text-white leading-tight whitespace-pre-line drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] tracking-wide">
-                {slide.title}
-              </h2>
-
               {/* Gold divider */}
-              <div className="w-16 h-px bg-amber-400/60 my-3" />
+              <div className="w-16 h-px bg-[#e0bb9b]/60 my-4" />
+
+              {/* Title */}
+              <h1 className="font-serif text-[clamp(1rem,4vw,1.5rem)] text-[#e0bb9b] leading-snug tracking-wide font-medium max-w-[90%] drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
+                {HERO_SLIDES[currentHeroSlide].title}
+              </h1>
 
               {/* Subtitle */}
-              <p className="text-white/80 text-[11px] leading-relaxed max-w-[270px] uppercase tracking-wider">
-                {slide.sub}
+              <p className="text-cream/80 text-xs sm:text-sm max-w-[280px] leading-relaxed uppercase tracking-widest mt-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                {HERO_SLIDES[currentHeroSlide].sub}
               </p>
 
-              {/* CTAs */}
-              <div className="mt-5 flex items-center gap-3">
-                <Link
-                  to={slide.link}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#C8922A] hover:bg-[#b07d22] active:scale-95 text-white font-bold text-[10px] uppercase tracking-wider rounded-full transition-all shadow-lg duration-200"
-                >
-                  {slide.cta}
-                  <ArrowRight className="w-3 h-3" />
-                </Link>
-                <a
-                  href="tel:+919940396005"
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/15 backdrop-blur-sm border border-white/30 text-white font-bold text-[10px] uppercase tracking-wider rounded-full transition-all active:scale-95"
-                >
-                  <Phone className="w-3 h-3" />
-                  Call
-                </a>
+              {/* CTA */}
+              <div className="mt-5">
+                {HERO_SLIDES[currentHeroSlide].link.startsWith("#") ? (
+                  <button
+                    onClick={scrollToBook}
+                    className="px-8 py-3 bg-party-peach hover:bg-[#d6af8c] active:scale-95 text-white font-bold text-xs uppercase tracking-[0.22em] rounded-full transition-all shadow-[0_4px_15px_rgba(224,187,155,0.3)] duration-300"
+                  >
+                    {HERO_SLIDES[currentHeroSlide].cta}
+                  </button>
+                ) : (
+                  <Link
+                    to={HERO_SLIDES[currentHeroSlide].link}
+                    className="inline-block px-8 py-3 bg-party-peach hover:bg-[#d6af8c] active:scale-95 text-white font-bold text-xs uppercase tracking-[0.22em] rounded-full transition-all shadow-[0_4px_15px_rgba(224,187,155,0.3)] duration-300"
+                  >
+                    {HERO_SLIDES[currentHeroSlide].cta}
+                  </Link>
+                )}
               </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Slide Dots */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
-          {HERO_CAROUSEL_SLIDES.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentHeroSlide(idx)}
-              className={`h-1 rounded-full transition-all duration-400 ${
-                idx === currentHeroSlide
-                  ? "bg-amber-400 w-5"
-                  : "bg-white/40 w-1.5"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Slide Counter */}
-        <div className="absolute top-4 right-4 z-20 bg-black/30 backdrop-blur-sm border border-white/15 px-2.5 py-1 rounded-full">
-          <span className="text-[9px] font-bold text-white/80 tabular-nums">
-            {currentHeroSlide + 1} / {HERO_CAROUSEL_SLIDES.length}
-          </span>
-        </div>
-      </div>
-
-      {/* ── QUICK NAV STORIES ────────────────────────────────────────────── */}
-      <div className="bg-white border-b border-neutral-100 shadow-sm">
-        <div className="flex gap-5 overflow-x-auto no-scrollbar px-4 py-3">
-          {STORIES.map((story) => (
-            <Link
-              key={story.label}
-              to={story.to}
-              className="flex flex-col items-center gap-1.5 shrink-0 group"
-            >
-              <div className="w-[58px] h-[58px] rounded-2xl overflow-hidden border-2 border-amber-200 group-active:scale-95 transition-transform shadow-sm relative">
-                <img
-                  src={story.img}
-                  alt={story.label}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {/* Emoji badge */}
-                <div className="absolute bottom-0.5 right-0.5 text-[10px] leading-none bg-white rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
-                  {story.emoji}
-                </div>
-              </div>
-              <span className="text-[9px] font-bold text-[#4A3000]/80 tracking-wide uppercase text-center leading-tight">
-                {story.label}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* ── ENGAGEMENT FEATURE BANNER ────────────────────────────────────── */}
-      <div className="px-4 pt-5 pb-2">
-        <Link to="/engagement-catering-services-in-chennai">
-          <div className="relative rounded-2xl overflow-hidden h-36 shadow-md border border-amber-200/50 group active:scale-[0.98] transition-transform">
-            <img
-              src={engagementCatering}
-              alt="Engagement Catering in Chennai"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-center px-5">
-              <span className="text-[8px] font-extrabold uppercase tracking-[0.2em] text-amber-300 mb-1">
-                ✦ New Service
-              </span>
-              <h3 className="font-serif text-lg font-bold text-white leading-tight">
-                Engagement Catering
-                <br />
-                <span className="text-amber-200">in Chennai</span>
-              </h3>
-              <p className="text-white/70 text-[9px] mt-1">
-                Elegant banana leaf feasts with floral décor
-              </p>
-              <div className="mt-2.5 inline-flex items-center gap-1 text-amber-300 text-[9px] font-extrabold uppercase tracking-wider">
-                Book Now <ArrowRight className="w-3 h-3" />
-              </div>
-            </div>
-          </div>
-        </Link>
-      </div>
-
-      {/* ── FEAST BUILDER CTA ────────────────────────────────────────────── */}
-      <div className="px-4 py-3">
-        <div className="bg-[#1E1108] text-[#FAF7F3] rounded-2xl p-5 border border-amber-900/30 shadow-xl relative overflow-hidden">
-          {/* Decorative circle */}
-          <div className="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-amber-500/8 blur-xl" />
-          <div className="absolute -right-4 -bottom-4 opacity-[0.07]">
-            <ChefHat className="w-24 h-24 text-amber-400" />
-          </div>
-
-          <div className="flex items-start justify-between relative z-10">
-            <div className="flex-1 pr-4">
-              <span className="inline-flex items-center gap-1 bg-amber-500/20 text-amber-400 text-[8px] font-extrabold uppercase px-2 py-0.5 rounded-full tracking-wider border border-amber-500/20 mb-2">
-                <Sparkles className="w-2.5 h-2.5" /> Core Feature
-              </span>
-              <h2 className="font-serif text-[1.1rem] font-bold text-amber-100 leading-snug">
-                Build Your Own<br />Feast Menu
-              </h2>
-              <p className="text-[10px] text-[#FAF7F3]/60 mt-1.5 leading-relaxed">
-                Pick items, calculate plate costs & get an instant custom quote.
-              </p>
-            </div>
-            <Link
-              to="/builder"
-              className="shrink-0 w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shadow-md active:scale-90 transition-transform mt-1"
-            >
-              <ArrowRight className="w-5 h-5 text-white" />
-            </Link>
-          </div>
-
-          <Link
-            to="/builder"
-            className="mt-4 flex items-center justify-between w-full bg-amber-500/10 hover:bg-amber-500/15 text-amber-300 px-4 py-2.5 rounded-xl border border-amber-500/20 text-[10px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform relative z-10"
-          >
-            <span>Launch Feast Builder</span>
-            <ChevronRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
-
-      {/* ── POPULAR PACKAGES ─────────────────────────────────────────────── */}
-      <div className="pt-5 pb-2">
-        {/* Header */}
-        <div className="px-4 flex items-end justify-between mb-3">
-          <div>
-            <span className="text-[8.5px] font-extrabold text-amber-700 uppercase tracking-[0.2em] block mb-0.5">
-              Signature Spreads
-            </span>
-            <h3 className="font-serif text-lg font-bold text-[#1A1208]">Popular Packages</h3>
-          </div>
-          <Link
-            to="/menu"
-            className="text-[9px] text-amber-700 font-bold uppercase tracking-wider flex items-center gap-0.5"
-          >
-            All <ChevronRight className="w-3 h-3" />
-          </Link>
-        </div>
-
-        {/* Cards */}
-        <div
-          ref={pkgScrollRef}
-          className="flex gap-3 overflow-x-auto no-scrollbar px-4 pb-2"
+        {/* Prev / Next arrows */}
+        <button
+          onClick={handleHeroPrev}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-white bg-black/20 hover:bg-black/40 border border-white/20 rounded-sm active:scale-90 transition-all"
+          aria-label="Previous slide"
         >
-          {PACKAGES.map((pkg, idx) => (
-            <motion.div
-              key={pkg.id}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setActivePkg(idx)}
-              className={`bg-white rounded-2xl border shadow-sm p-3.5 w-64 shrink-0 flex flex-col cursor-pointer transition-all duration-300 ${
-                activePkg === idx
-                  ? "border-amber-400 shadow-amber-100 shadow-md"
-                  : "border-neutral-100 hover:border-amber-200"
-              }`}
-            >
-              {/* Thumbnail */}
-              <div className="relative h-32 rounded-xl overflow-hidden">
-                <img
-                  src={pkg.img}
-                  alt={pkg.title}
-                  className="w-full h-full object-cover"
-                />
-                <span className={`absolute top-2 right-2 text-[8px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${pkg.badgeColor}`}>
-                  {pkg.badge}
-                </span>
-              </div>
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={handleHeroNext}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-white bg-black/20 hover:bg-black/40 border border-white/20 rounded-sm active:scale-90 transition-all"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
 
-              {/* Info */}
-              <div className="mt-2.5 flex-1">
-                <div className="flex items-center gap-1 mb-1">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <span className="text-[8.5px] font-bold text-neutral-500">
-                    {pkg.rating} ({pkg.reviews})
-                  </span>
-                </div>
-                <h4 className="font-serif text-[13px] font-bold text-[#1A1208] leading-snug">
-                  {pkg.title}
-                </h4>
-                <p className="text-[9.5px] text-neutral-500 mt-1 line-clamp-2 leading-relaxed">
-                  {pkg.desc}
-                </p>
-
-                {/* Highlights */}
-                <div className="mt-2.5 flex flex-wrap gap-1">
-                  {pkg.highlights.map((hl) => (
-                    <span
-                      key={hl}
-                      className="bg-amber-50 text-amber-800 text-[8px] font-bold px-1.5 py-0.5 rounded-md border border-amber-200 whitespace-nowrap"
-                    >
-                      {hl}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="mt-3 flex items-center justify-between border-t border-neutral-100 pt-2.5">
-                <span className="text-[9px] text-neutral-400 font-semibold">
-                  {pkg.itemsCount} items
-                </span>
-                <Link
-                  to="/builder"
-                  onClick={(e) => e.stopPropagation()}
-                  className="bg-[#1E1108] text-amber-300 px-3 py-1.5 rounded-full text-[8.5px] font-extrabold uppercase tracking-wide active:scale-90 transition-all border border-amber-900/20"
-                >
-                  Customize
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Dot Indicators */}
-        <div className="flex justify-center gap-1.5 mt-3">
-          {PACKAGES.map((_, idx) => (
+        {/* Dot indicators */}
+        <div className="absolute bottom-10 z-20 flex gap-2">
+          {HERO_SLIDES.map((_, i) => (
             <button
-              key={idx}
-              onClick={() => setActivePkg(idx)}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                activePkg === idx ? "w-4 bg-amber-500" : "w-1.5 bg-neutral-300"
+              key={i}
+              onClick={() => setCurrentHeroSlide(i)}
+              className={`h-1.5 rounded-full transition-all ${
+                currentHeroSlide === i
+                  ? "bg-party-peach w-6"
+                  : "bg-white/40 hover:bg-white/60 w-1.5"
               }`}
+              aria-label={`Slide ${i + 1}`}
             />
           ))}
         </div>
-      </div>
 
-      {/* ── TASTING TRAY BUILDER ─────────────────────────────────────────── */}
-      <div className="px-4 py-4">
-        <div className="bg-white border border-neutral-100 rounded-2xl p-4 shadow-sm">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-1">
-            <div>
-              <span className="text-[8.5px] font-extrabold text-amber-700 uppercase tracking-[0.2em] block mb-0.5">
-                Interactive
+        {/* Curved wave divider */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 w-full pointer-events-none overflow-hidden z-20">
+          <svg
+            viewBox="0 0 1440 100"
+            fill="none"
+            preserveAspectRatio="none"
+            className="w-full h-full text-[#FAF7F2] fill-current"
+          >
+            <path d="M0,40 C360,95 1080,95 1440,40 L1440,100 L0,100 Z" />
+          </svg>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 2. STATS PILL BANNER                                              */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section id="stats-banner" className="bg-[#FAF7F2] pt-4 pb-8 px-4">
+        <div className="bg-gradient-to-r from-[#4d1234] via-[#541539] to-[#3f0e2b] rounded-2xl shadow-xl text-white py-5 px-5 border border-amber-400/30">
+          <div className="grid grid-cols-2 gap-4 text-center">
+            <div className="flex flex-col items-center justify-center">
+              <Target className="w-4 h-4 text-amber-300 mb-1 opacity-90" />
+              <span className="mstat-1 font-serif text-[clamp(1.4rem,5vw,2.2rem)] font-bold tracking-tight text-white">
+                0+
               </span>
-              <h3 className="font-serif text-base font-bold text-[#1A1208]">Taste Tray Builder</h3>
+              <span className="text-[clamp(0.6rem,2.5vw,0.75rem)] font-semibold tracking-wider text-amber-200/90 uppercase mt-0.5">
+                Years of Experience
+              </span>
             </div>
-            <div className="bg-[#1E1108] text-amber-300 text-[9px] font-extrabold px-2.5 py-1 rounded-full border border-amber-900/20">
-              🍽 {tastingTray.length}/4
+            <div className="flex flex-col items-center justify-center">
+              <Crown className="w-4 h-4 text-amber-300 mb-1 opacity-90" />
+              <span className="mstat-2 font-serif text-[clamp(1.4rem,5vw,2.2rem)] font-bold tracking-tight text-white">
+                0+
+              </span>
+              <span className="text-[clamp(0.6rem,2.5vw,0.75rem)] font-semibold tracking-wider text-amber-200/90 uppercase mt-0.5">
+                Happy Clients
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <UtensilsCrossed className="w-4 h-4 text-amber-300 mb-1 opacity-90" />
+              <span className="mstat-3 font-serif text-[clamp(1.4rem,5vw,2.2rem)] font-bold tracking-tight text-white">
+                0+
+              </span>
+              <span className="text-[clamp(0.6rem,2.5vw,0.75rem)] font-semibold tracking-wider text-amber-200/90 uppercase mt-0.5">
+                Events Catered
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <Sparkles className="w-4 h-4 text-amber-300 mb-1 opacity-90" />
+              <span className="mstat-4 font-serif text-[clamp(1.4rem,5vw,2.2rem)] font-bold tracking-tight text-white">
+                0+
+              </span>
+              <span className="text-[clamp(0.6rem,2.5vw,0.75rem)] font-semibold tracking-wider text-amber-200/90 uppercase mt-0.5">
+                Varieties in Menus
+              </span>
             </div>
           </div>
-          <p className="text-[9.5px] text-neutral-500 leading-normal mb-3">
-            Pick up to 4 favourites to build a sample tasting tray.
-          </p>
+        </div>
+      </section>
 
-          {/* Tray Preview */}
-          <div className="h-14 bg-amber-50 rounded-xl border border-dashed border-amber-300/60 flex items-center gap-2 px-3 overflow-hidden mb-3">
-            {tastingTray.length === 0 ? (
-              <span className="text-[9.5px] text-neutral-400 italic w-full text-center">
-                Tap items below to add to tray
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 3. FOOD PEEK STRIP                                                */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-4 bg-gradient-to-r from-amber-50/80 via-white to-amber-50/80 overflow-hidden relative z-10">
+        <div className="flex items-center justify-center gap-4 px-4 overflow-x-auto no-scrollbar">
+          <FoodPeek src={aiWeddingFeast} alt="Wedding menu" size={44} />
+          <FoodPeek src={realFeastMeal} alt="Traditional meal" size={40} />
+          <FoodPeek src={gulabJamun} alt="Traditional sweets" size={42} />
+          <FoodPeek src={liveCounter} alt="Live counter" size={40} />
+          <FoodPeek src={weddingHall} alt="Wedding hall" size={44} />
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 4. BANANA LEAF DIVIDER                                            */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <BananaLeafDivider />
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 5. WELCOME SECTION                                                */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-12 px-4 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <div className="max-w-xl mx-auto relative z-10 space-y-4">
+          <Reveal>
+            <div className="flex items-center justify-start gap-2.5">
+              <div className="w-5 h-5 rounded-full bg-amber-400/20 border border-amber-300/40 p-0.5 shrink-0">
+                <img
+                  src={lotusIcon}
+                  alt="Lotus"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em]">
+                WELCOME TO MCC
               </span>
-            ) : (
-              <AnimatePresence>
-                {tastingTray.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.5, opacity: 0 }}
-                    className="flex items-center gap-1 bg-white border border-amber-200 px-2 py-1 rounded-full shadow-sm shrink-0"
-                  >
-                    <span className="text-[9px] font-bold text-[#1A1208] whitespace-nowrap">{item.name}</span>
-                    <button
-                      onClick={() => toggleTastingItem(item)}
-                      className="text-red-400 hover:text-red-600 ml-0.5 shrink-0 active:scale-90 transition-transform"
-                    >
-                      <Trash className="w-2.5 h-2.5" />
-                    </button>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            )}
-          </div>
+            </div>
+            <h2 className="font-serif text-[clamp(1.5rem,6vw,2.5rem)] text-[#3A1029] font-bold mt-2">
+              Welcome to My Chennai Catering
+            </h2>
+            <div className="flex items-center gap-2 text-amber-500/80">
+              <div className="w-6 h-px bg-amber-400/40" />
+              <span className="text-xs">❖</span>
+              <div className="w-6 h-px bg-amber-400/40" />
+            </div>
+          </Reveal>
 
-          {/* Item Grid */}
-          <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-            {TASTING_ITEMS.map((item) => {
-              const isSelected = tastingTray.some((t) => t.id === item.id);
+          <Reveal delay={0.1}>
+            <p className="text-slate-600 text-sm leading-relaxed font-normal">
+              At My Chennai Catering (MCC), we bring together authentic South
+              Indian cuisine, premium ingredients, and professional catering
+              services to create unforgettable celebrations. With over two
+              decades of experience, we cater to weddings, corporate events, and
+              special occasions across Chennai.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <button
+              onClick={scrollToBook}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg active:scale-95 transition-all duration-300"
+            >
+              <span>Request a Free Quote</span>
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </button>
+          </Reveal>
+
+          <Reveal delay={0.15}>
+            <div className="relative overflow-hidden rounded-2xl shadow-lg">
+              <img
+                src={feastFood2}
+                alt="Authentic South Indian cuisine"
+                className="w-full h-48 object-cover"
+              />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 6. SERVICES WE OFFER                                              */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-12 px-4 bg-[#FAF7F2] relative overflow-hidden z-10">
+        <div className="max-w-xl mx-auto relative z-10">
+          <Reveal>
+            <div className="text-center mb-8">
+              <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
+                OUR SERVICES
+              </span>
+              <h2 className="font-serif text-[clamp(1.5rem,6vw,2.5rem)] text-[#3A1029] font-bold mt-2">
+                Our Catering Services
+              </h2>
+              <div className="flex items-center justify-center gap-2 mt-3 text-amber-500/80">
+                <div className="w-6 h-px bg-amber-400/40" />
+                <span className="text-xs">❖</span>
+                <div className="w-6 h-px bg-amber-400/40" />
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-2 gap-3 relative z-10">
+            {SERVICES_OFFERED.map((service, index) => {
+              const Icon = ICON_MAP[service.iconName] || Sparkles;
               return (
-                <button
-                  key={item.id}
-                  onClick={() => toggleTastingItem(item)}
-                  className={`flex flex-col items-center p-2 rounded-xl border transition-all shrink-0 w-[68px] active:scale-93 ${
-                    isSelected
-                      ? "bg-amber-50 border-amber-400 shadow-sm"
-                      : "bg-neutral-50 border-neutral-100 hover:border-amber-200"
-                  }`}
-                >
-                  <div className="w-9 h-9 rounded-lg overflow-hidden bg-amber-50 border border-amber-100">
-                    <img src={item.img} alt={item.name} className="w-full h-full object-cover" />
-                  </div>
-                  <span className="text-[8px] font-bold text-[#1A1208] mt-1 line-clamp-1 w-full text-center">
-                    {item.name}
-                  </span>
-                  <span className="text-[7px] text-neutral-400 font-semibold mt-0.5">
-                    {item.category}
-                  </span>
-                  <div className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
-                    isSelected
-                      ? "bg-amber-500 border-amber-500"
-                      : "bg-white border-neutral-200"
-                  }`}>
-                    {isSelected ? (
-                      <span className="text-white text-[8px] font-bold">✓</span>
-                    ) : (
-                      <Plus className="w-2.5 h-2.5 text-neutral-400" />
-                    )}
-                  </div>
-                </button>
+                <Reveal key={index} delay={index * 0.05}>
+                  <Link
+                    to="/services"
+                    className="bg-white rounded-xl p-3 border border-amber-900/10 hover:border-amber-400/50 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col items-center text-center overflow-hidden h-full"
+                  >
+                    <div className="w-full aspect-[4/3] rounded-lg overflow-hidden mb-2 relative bg-slate-100">
+                      <img
+                        src={service.img}
+                        alt={service.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="flex items-center gap-1 mb-1">
+                      <Icon className="w-3 h-3 text-amber-600 group-hover:scale-110 transition-transform" />
+                      <span className="text-[clamp(0.6rem,2.5vw,0.75rem)] font-bold text-slate-800 tracking-wider uppercase leading-tight">
+                        {service.title}
+                      </span>
+                    </div>
+                    <p className="text-[clamp(0.6rem,2.2vw,0.7rem)] text-slate-500 leading-snug font-normal">
+                      {service.desc}
+                    </p>
+                  </Link>
+                </Reveal>
               );
             })}
           </div>
 
-          {tastingTray.length > 0 && (
-            <Link
-              to="/builder"
-              className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 bg-[#1E1108] text-amber-300 rounded-xl text-[9.5px] font-extrabold uppercase tracking-wider active:scale-95 transition-transform"
-            >
-              Create Custom Menu with These Items
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          )}
+          <Reveal delay={0.3}>
+            <div className="text-center mt-6">
+              <Link
+                to="/services"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                <span>VIEW ALL SERVICES</span>
+                <Leaf className="w-3 h-3 text-emerald-400" />
+              </Link>
+            </div>
+          </Reveal>
         </div>
-      </div>
+      </section>
 
-      {/* ── WHY MCC ──────────────────────────────────────────────────────── */}
-      <div className="px-4 py-4">
-        {/* Section header */}
-        <div className="mb-4">
-          <span className="text-[8.5px] font-extrabold text-amber-700 uppercase tracking-[0.2em] block mb-0.5">
-            Our Promise
-          </span>
-          <h3 className="font-serif text-lg font-bold text-[#1A1208]">Why Choose MCC?</h3>
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 7. EXPLORE OUR MENUS                                              */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-12 px-4 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <div className="max-w-xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-8">
+              <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
+                OUR MENU
+              </span>
+              <h2 className="font-serif text-[clamp(1.5rem,6vw,2.5rem)] text-[#3A1029] font-bold mt-2">
+                Our Signature Menu
+              </h2>
+              <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-sm mx-auto font-normal">
+                Explore a variety of authentic South Indian delicacies prepared
+                with fresh ingredients and traditional recipes.
+              </p>
+              <div className="flex items-center justify-center gap-2 mt-3 text-amber-500/80">
+                <div className="w-6 h-px bg-amber-400/40" />
+                <span className="text-xs">❖</span>
+                <div className="w-6 h-px bg-amber-400/40" />
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-2 gap-3">
+            {MENU_CATEGORIES.map((menu, index) => {
+              const Icon = ICON_MAP[menu.iconName] || Sparkles;
+              return (
+                <Reveal key={index} delay={index * 0.05}>
+                  <Link
+                    to="/menu"
+                    className="bg-white rounded-xl p-3 border border-amber-900/10 hover:border-amber-400/50 shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col items-center text-center overflow-hidden h-full"
+                  >
+                    <div className="w-full aspect-[4/3] rounded-lg overflow-hidden mb-2 relative bg-slate-100">
+                      <img
+                        src={menu.img}
+                        alt={menu.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                    <Icon className="w-3 h-3 text-amber-600 mb-0.5 group-hover:scale-110 transition-transform" />
+                    <span className="text-[clamp(0.6rem,2.5vw,0.75rem)] font-bold text-slate-800 tracking-wider uppercase">
+                      {menu.title}
+                    </span>
+                  </Link>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          <Reveal delay={0.3}>
+            <div className="text-center mt-6">
+              <Link
+                to="/menu"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                <span>EXPLORE MENU</span>
+                <Leaf className="w-3 h-3 text-emerald-400" />
+              </Link>
+            </div>
+          </Reveal>
         </div>
+      </section>
 
-        <p className="text-[11px] sm:text-xs text-neutral-600 leading-relaxed font-normal bg-white border border-neutral-100 rounded-2xl p-4 shadow-sm">
-          Choosing the right caterer is essential to the success of any event, and at My Chennai Catering, we are committed to delivering an experience that goes beyond great food. We prepare every dish using fresh, high-quality ingredients while preserving the authentic flavours of South Indian cuisine. Our experienced chefs and professional service team work closely with you to create customized menus that suit your event, traditions, and budget. From planning and preparation to timely service and flawless execution, we handle every detail with care and precision. Our dedication to quality, hygiene, affordability, and customer satisfaction has made us one of the most trusted catering service providers in Chennai.
-        </p>
-      </div>
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 8. HOW IT WORKS                                                   */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <HowItWorks />
 
-      {/* ── BOOKING FORM ─────────────────────────────────────────────────── */}
-      <div className="px-4 py-4">
-        <div className="bg-[#1E1108] text-[#FAF7F3] rounded-2xl p-5 border border-amber-900/20 shadow-xl" id="book">
-          <span className="text-[8.5px] font-extrabold text-amber-400 uppercase tracking-[0.22em] block text-center mb-1">
-            Inquire Instantly
-          </span>
-          <h3 className="font-serif text-xl font-bold text-center text-amber-100 leading-snug">
-            Get a Custom Proposal
-          </h3>
-          <p className="text-[9.5px] text-center text-[#FAF7F3]/50 mt-1.5 max-w-[260px] mx-auto leading-relaxed">
-            Share your event details — we'll send a personalised menu proposal within 1 hour.
-          </p>
-          <div className="mt-5 text-[#1A1208]">
-            <BookingForm />
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 9. WHY CHOOSE US                                                  */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <WhyChooseUsSection />
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 10. BANANA LEAF DIVIDER                                           */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <BananaLeafDivider />
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 11. PHILOSOPHY SECTION                                            */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="relative py-16 bg-plum-dark text-cream overflow-hidden">
+        <MarigoldGarland
+          count={8}
+          className="absolute top-0 left-0 right-0 z-20 h-5"
+        />
+
+        {/* Decorative kolam */}
+        <div className="absolute right-[-40px] top-1/2 -translate-y-1/2 opacity-[0.03] text-gold pointer-events-none z-0">
+          <CenterKolam size={220} />
+        </div>
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_80%_30%,rgba(212,175,55,0.25),transparent_60%)]" />
+
+        <div className="relative max-w-xl mx-auto px-4 z-10 space-y-8">
+          {/* Philosophy header */}
+          <Reveal>
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 rounded-full bg-amber-400/20 border border-amber-300/40 p-0.5 shrink-0">
+                <img
+                  src={lotusIcon}
+                  alt="Lotus"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">
+                MCC's PHILOSOPHY
+              </span>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <h2 className="font-serif text-[clamp(1.3rem,5vw,2rem)] mt-2 leading-[1.15]">
+              The <span className="text-gold-gradient italic">Trusted Choice</span> for Premium
+              Catering Services in Chennai.
+            </h2>
+          </Reveal>
+
+          {/* Gold ornament stroke */}
+          <div className="w-24 h-[1.5px] bg-gradient-to-r from-gold via-gold/60 to-transparent" />
+
+          {/* Portrait carousel */}
+          <Reveal>
+            <div className="relative">
+              <div className="absolute -inset-3 bg-gradient-to-tr from-gold/30 via-plum/60 to-gold/20 rounded-3xl blur-xl opacity-50 pointer-events-none" />
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border-2 border-gold/40 shadow-[0_15px_40px_rgba(0,0,0,0.6)] bg-black/40">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={portraitSlide}
+                    initial={{ opacity: 0, scale: 1.08 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.7 }}
+                    className="absolute inset-0"
+                  >
+                    <img
+                      src={PORTRAIT_SLIDES[portraitSlide].img}
+                      alt={PORTRAIT_SLIDES[portraitSlide].title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="absolute bottom-4 left-4 right-4 z-20">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/20 backdrop-blur-md border border-gold/40 text-gold text-[10px] uppercase font-bold tracking-widest mb-1">
+                    <Sparkles className="w-3 h-3" />
+                    <span>{PORTRAIT_SLIDES[portraitSlide].title}</span>
+                  </div>
+                  <p className="text-cream/90 text-xs font-serif italic">
+                    {PORTRAIT_SLIDES[portraitSlide].desc}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() =>
+                    setPortraitSlide(
+                      (prev) =>
+                        (prev - 1 + PORTRAIT_SLIDES.length) %
+                        PORTRAIT_SLIDES.length,
+                    )
+                  }
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center transition-all opacity-80 hover:opacity-100 active:scale-90"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() =>
+                    setPortraitSlide(
+                      (prev) => (prev + 1) % PORTRAIT_SLIDES.length,
+                    )
+                  }
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center transition-all opacity-80 hover:opacity-100 active:scale-90"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+
+                <div className="absolute top-3 right-3 z-30 flex gap-1 bg-black/40 backdrop-blur-md px-2 py-1 rounded-full border border-white/15">
+                  {PORTRAIT_SLIDES.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setPortraitSlide(i)}
+                      className={`h-1.5 rounded-full transition-all ${
+                        portraitSlide === i
+                          ? "w-4 bg-gold"
+                          : "w-1.5 bg-white/40 hover:bg-white/70"
+                      }`}
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Tamil timed text carousel */}
+          <div className="bg-black/30 backdrop-blur-md p-5 rounded-2xl border border-gold/25 relative min-h-[150px] flex flex-col justify-between overflow-hidden shadow-lg">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={tamilSlide}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-3"
+              >
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/15 border border-gold/30 text-gold text-[10px] uppercase font-bold tracking-widest">
+                  <span>{TAMIL_MESSAGES[tamilSlide].badge}</span>
+                </div>
+                <h3 className="font-serif text-lg sm:text-xl text-amber-200 font-bold leading-tight">
+                  {TAMIL_MESSAGES[tamilSlide].heading}
+                </h3>
+                <p className="text-cream/90 text-xs sm:text-sm leading-relaxed font-sans">
+                  {TAMIL_MESSAGES[tamilSlide].body}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="flex items-center gap-2 pt-3 mt-2 border-t border-gold/15">
+              {TAMIL_MESSAGES.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setTamilSlide(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    tamilSlide === idx
+                      ? "w-5 bg-gold"
+                      : "w-1.5 bg-white/30 hover:bg-white/50"
+                  }`}
+                  aria-label={`Tamil slide ${idx + 1}`}
+                />
+              ))}
+              <span className="text-[10px] text-cream/50 ml-auto font-mono">
+                {tamilSlide + 1} / {TAMIL_MESSAGES.length}
+              </span>
+            </div>
+          </div>
+
+          {/* Feature badges */}
+          <Reveal delay={0.1}>
+            <div className="grid grid-cols-3 gap-2 pt-2">
+              {[
+                { i: ChefHat, t: "Custom Menus" },
+                { i: Award, t: "20+ Years" },
+                { i: Users, t: "Family-led" },
+              ].map(({ i: Icon, t }) => (
+                <div
+                  key={t}
+                  className="text-center p-3 rounded-xl border border-gold/20 bg-plum/30"
+                >
+                  <Icon className="w-4 h-4 text-gold mx-auto mb-1.5" />
+                  <div className="text-[10px] uppercase tracking-wider text-cream/80">
+                    {t}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 12. CATERING MENUS SECTION                                        */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <CateringMenusSection />
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 13. DOODLE DIVIDER                                                */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <SectionDoodleDivider variant="kolam" />
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 14. TESTIMONIALS                                                  */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section id="testimonials" className="py-16 bg-plum text-cream px-4">
+        <div className="max-w-xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-10">
+              <span className="text-[11px] tracking-[0.3em] uppercase text-gold">
+                Voices from our table
+              </span>
+              <h2 className="font-serif text-[clamp(1.5rem,6vw,2.5rem)] mt-3">
+                Loved across Chennai
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="space-y-4">
+            {TESTIMONIALS.map((t) => (
+              <Reveal key={t.n}>
+                <div className="bg-plum-dark/60 backdrop-blur rounded-2xl p-5 border border-gold/20">
+                  <div className="flex gap-1 text-gold mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3 h-3 fill-gold" />
+                    ))}
+                  </div>
+                  <p className="text-cream/85 leading-relaxed italic font-serif text-sm sm:text-base">
+                    "{t.q}"
+                  </p>
+                  <div className="mt-4 pt-3 border-t border-gold/15 text-xs uppercase tracking-[0.2em] text-gold">
+                    {t.n}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 15. GALLERY                                                       */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section id="gallery" className="py-16 bg-[#FAF7F2] px-4">
+        <div className="max-w-xl mx-auto relative z-10">
+          <Reveal>
+            <div className="text-center mb-10">
+              <span className="text-[11px] tracking-[0.3em] uppercase text-gold font-bold">
+                CAPTURED MOMENTS
+              </span>
+              <h2 className="font-serif text-[clamp(1.5rem,6vw,2.5rem)] text-plum-dark mt-3 leading-tight">
+                Our Menu Gallery
+              </h2>
+              <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-sm mx-auto font-normal">
+                Browse our collection of beautifully arranged wedding menus,
+                buffet setups, traditional banana leaf meals, and more.
+              </p>
+              <div className="flex items-center justify-center gap-3 mt-3 select-none pointer-events-none">
+                <div className="w-10 h-[1px] bg-gold/50" />
+                <span className="text-gold text-sm">✦</span>
+                <div className="w-10 h-[1px] bg-gold/50" />
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-2 gap-3">
+            {GALLERY_ITEMS.map((item, idx) => (
+              <Reveal key={idx} delay={idx * 0.05}>
+                <div className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md border border-gold/15 transition-all duration-500 hover:shadow-xl hover:border-gold/30">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2A163F]/80 via-[#2A163F]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                    <div className="text-left">
+                      <span className="text-gold text-[10px] uppercase tracking-widest font-bold">
+                        MCC Premium
+                      </span>
+                      <h4 className="font-serif text-white text-xs mt-0.5">
+                        {item.title}
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.2}>
+            <div className="text-center mt-8">
+              <Link
+                to="/gallery"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg active:scale-95 transition-all duration-300"
+              >
+                <span>View Gallery</span>
+                <Leaf className="w-3 h-3 text-emerald-400" />
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 16. FAQ                                                           */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section className="py-16 bg-[#FAF7F2] px-4 border-t border-amber-900/5">
+        <div className="max-w-xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-8">
+              <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
+                HAVE QUESTIONS?
+              </span>
+              <h2 className="font-serif text-[clamp(1.3rem,5vw,2.2rem)] text-[#3A1029] font-bold mt-2">
+                Frequently Asked Questions
+              </h2>
+              <div className="flex items-center justify-center gap-2 mt-3 text-amber-500/80">
+                <div className="w-6 h-px bg-amber-400/40" />
+                <span className="text-xs">❖</span>
+                <div className="w-6 h-px bg-amber-400/40" />
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="space-y-3">
+            {FAQS.map((faq, idx) => {
+              const isOpen = activeFaq === idx;
+              return (
+                <Reveal key={idx} delay={idx * 0.05}>
+                  <div className="bg-white rounded-2xl border border-amber-900/10 hover:border-amber-400/40 transition-colors duration-300 overflow-hidden shadow-sm">
+                    <button
+                      onClick={() => setActiveFaq(isOpen ? null : idx)}
+                      className="w-full py-4 px-5 flex items-center justify-between text-left group"
+                    >
+                      <span className="font-sans font-bold text-slate-800 text-sm group-hover:text-[#541539] transition-colors pr-3">
+                        {faq.q}
+                      </span>
+                      <ChevronDown
+                        className={`w-4 h-4 text-slate-400 group-hover:text-[#541539] transition-transform duration-300 shrink-0 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                        >
+                          <div className="px-5 pb-4 text-xs sm:text-sm text-slate-600 border-t border-slate-50 pt-3 leading-relaxed">
+                            {faq.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 17. DOODLE DIVIDER                                                */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <SectionDoodleDivider variant="kolam" />
+
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* 18. BOOKING CTA                                                   */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      <section
+        id="book"
+        ref={bookRef}
+        tabIndex={-1}
+        className="py-16 bg-[#FAF7F2] scroll-mt-24 outline-none"
+      >
+        <div className="max-w-xl mx-auto px-4 space-y-6">
+          <Reveal>
+            <span className="text-[11px] tracking-[0.3em] uppercase text-gold">
+              Begin Your Inquiry
+            </span>
+            <h2 className="font-serif text-[clamp(1.5rem,6vw,2.5rem)] text-[#3A1029] mt-3 leading-tight">
+              Let MCC curate{" "}
+              <em className="text-gold-gradient not-italic">
+                your sacred menu.
+              </em>
+            </h2>
+            <p className="mt-4 text-slate-600 text-sm leading-relaxed">
+              Share a few details and our team will respond with a tailored
+              proposal — menu cards, decor mockups and an exact quote — within
+              one business hour.
+            </p>
+            <div className="mt-5 flex flex-col gap-2 text-sm text-slate-600">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-gold shrink-0" /> Free
+                consultation & sample tasting
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-gold shrink-0" /> Custom
+                menus across all budgets
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-gold shrink-0" /> Decor,
+                hosts & live counters included
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="bg-white rounded-2xl p-5 border border-amber-900/10 shadow-sm">
+              <BookingForm />
+            </div>
+          </Reveal>
+        </div>
+      </section>
     </div>
   );
 }

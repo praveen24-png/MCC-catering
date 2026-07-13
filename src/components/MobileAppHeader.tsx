@@ -25,7 +25,7 @@ export default function MobileAppHeader() {
 
         {/* CENTER: MCC Logo + Location badge */}
         <Link to="/" className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform flex-1">
-          <div className="w-[54px] h-[54px] rounded-full bg-white border-2 border-amber-300 shadow-md overflow-hidden flex items-center justify-center">
+          <div className="w-[64px] h-[64px] rounded-full bg-white border-2 border-amber-300 shadow-md overflow-hidden flex items-center justify-center">
             <img
               src={logoImg}
               alt="MCC — My Chennai Catering"

@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportAppError } from "../lib/error-reporting";
 import Header from "../components/Header";
+import MobileAppHeader from "../components/MobileAppHeader";
 import Footer from "../components/Footer";
 import CateringChatbot from "../components/CateringChatbot";
 
@@ -131,8 +132,9 @@ function RootComponent() {
       <div className="min-h-screen flex flex-col bg-background text-foreground">
         <GrainOverlay />
         <KolamVine />
-        <Header />
-        <main className="flex-1" style={{ paddingTop: "clamp(70px, 8.5vw, 120px)" }}>
+        <div className="block lg:hidden"><MobileAppHeader /></div>
+        <div className="hidden lg:block"><Header /></div>
+        <main className="flex-1 pt-[130px] lg:pt-[110px]" style={{ "--mobile-pt": "130px", "--desktop-pt": "clamp(70px, 8.5vw, 120px)" } as React.CSSProperties}>
           <Outlet />
           <SkylineDivider />
         </main>

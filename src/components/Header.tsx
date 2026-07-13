@@ -167,7 +167,7 @@ export default function Header() {
           <nav style={{ flex: "1 1 0", minWidth: 0, display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "clamp(8px, 1.2vw, 16px)", paddingRight: "8px" }}>
             {leftLinks.map(renderNavLink)}
           </nav>
-          <div style={{ width: "clamp(100px, 12vw, 190px)", flexShrink: 0 }} />
+          <div style={{ width: "clamp(130px, 14vw, 210px)", flexShrink: 0 }} />
           <nav style={{ flex: "1 1 0", minWidth: 0, display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "clamp(8px, 1.2vw, 16px)", paddingLeft: "8px" }}>
             {rightLinks.map(renderNavLink)}
           </nav>

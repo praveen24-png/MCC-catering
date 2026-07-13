@@ -744,7 +744,13 @@ function Index() {
 
   return (
     <>
-      <div className="relative overflow-x-hidden w-full">
+      {/* ── Mobile Home (below lg) ── */}
+      <div className="block lg:hidden">
+        <MobileAppHome />
+      </div>
+
+      {/* ── Desktop Home (lg and above) ── */}
+      <div className="hidden lg:block relative overflow-x-hidden w-full">
         {/* Scroll-Driven Floating Spices & Floral Elements */}
         <FloatingDecorElement
           type="branch"
