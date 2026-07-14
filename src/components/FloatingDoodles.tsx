@@ -56,11 +56,11 @@ function buildPlacements(section: SectionName): DoodlePlacement[] {
     const r3 = seededRandom(i * 23 + doodles.length);
     return {
       Component,
-      top: `${5 + r1 * 80}%`,
-      left: `${r2 * 85 + 2}%`,
-      size: 30 + r3 * 50,
-      opacity: 0.06 + seededRandom(i * 31 + doodles.length) * 0.09,
-      rotate: seededRandom(i * 41 + doodles.length) * 360 - 180,
+      top: `${+(5 + r1 * 80).toFixed(3)}%`,
+      left: `${+(r2 * 85 + 2).toFixed(3)}%`,
+      size: 30 + Math.round(r3 * 50),
+      opacity: +(0.06 + seededRandom(i * 31 + doodles.length) * 0.09).toFixed(3),
+      rotate: Math.round(seededRandom(i * 41 + doodles.length) * 360 - 180),
       delay: i * 0.12,
     };
   });
@@ -81,7 +81,7 @@ export function FloatingFoodDoodles({
         <motion.div
           key={`${section}-${i}`}
           className="absolute"
-          style={{ top, left, width: size, height: size }}
+          style={{ top, left, width: `${size}px`, height: `${size}px` }}
           initial={{ opacity: 0, scale: 0.7 }}
           whileInView={{ opacity, scale: 1 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -167,8 +167,8 @@ export function ScrollFoodReveal({
             style={{
               top: `${20 + i * 25}%`,
               [fromLeft ? "left" : "right"]: "-20px",
-              width: 40 + i * 10,
-              height: 40 + i * 10,
+              width: `${40 + i * 10}px`,
+              height: `${40 + i * 10}px`,
             }}
             initial={{ opacity: 0, x: fromLeft ? -40 : 40, scale: 0.6 }}
             animate={

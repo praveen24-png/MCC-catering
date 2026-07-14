@@ -66,7 +66,7 @@ export default defineConfig(({ command }) => {
         "@tanstack/query-core",
       ],
     },
-    css: { transformer: "lightningcss" },
+    css: {},
     optimizeDeps: {
       include: [
         "react",

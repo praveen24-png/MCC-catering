@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Phone, MapPin, Clock, Sparkles, MessageCircle, Menu, X } from "lucide-react";
+import { Menu, Phone, X, MapPin, Clock, Sparkles, MessageCircle } from "lucide-react";
 import headerLogo from "@/assets/mcc-logo.png";
 import lotusIcon from "@/assets/lotus icon.png";
 
@@ -38,7 +38,7 @@ export default function Header() {
   const leftLinks = NAV.slice(0, 4);
   const rightLinks = NAV.slice(4);
 
-  const renderNavLink = (n: typeof NAV[number]) => {
+  const renderNavLink = (n: (typeof NAV)[number]) => {
     if (n.label === "Customize your own menu ✦") {
       return (
         <Link
@@ -61,10 +61,30 @@ export default function Header() {
           </button>
           <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-48 opacity-0 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto transition-all duration-200 transform scale-95 origin-top group-hover/menu:scale-100 z-50">
             <div className="bg-white rounded-xl shadow-xl border border-zinc-100 py-2.5 overflow-hidden">
-              <Link to="/wedding-catering-services-in-chennai" className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold">Weddings</Link>
-              <Link to="/engagement-catering-services-in-chennai" className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold">Engagements</Link>
-              <Link to="/corporate-catering-services-in-chennai" className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold">Corporate Events</Link>
-              <Link to="/services" className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold border-t border-zinc-100">All Services Showcase →</Link>
+              <Link
+                to="/wedding-catering-services-in-chennai"
+                className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold"
+              >
+                Weddings
+              </Link>
+              <Link
+                to="/engagement-catering-services-in-chennai"
+                className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold"
+              >
+                Engagements
+              </Link>
+              <Link
+                to="/corporate-catering-services-in-chennai"
+                className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold"
+              >
+                Corporate Events
+              </Link>
+              <Link
+                to="/services"
+                className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold border-t border-zinc-100"
+              >
+                All Services Showcase →
+              </Link>
             </div>
           </div>
         </div>
@@ -74,8 +94,8 @@ export default function Header() {
       return (
         <Link
           key={n.label}
-          to={n.to}
-          hash={n.hash}
+          to="/"
+          hash="testimonials"
           resetScroll={false}
           className="text-[10px] xl:text-[11px] uppercase tracking-[0.12em] xl:tracking-[0.18em] font-bold text-plum-dark hover:text-white transition-colors relative py-1 whitespace-nowrap shrink-0"
         >
@@ -202,7 +222,7 @@ export default function Header() {
                     key={n.label}
                     to={n.to}
                     hash={n.hash}
-                    resetScroll={false}
+                    resetScroll={!n.hash}
                     onClick={() => setMobileMenuOpen(false)}
                     className={isCustomizer
                       ? "my-1 text-center px-4 py-3 rounded-xl bg-plum text-cream text-xs uppercase tracking-[0.2em] font-bold shadow-md flex items-center justify-center gap-2 border border-gold/40"

@@ -5,7 +5,7 @@ import lotusIcon from "@/assets/lotus icon.png";
 
 export default function MobileAppHeader() {
   return (
-    <header className="xl:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+    <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       {/* Top Promo Strip */}
       <div className="bg-[#1E1108] text-amber-300 text-[10px] py-1.5 px-4 text-center font-extrabold tracking-[0.18em] uppercase">
         ✦ Free Sample Tasting for Weddings &amp; Engagements ✦

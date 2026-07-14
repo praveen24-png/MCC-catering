@@ -6,7 +6,7 @@ const TABS = [
   { to: "/services", label: "Services", icon: UtensilsCrossed, exact: false },
   { to: "/builder", label: "Build", icon: ChefHat, exact: false, center: true },
   { to: "/gallery", label: "Gallery", icon: ImageIcon, exact: false },
-  { to: "/reviews", label: "Reviews", icon: Star, hash: "testimonials" },
+  { to: "/#testimonials", label: "Reviews", icon: Star, hash: "testimonials", exact: false },
   { to: "/contact", label: "Contact", icon: PhoneCall, exact: false },
 ];
 
@@ -24,12 +24,11 @@ export default function MobileAppTabBar() {
           const active = isActive(tab.to, tab.exact ?? false);
           const Icon = tab.icon;
 
-          if (tab.center) {
           if (tab.hash) {
             return (
               <Link
                 key={tab.label}
-                to={tab.to}
+                to="/"
                 hash={tab.hash}
                 resetScroll={false}
                 className="flex-1 flex flex-col items-center justify-center py-2 h-full relative active:scale-90 transition-transform"
@@ -47,6 +46,7 @@ export default function MobileAppTabBar() {
             );
           }
 
+          if (tab.center) {
           return (
               <div key={tab.label} className="relative -top-5 flex flex-col items-center">
                 <Link
