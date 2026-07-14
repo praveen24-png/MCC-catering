@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useState, useMemo, useEffect } from "react";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { ScrollCutouts } from "@/components/ScrollCutouts";
 import { FoodPeekEdge } from "@/components/FoodPeekEdge";
 import lmChurch from "@/assets/cutout-landmark-gothic-church.png";
@@ -22,16 +23,87 @@ import { DoodleLayer } from "@/components/DoodleLayer";
 import { AnimatedFoodDoodles } from "@/components/AnimatedFoodDoodles";
 import { BananaLeafDivider } from "@/components/GrainDivider";
 import { FoodPeek } from "@/components/FoodPeek";
-import partyBg from "@/assets/party-bg.png";
+import { Camera } from "lucide-react";
+
+const VENUE_TABS = [
+  "All",
+  "Marriage Halls",
+  "Homes & Villas",
+  "Corporate Offices",
+  "Outdoor Venues",
+  "Temples",
+] as const;
+
+const GALLERY_ITEMS = [
+  {
+    title: "VIP Wedding Couple Catering Setup",
+    category: "Wedding Dinners",
+    venue: "Marriage Halls",
+    img: weddingHall,
+    desc: "Luxury flower & silk curtain dining table arrangement for newlyweds.",
+  },
+  {
+    title: "Authentic Thala Vazhai Saapadu",
+    category: "Traditional Menu",
+    venue: "Marriage Halls",
+    img: realFeastMeal,
+    desc: "Traditional course-by-course South Indian banana leaf wedding meal.",
+  },
+  {
+    title: "Grand Wedding Banquet Menu",
+    category: "Traditional Menu",
+    venue: "Marriage Halls",
+    img: bananaLeafFeastBlended,
+    desc: "20+ item Sattvik Brahmin menu served with pure ghee.",
+  },
+  {
+    title: "Live Dosa & Chaat Counter",
+    category: "Live Counters",
+    venue: "Marriage Halls",
+    img: liveCounter,
+    desc: "Hot chef stations with piping hot mini dosas and tiffins.",
+  },
+  {
+    title: "Chandelier Buffet Setup",
+    category: "Reception Buffets",
+    venue: "Marriage Halls",
+    img: buffetCounter,
+    desc: "Modern luxury buffet line with gold-chafing dishes and floral decor.",
+  },
+  {
+    title: "Pure Ghee Traditional Sweets",
+    category: "Desserts & Sweets",
+    venue: "Marriage Halls",
+    img: gulabJamun,
+    desc: "Stone-ground Gulab Jamun, Elaneer Payasam & traditional sweets.",
+  },
+  {
+    title: "Founder D. Venkat & Team",
+    category: "Our Legacy",
+    venue: "",
+    img: founder,
+    desc: "Master caterer D. Venkat supervising pure Sattvik cooking.",
+  },
+  {
+    title: "Traditional Brass Lamps & Decor",
+    category: "Event Styling",
+    venue: "Outdoor Venues",
+    img: brassLamps,
+    desc: "Sacred brass lamps, marigold garlands and traditional mandapam styling.",
+  },
+];
 
 export const Route = createFileRoute("/gallery")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    venue: (search.venue as string) || "",
+  }),
   head: () => ({
     meta: [
       { title: "Gallery | Wedding Catering & South Indian Food Setup in Chennai" },
       {
         name: "description",
         content:
-          "VIP Wedding Couple Catering Setup. Explore photo gallery of wedding catering setups, traditional banana leaf menus, live food counters, and event decor by My Chennai Catering Services.",
+          "Explore photo gallery of wedding catering setups, traditional banana leaf menus, live food counters, and event decor by My Chennai Catering Services.",
       },
       {
         name: "robots",
@@ -44,14 +116,14 @@ export const Route = createFileRoute("/gallery")({
       {
         property: "og:description",
         content:
-          "VIP Wedding Couple Catering Setup. View catering setups, banana leaf menus, and live counters.",
+          "View catering setups, banana leaf menus, and live counters.",
       },
       { property: "og:url", content: "https://mychennaicateringservices.com/gallery/" },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Gallery | My Chennai Catering Services" },
-      { name: "twitter:description", content: "VIP Wedding Couple Catering Setup in Chennai." },
+      { name: "twitter:description", content: "Wedding catering setups in Chennai." },
     ],
     links: [{ rel: "canonical", href: "https://mychennaicateringservices.com/gallery/" }],
     scripts: [
@@ -63,7 +135,7 @@ export const Route = createFileRoute("/gallery")({
           name: "My Chennai Catering Event Gallery",
           url: "https://mychennaicateringservices.com/gallery/",
           description:
-            "Photo gallery showcasing VIP wedding catering setups, traditional South Indian banana leaf menus, live counters, and dessert stalls in Chennai.",
+            "Photo gallery showcasing wedding catering setups, traditional South Indian banana leaf menus, live counters, and dessert stalls in Chennai.",
         }),
       },
     ],
@@ -71,58 +143,29 @@ export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
 });
 
-const GALLERY_ITEMS = [
-  {
-    title: "VIP Wedding Couple Catering Setup",
-    category: "Wedding Dinners",
-    img: weddingHall,
-    desc: "Luxury flower & silk curtain dining table arrangement for newlyweds.",
-  },
-  {
-    title: "Authentic Thala Vazhai Saapadu",
-    category: "Traditional Menu",
-    img: realFeastMeal,
-    desc: "Traditional course-by-course South Indian banana leaf wedding meal.",
-  },
-  {
-    title: "Grand Wedding Banquet Menu",
-    category: "Traditional Menu",
-    img: bananaLeafFeastBlended,
-    desc: "20+ item Sattvik Brahmin menu served with pure ghee.",
-  },
-  {
-    title: "Live Dosa & Chaat Counter",
-    category: "Live Counters",
-    img: liveCounter,
-    desc: "Hot chef stations with piping hot mini dosas and tiffins.",
-  },
-  {
-    title: "Chandelier Buffet Setup",
-    category: "Reception Buffets",
-    img: buffetCounter,
-    desc: "Modern luxury buffet line with gold-chafing dishes and floral decor.",
-  },
-  {
-    title: "Pure Ghee Traditional Sweets",
-    category: "Desserts & Sweets",
-    img: gulabJamun,
-    desc: "Stone-ground Gulab Jamun, Elaneer Payasam & traditional sweets.",
-  },
-  {
-    title: "Founder D. Venkat & Team",
-    category: "Our Legacy",
-    img: founder,
-    desc: "Master caterer D. Venkat supervising pure Sattvik cooking.",
-  },
-  {
-    title: "Traditional Brass Lamps & Decor",
-    category: "Event Styling",
-    img: brassLamps,
-    desc: "Sacred brass lamps, marigold garlands and traditional mandapam styling.",
-  },
-];
-
 function GalleryPage() {
+  const { venue: urlVenue } = useSearch({ from: "/gallery" });
+  const [activeVenue, setActiveVenue] = useState("All");
+
+  useEffect(() => {
+    if (urlVenue) {
+      const match = VENUE_TABS.find(
+        (v) => v.toLowerCase().replace(/[^a-z]/g, "") === urlVenue.toLowerCase().replace(/[^a-z]/g, "")
+      );
+      if (match) setActiveVenue(match);
+    }
+  }, [urlVenue]);
+
+  const availableVenues = useMemo(() => {
+    const venueSet = new Set(GALLERY_ITEMS.map((i) => i.venue).filter(Boolean));
+    return VENUE_TABS.filter((v) => v === "All" || venueSet.has(v));
+  }, []);
+
+  const filteredItems = useMemo(() => {
+    if (activeVenue === "All") return GALLERY_ITEMS;
+    return GALLERY_ITEMS.filter((item) => item.venue === activeVenue);
+  }, [activeVenue]);
+
   return (
     <>
       <FloatingFoodDoodles section="gallery" />
@@ -183,31 +226,71 @@ function GalleryPage() {
           behind
         />
         <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {GALLERY_ITEMS.map((item, index) => (
-              <Reveal key={index} delay={index * 0.05}>
-                <div className="group bg-white rounded-2xl overflow-hidden border border-gold/20 shadow-md hover:shadow-xl transition-all duration-300">
-                  <div className="aspect-[4/3] overflow-hidden relative">
-                    <img
-                      src={item.img}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-4 left-4 bg-plum/90 text-gold text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full backdrop-blur-md">
-                      {item.category}
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-serif text-xl text-plum font-semibold group-hover:text-gold transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-foreground/70 leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              </Reveal>
+          {/* Venue filter tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+            {availableVenues.map((venue) => (
+              <button
+                key={venue}
+                onClick={() => setActiveVenue(venue)}
+                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                  activeVenue === venue
+                    ? "bg-plum text-gold shadow-md"
+                    : "bg-white text-slate-600 border border-slate-200 hover:border-amber-400 hover:text-plum"
+                }`}
+              >
+                {venue}
+              </button>
             ))}
           </div>
+
+          {filteredItems.length === 0 ? (
+            <Reveal>
+              <div className="text-center py-16">
+                <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-4">
+                  <Camera className="w-8 h-8" />
+                </div>
+                <h3 className="font-serif text-xl text-[#3A1029] font-bold mb-2">
+                  No photos yet
+                </h3>
+                <p className="text-slate-500 text-sm max-w-md mx-auto">
+                  We don't have gallery photos for this venue type yet — but we cater them.
+                  Call us to discuss your event.
+                </p>
+                <a
+                  href="tel:+919940396005"
+                  className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-plum text-gold rounded-full text-xs font-bold uppercase tracking-wider hover:bg-plum-dark transition-all"
+                >
+                  Call: +91 99403 96005
+                </a>
+              </div>
+            </Reveal>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredItems.map((item, index) => (
+                <Reveal key={`${activeVenue}-${index}`} delay={index * 0.05}>
+                  <div className="group bg-white rounded-2xl overflow-hidden border border-gold/20 shadow-md hover:shadow-xl transition-all duration-300">
+                    <div className="aspect-[4/3] overflow-hidden relative">
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <div className="absolute top-4 left-4 bg-plum/90 text-gold text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full backdrop-blur-md">
+                        {item.category}
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-serif text-xl text-plum font-semibold group-hover:text-gold transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm text-foreground/70 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          )}
         </div>
       </section>
       <BananaLeafDivider />

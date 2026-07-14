@@ -391,6 +391,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const SCROLL_MT = "scroll-mt-[180px]";
   const ref = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLElement>(null);
 
@@ -1334,7 +1335,7 @@ function Index() {
 
         {/* TESTIMONIALS */}
         <SectionDoodleDivider variant="kolam" />
-        <section id="testimonials" className="py-24 bg-plum text-cream relative overflow-hidden">
+        <section id="testimonials" className={`py-24 bg-plum text-cream relative overflow-hidden ${SCROLL_MT}`}>
           <SikkuKolam grid={4} side="left"  top="50%" rotate={-14} opacity={0.16} />
           <SikkuKolam grid={4} side="right" top="50%" rotate={14} mirrored opacity={0.16} />
           <ScrollCutouts variant="prominent" cutouts={[
@@ -1356,7 +1357,7 @@ function Index() {
                   <div className="bg-plum-dark/60 backdrop-blur rounded-3xl p-7 border border-gold/20 h-full">
                     <div className="flex gap-1 text-gold mb-4">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-gold" />
+                        <Star key={i} className="w-[18px] h-[18px] fill-gold text-gold" />
                       ))}
                     </div>
                     <p className="text-cream/85 leading-relaxed italic font-serif text-lg">
@@ -1373,7 +1374,7 @@ function Index() {
         </section>
 
         {/* GALLERY SECTION */}
-        <section id="gallery" className="py-24 bg-cream relative overflow-hidden">
+        <section id="gallery" className={`py-24 bg-cream relative overflow-hidden ${SCROLL_MT}`}>
           <AnimatedFoodDoodles section="gallery" />
           <ScrollCutouts variant="prominent" cutouts={[
             { src: cutTiffin, side: "left", top: "12%", size: 280, rotate: -6 },
@@ -1564,7 +1565,7 @@ function Index() {
 
         {/* CTA / BOOKING & BOTTOM QUALITY BANNER */}
         <SectionDoodleDivider variant="kolam" />
-        <section id="book" ref={bookRef} tabIndex={-1} className="py-24 bg-cream scroll-mt-24 md:scroll-mt-28 outline-none">
+        <section id="book" ref={bookRef} tabIndex={-1} className={`py-24 bg-cream outline-none ${SCROLL_MT}`}>
           <div className="max-w-6xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
             <Reveal>
               <span className="text-[11px] tracking-[0.3em] uppercase text-gold">

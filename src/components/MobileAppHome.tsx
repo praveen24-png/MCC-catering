@@ -13,7 +13,6 @@ import BookingForm from "./BookingForm";
 import CateringMenusSection from "./CateringMenusSection";
 import HowItWorks from "./HowItWorks";
 import WhyChooseUsSection from "./WhyChooseUsSection";
-import MarigoldGarland from "./MarigoldGarland";
 import { BananaLeafDivider } from "./GrainDivider";
 import { CenterKolam } from "./Kolam";
 import { Reveal } from "./Reveal";
@@ -21,7 +20,7 @@ import { SectionDoodleDivider } from "./FloatingDoodles";
 
 /* Mobile header is ~158px tall (promo strip + main row + quick actions).
    Anchored sections must clear it or the heading hides underneath. */
-const SCROLL_MT = "scroll-mt-[120px]";
+const SCROLL_MT = "scroll-mt-[170px]";
 
 function GoldRule() {
   return (
@@ -94,8 +93,6 @@ export default function MobileAppHome() {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        <MarigoldGarland count={8} className="absolute top-0 left-0 right-0 z-20 h-5" />
 
         <div className="relative z-10 w-full px-5 text-center">
           <AnimatePresence mode="wait">
@@ -596,7 +593,7 @@ export default function MobileAppHome() {
             >
               <div className="flex gap-1 text-gold mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-gold" />
+                  <Star key={i} className="w-[18px] h-[18px] fill-gold text-gold" />
                 ))}
               </div>
               <p className="text-cream/85 leading-relaxed italic font-serif text-base">"{t.q}"</p>

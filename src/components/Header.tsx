@@ -70,14 +70,26 @@ export default function Header() {
         </div>
       );
     }
+    if (n.hash) {
+      return (
+        <Link
+          key={n.label}
+          to={n.to}
+          hash={n.hash}
+          resetScroll={false}
+          className="text-[10px] xl:text-[11px] uppercase tracking-[0.12em] xl:tracking-[0.18em] font-bold text-plum-dark hover:text-white transition-colors relative py-1 whitespace-nowrap shrink-0"
+        >
+          {n.label}
+        </Link>
+      );
+    }
     return (
       <Link
         key={n.label}
         to={n.to}
-        hash={n.hash}
         className="text-[10px] xl:text-[11px] uppercase tracking-[0.12em] xl:tracking-[0.18em] font-bold text-plum-dark hover:text-white transition-colors relative py-1 whitespace-nowrap shrink-0"
         activeProps={{ className: "text-white border-b-2 border-white" }}
-        activeOptions={{ exact: true, includeHash: true }}
+        activeOptions={{ exact: true }}
       >
         {n.label}
       </Link>
@@ -190,6 +202,7 @@ export default function Header() {
                     key={n.label}
                     to={n.to}
                     hash={n.hash}
+                    resetScroll={false}
                     onClick={() => setMobileMenuOpen(false)}
                     className={isCustomizer
                       ? "my-1 text-center px-4 py-3 rounded-xl bg-plum text-cream text-xs uppercase tracking-[0.2em] font-bold shadow-md flex items-center justify-center gap-2 border border-gold/40"

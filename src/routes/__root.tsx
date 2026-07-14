@@ -15,6 +15,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CateringChatbot from "../components/CateringChatbot";
 import MobileAppTabBar from "../components/MobileAppTabBar";
+import ScrollToHash from "../components/ScrollToHash";
 
 import { SkylineDivider } from "../components/site/SkylineDivider";
 import { GrainOverlay } from "../components/GrainDivider";
@@ -130,10 +131,11 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col bg-background text-foreground">
+        <ScrollToHash />
         <GrainOverlay />
         <KolamVine />
         <Header />
-        <main className="flex-1 pt-[140px] lg:pt-0">
+        <main className="flex-1 pt-[172px] xl:pt-[clamp(140px,13vw,170px)] pb-[72px] xl:pb-0">
           <Outlet />
           <SkylineDivider />
         </main>

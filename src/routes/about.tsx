@@ -25,6 +25,8 @@ import {
   Building2,
   Users,
   ArrowRight,
+  Target,
+  Eye,
 } from "lucide-react";
 import BookingForm from "@/components/BookingForm";
 import { FloatingFoodDoodles, SectionDoodleDivider } from "@/components/FloatingDoodles";
@@ -319,9 +321,59 @@ export function About() {
       {/* 2. OUR STORY: A LEGACY OF FLAVOR */}
       <OurStorySection />
 
+      {/* 3. MISSION & VISION */}
+      <section className="py-16 bg-white border-y border-amber-900/10">
+        <div className="max-w-5xl mx-auto px-6 lg:px-12">
+          <Reveal>
+            <div className="text-center mb-12 space-y-3">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-800">
+                What Drives Us
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#3A1029]">
+                Our Mission & Vision
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Reveal delay={0.1}>
+              <div className="bg-[#FAF7F0] p-6 sm:p-8 rounded-2xl border border-amber-900/10 h-full">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-11 h-11 rounded-full bg-amber-400/20 text-[#3A1029] flex items-center justify-center shrink-0">
+                    <Target className="w-5 h-5 text-amber-800" />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-[#3A1029]">Our Mission</h3>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  To deliver authentic South Indian vegetarian cuisine with unwavering quality,
+                  hygiene, and warmth — making every celebration a memorable feast that honours
+                  tradition and delights every guest.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="bg-[#FAF7F0] p-6 sm:p-8 rounded-2xl border border-amber-900/10 h-full">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-11 h-11 rounded-full bg-amber-400/20 text-[#3A1029] flex items-center justify-center shrink-0">
+                    <Eye className="w-5 h-5 text-amber-800" />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-[#3A1029]">Our Vision</h3>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  To be Chennai's most trusted catering partner — known for purity, consistency,
+                  and the warmth of a traditional Tamil kitchen — serving families across
+                  generations for every life milestone.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       <BananaLeafDivider />
 
-      {/* 3. WHY CHOOSE US? (EXACT LIST PRESERVED WITHOUT CHANGES) */}
+      {/* 4. WHY CHOOSE US? (EXACT LIST PRESERVED WITHOUT CHANGES) */}
       <section className="py-20 bg-white border-y border-amber-900/10">
         <ScrollCutouts cutouts={[
           { src: cutSweets, side: "right", top: "12%", size: 260, rotate: -6 },
@@ -365,7 +417,7 @@ export function About() {
 
       <BananaLeafDivider />
 
-      {/* 4. OUR EXPERTISE */}
+      {/* 5. OUR EXPERTISE */}
       <section className="py-20 px-6 lg:px-12 max-w-7xl mx-auto relative">
         <AnimatedFoodDoodles section="services" />
         <ScrollCutouts cutouts={[
@@ -430,7 +482,7 @@ export function About() {
 
       <BananaLeafDivider />
 
-      {/* 5. PROUDLY SERVING CHENNAI */}
+      {/* 6. PROUDLY SERVING CHENNAI */}
       <section className="relative bg-gradient-to-r from-[#2A163F] via-[#3A1029] to-[#2B1028] text-white py-16 px-6 lg:px-12 border-y-2 border-amber-400/30 overflow-hidden">
         <ScrollCutouts variant="prominent" cutouts={[
           { src: lmGopuram, side: "left", top: "10%", size: 280, rotate: -8 },
@@ -478,7 +530,7 @@ export function About() {
         </div>
       </section>
 
-      {/* 6. CALL TO ACTION & CONSULTATION FORM */}
+      {/* 7. CALL TO ACTION & CONSULTATION FORM */}
       <section className="py-20 px-6 lg:px-12 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-5 space-y-5 text-center lg:text-left">
