@@ -44,7 +44,7 @@ export default function CateringChatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[90] flex flex-col items-end gap-3">
+    <div className="fixed right-4 bottom-[132px] xl:bottom-6 z-[60] flex flex-col items-end gap-3">
       <AnimatePresence>
         {open && (
           <motion.div

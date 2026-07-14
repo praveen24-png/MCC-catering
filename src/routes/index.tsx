@@ -45,7 +45,7 @@ import banner3 from "@/assets/banner 3.jpg";
 import {
   HERO_SLIDES, PORTRAIT_SLIDES, TAMIL_MESSAGES, SERVICES_OFFERED,
   MENU_CATEGORIES, FAQS, FOOD_PEEK_ITEMS, GALLERY_ITEMS, TESTIMONIALS,
-  PHILOSOPHY_BADGES,
+  PHILOSOPHY_BADGES, VENUES,
 } from "@/data/homeContent";
 import CateringMenusSection from "@/components/CateringMenusSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
@@ -664,7 +664,7 @@ function Index() {
         {/* ========================================================================= */}
         <section
           ref={ref}
-          className="relative -mt-[132px] min-h-screen text-cream flex items-center justify-center pt-[250px] pb-24 overflow-hidden bg-black select-none"
+          className="relative min-h-screen text-cream flex items-center justify-center pt-[120px] pb-24 overflow-hidden bg-black select-none"
         >
           <DoodleLayer section="hero" />
           {/* Background Image Carousel */}
@@ -972,6 +972,61 @@ function Index() {
                 <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
                   <Leaf className="w-3 h-3 text-emerald-400 fill-current" />
                 </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 3b. WE CATER WHEREVER YOU CELEBRATE                                     */}
+        {/* ========================================================================= */}
+        <section className="py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+          <div className="max-w-6xl mx-auto px-6 lg:px-10 text-center relative z-10">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-5xl text-[#3A1029] font-bold">
+                {VENUES.heading}
+              </h2>
+              <p className="mt-5 text-foreground/70 leading-relaxed max-w-2xl mx-auto">
+                {VENUES.subheading}
+              </p>
+            </Reveal>
+
+            <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-5">
+              {VENUES.items.map((venue, i) => {
+                const Icon = venue.icon;
+                return (
+                  <Reveal key={venue.label} delay={i * 0.05}>
+                    <div className="bg-white rounded-2xl overflow-hidden border border-amber-900/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+                      <div className="relative h-36 overflow-hidden">
+                        <img
+                          src={venue.img}
+                          alt={venue.label}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#2A163F]/70 via-transparent to-transparent" />
+                        <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shrink-0">
+                            <Icon className="w-4 h-4 text-[#541539]" />
+                          </div>
+                          <span className="text-sm font-bold text-white tracking-wide drop-shadow">
+                            {venue.label}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+
+            <div className="mt-12">
+              <Link
+                to="/"
+                hash="book"
+                className="inline-flex items-center gap-2 px-10 py-3.5 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                <span>{VENUES.ctaLabel}</span>
               </Link>
             </div>
           </div>

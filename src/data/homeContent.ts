@@ -7,8 +7,8 @@
  */
 
 import {
-  Award, Briefcase, ChefHat, Coffee, Crown, Heart, Home, IceCream,
-  Soup, Sparkles, Target, Users, Utensils, UtensilsCrossed,
+  Award, Briefcase, ChefHat, Church, Coffee, Crown, Heart, Home, IceCream,
+  Landmark, PartyPopper, Soup, Sparkles, Target, TreePine, Users, Utensils, UtensilsCrossed,
 } from "lucide-react";
 
 import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
@@ -162,6 +162,49 @@ export const SERVICES_OFFERED = [
     icon: Sparkles,
   },
 ];
+
+/* ── 5b. POPULAR PACKAGES ──────────────────────────────────────────────── */
+/* NOTE: pricePerHead values below are PLACEHOLDERS for layout purposes only.
+   Replace with real, approved pricing before this section goes live. */
+export const PACKAGES = [
+  {
+    name: "Silver",
+    pricePerHead: 350,
+    tagline: "Everyday elegance",
+    includes: ["Welcome drink", "2 sweets", "3 curries", "Rice & sambar", "1 dessert"],
+    highlight: false,
+  },
+  {
+    name: "Gold",
+    pricePerHead: 550,
+    tagline: "Most popular",
+    includes: ["Welcome drink", "3 sweets", "5 curries", "Live counter (1)", "2 desserts"],
+    highlight: true,
+  },
+  {
+    name: "Premium",
+    pricePerHead: 850,
+    tagline: "Full royal spread",
+    includes: ["Welcome drink", "4 sweets", "7+ curries", "Live counters (2)", "Dessert bar"],
+    highlight: false,
+  },
+];
+
+/* ── 5c. WE CATER WHEREVER YOU CELEBRATE ──────────────────────────────── */
+export const VENUES = {
+  heading: "We Cater Wherever You Celebrate",
+  subheading:
+    "From intimate family gatherings to grand wedding receptions, our team brings authentic South Indian catering to your chosen venue across Chennai and surrounding areas.",
+  ctaLabel: "Book Your Event",
+  items: [
+    { label: "Marriage Halls", icon: Landmark, img: weddingHall },
+    { label: "Homes & Villas", icon: Home, img: bananaLeafFeastBlended },
+    { label: "Corporate Offices", icon: Briefcase, img: corporateCatering },
+    { label: "Outdoor Venues", icon: TreePine, img: banner1 },
+    { label: "Temples", icon: Church, img: brassLamps },
+    { label: "Convention Centers", icon: PartyPopper, img: banner3 },
+  ],
+};
 
 /* ── 6. EXPLORE OUR MENUS ──────────────────────────────────────────────── */
 export const MENU_CATEGORIES = [

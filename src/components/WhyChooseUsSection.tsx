@@ -67,9 +67,30 @@ export default function WhyChooseUsSection() {
               </h2>
             </div>
 
-            <p className="text-slate-600 text-sm leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
+            <p className="hidden md:block text-slate-600 text-sm leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
               Choosing the right caterer is essential to the success of any event, and at My Chennai Catering, we are committed to delivering an experience that goes beyond great food. We prepare every dish using fresh, high-quality ingredients while preserving the authentic flavours of South Indian cuisine. Our experienced chefs and professional service team work closely with you to create customized menus that suit your event, traditions, and budget. From planning and preparation to timely service and flawless execution, we handle every detail with care and precision.
             </p>
+
+            {/* Mobile: compact bullet checkmarks */}
+            <div className="md:hidden grid grid-cols-2 gap-2.5 pt-2">
+              {[
+                "Fresh Ingredients",
+                "Hygienic Kitchen",
+                "20+ Years Experience",
+                "Expert Chefs",
+                "Custom Menus",
+                "On-time Service",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                    <svg className="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-xs font-semibold text-slate-700">{item}</span>
+                </div>
+              ))}
+            </div>
 
             {/* HORIZONTAL FEATURES GRID */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-amber-900/10">
