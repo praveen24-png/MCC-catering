@@ -25,7 +25,7 @@ export default function MobileAppHeader() {
 
         {/* CENTER: MCC Logo + Location badge */}
         <Link to="/" className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform flex-1">
-          <div className="w-[64px] h-[64px] rounded-full bg-white border-2 border-amber-300 shadow-md overflow-hidden flex items-center justify-center">
+          <div className="w-[150px] h-[150px] rounded-full bg-white border-2 border-amber-300 shadow-md overflow-hidden flex items-center justify-center">
             <img
               src={logoImg}
               alt="MCC — My Chennai Catering"
@@ -60,11 +60,11 @@ export default function MobileAppHeader() {
             99403 96005
           </a>
           <a
-            href="tel:+919940832988"
+            href="tel:+919940396005"
             className="flex items-center gap-1 text-[10px] font-extrabold text-[#1E1108] hover:text-amber-700 transition-colors tracking-wide leading-none mt-0.5"
           >
             <Phone className="w-2.5 h-2.5 text-amber-600 shrink-0" />
-            99408 32988
+            99403 96005
           </a>
         </div>
       </div>

@@ -691,6 +691,30 @@ img, video, svg, canvas {
   }
 }
 
+/* ========================================================================= */
+/* MOBILE: ambient decoration must not sit on top of content.                */
+/* ========================================================================= */
+
+/* FoodPeekEdge sets `desktopOnly` (default TRUE) and applies this class —
+   but the rule was never written. So the landmark cut-outs rendered at full
+   280px on phones, straight over the text. This is what the component's own
+   docs already promise. */
+@media (max-width: 1023px) {
+  .food-peek-edge--desktop {
+    display: none !important;
+  }
+}
+
+/* AnimatedFoodDoodles + DoodleLayer are meant to be faint ambient texture,
+   but their SVGs are sized in fixed px, so on a 414px screen they read as
+   solid objects sitting on the copy. */
+@media (max-width: 767px) {
+  .afd-layer,
+  .doodle-layer {
+    opacity: 0.3;
+  }
+}
+
 /* ── Logo hover float effect ── */
 .mcc-logo-float:hover {
   transform: translateY(-3px) scale(1.03);

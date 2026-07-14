@@ -115,6 +115,16 @@ export default function CateringMenusSection() {
   };
 
   const handleRequestQuote = () => {
+    /* Remember WHICH package they were looking at. Previously this was
+       discarded, so the booking form had no idea what they'd clicked. */
+    const chosen = selectedMenu?.title ?? "";
+    if (chosen) {
+      sessionStorage.setItem("mcc_selected_package", chosen);
+      window.dispatchEvent(
+        new CustomEvent("mcc:select-package", { detail: chosen }),
+      );
+    }
+
     setSelectedMenu(null);
     const bookEl = document.getElementById("book");
     if (bookEl) {

@@ -1,4 +1,5 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
+import { publicAPI } from "@/services/api";
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
 import {
@@ -18,6 +19,7 @@ type FormState = {
   eventType: string;
   guests: string;
   budget: string;
+  package: string;
   venue: string;
 };
 
@@ -33,7 +35,22 @@ export default function BookingForm() {
     guests: "150",
     budget: "₹1000 - ₹1500",
     venue: "",
+    package: "",
   });
+
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  /* A package card elsewhere on the page (or on the page we just came from)
+     can pre-select a package. Without this the choice was thrown away. */
+  useEffect(() => {
+    const apply = (name: string) => {
+      if (name) setForm((f) => ({ ...f, package: name }));
+    };
+    apply(sessionStorage.getItem("mcc_selected_package") || "");
+    const onPick = (e: Event) => apply((e as CustomEvent<string>).detail);
+    window.addEventListener("mcc:select-package", onPick);
+    return () => window.removeEventListener("mcc:select-package", onPick);
+  }, []);
 
   const change = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -81,8 +98,42 @@ export default function BookingForm() {
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+
+    /* The backend requires name, phone and event date. */
+    if (!form.name.trim() || !form.phone.trim() || !form.date) {
+      setSubmitError("Please fill in your name, phone number and event date.");
+      return;
+    }
+
     setSubmitting(true);
 
+    /* ── 1. PERSIST TO THE CRM. This is the record that matters. ── */
+    try {
+      await publicAPI.submitEnquiry({
+        name: form.name,
+        phone: form.phone,
+        event_type: form.eventType,
+        event_date: form.date,
+        venue: form.venue,
+        guests: Number(form.guests) || undefined,
+        package: form.package || undefined,
+        special_requests: [
+          form.budget && `Budget: ${form.budget}`,
+          form.package && `Package: ${form.package}`,
+        ].filter(Boolean).join(" | "),
+      });
+      sessionStorage.removeItem("mcc_selected_package");
+    } catch (err) {
+      setSubmitting(false);
+      setSubmitError(
+        "We couldn't save your enquiry. Please try again, or call us on +91 99403 96005.",
+      );
+      return;   // don't show a success screen for an enquiry we lost
+    }
+
+    /* ── 2. Email notification. Best-effort; never blocks the success screen,
+           because the enquiry is already safely in the CRM. ── */
     try {
       await fetch("https://formsubmit.co/ajax/mychennaicateringservices@gmail.com", {
         method: "POST",
@@ -99,16 +150,17 @@ export default function BookingForm() {
           guests: form.guests,
           budget: form.budget,
           venue: form.venue,
+          package: form.package || "Not specified",
           _replyto: "mychennaicateringservices@gmail.com",
         }),
       });
     } catch (err) {
-      console.warn("API submission attempt completed with fallback option ready.", err);
-    } finally {
-      setSubmitting(false);
-      setSubmitted(true);
-      celebrate();
+      console.warn("Email notification failed (enquiry already saved):", err);
     }
+
+    setSubmitting(false);
+    setSubmitted(true);
+    celebrate();
   };
 
   if (submitted) {
@@ -296,7 +348,34 @@ export default function BookingForm() {
         </div>
       )}
 
-      <div className="flex gap-3 mt-8">
+      {form.package && (
+            <div className="mb-3 flex items-center gap-2 text-xs">
+              <span className="px-2.5 py-1 rounded-full bg-gold/15 border border-gold/40 text-plum-dark font-semibold">
+                Package: {form.package}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setForm((f) => ({ ...f, package: "" }));
+                  sessionStorage.removeItem("mcc_selected_package");
+                }}
+                className="text-plum/60 hover:text-plum underline"
+              >
+                clear
+              </button>
+            </div>
+          )}
+
+          {submitError && (
+            <div
+              role="alert"
+              className="mb-3 px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs"
+            >
+              {submitError}
+            </div>
+          )}
+
+          <div className="flex gap-3 mt-8">
         {step > 1 && (
           <button
             type="button"

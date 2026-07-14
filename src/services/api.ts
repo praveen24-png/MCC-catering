@@ -10,12 +10,17 @@ async function apiFetch(path: string, options: RequestInit = {}) {
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
   const res = await fetch(`${BASE}${path}`, { ...options, headers });
-  if (res.status === 401) {
+  /* The auth middleware returns 401 only when NO token is sent, and 403 when
+     jwt.verify() throws — which is what an EXPIRED token produces. Handling
+     401 alone left an expired session stuck: the UI still looked logged in,
+     but every read 403'd forever and no refresh could clear it. Treat both
+     as "this session is dead" and bounce to login. */
+  if (res.status === 401 || res.status === 403) {
     if (token) {
       localStorage.removeItem('feast_crm_token');
       window.location.reload();
     }
-    throw new Error('Unauthorized');
+    throw new Error('Session expired. Please sign in again.');
   }
   if (!res.ok) throw new Error(`API error: ${res.status}`);
   return res.json();
@@ -133,6 +138,36 @@ function transformClient(row: any) {
 }
 
 // ─── CRM API ────────────────────────────────────────────────────────────────
+
+export interface EnquiryItem {
+  menu_item_id?: number | null;
+  item_name: string;
+  quantity: number;
+  unit_price: number;
+  total_price: number;
+}
+
+export interface EnquiryPayload {
+  name: string;
+  phone: string;
+  email?: string | null;
+  city?: string | null;
+  event_type?: string;
+  event_date: string;          // required by the backend
+  venue?: string;
+  guests?: number;
+  package?: string;
+  special_requests?: string;
+  items?: EnquiryItem[];
+  total_amount?: number;
+}
+
+/** Public — no auth. Creates a client + a `pending` order + order_items,
+ *  which is exactly what the CRM dashboard reads. */
+export const publicAPI = {
+  submitEnquiry: (payload: EnquiryPayload) =>
+    apiFetch('/enquiries', { method: 'POST', body: JSON.stringify(payload) }),
+};
 
 export const crmAPI = {
   login: async (email: string, password: string) => {

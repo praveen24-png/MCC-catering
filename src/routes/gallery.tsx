@@ -182,7 +182,7 @@ function GalleryPage() {
           maxOpacity={0.45}
           behind
         />
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {GALLERY_ITEMS.map((item, index) => (
               <Reveal key={index} delay={index * 0.05}>

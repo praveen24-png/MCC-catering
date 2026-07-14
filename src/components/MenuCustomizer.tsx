@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search, X, Check, ChevronDown, ChevronRight, Users, Calendar,
@@ -14,6 +14,7 @@ import type { FoodItem } from "@/data/menuData";
 import bananaLeafFeast from "@/assets/banana-leaf-feast.png";
 import pageHeaderImg from "@/assets/page-header2.png";
 import { useNavigate } from "@tanstack/react-router";
+import { publicAPI, type EnquiryItem } from "@/services/api";
 
 const STEPS = [
   { id: 1, label: "Event Details", icon: Calendar },
@@ -31,9 +32,30 @@ export default function MenuCustomizer() {
   const navigate = useNavigate();
   const [currentStep, goToStepRaw] = useState(1);
 
+  /* Anchor for step navigation. Sits on the step progress rail, so changing
+     step lands the user on the rail + the top of the form — NOT the page hero. */
+  const stepRailRef = useRef<HTMLDivElement>(null);
+
   const goToStep = useCallback((step: number) => {
     goToStepRaw(step);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    /* Wait for the step to commit, then scroll the rail just under the
+       fixed header. Measure the header instead of hardcoding, so this stays
+       correct on mobile (shorter header) and desktop (top bar + nav). */
+    requestAnimationFrame(() => {
+      const rail = stepRailRef.current;
+      if (!rail) return;
+
+      const header = document.querySelector("header");
+      const headerH = header instanceof HTMLElement ? header.offsetHeight : 80;
+
+      const y = rail.getBoundingClientRect().top + window.scrollY - headerH - 8;
+
+      window.scrollTo({
+        top: Math.max(0, y),
+        behavior: "smooth",
+      });
+    });
   }, []);
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
@@ -160,7 +182,87 @@ export default function MenuCustomizer() {
     return foodCost + counterCost + addonCost;
   }, [selectedDishes, itemQuantities, guestCount, selectedLiveCounters, selectedAddons, addonQuantities]);
 
-  const handleWhatsApp = () => {
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  /** Everything the customer picked, as CRM line items. */
+  const buildEnquiryItems = (): EnquiryItem[] => {
+    const items: EnquiryItem[] = [];
+
+    selectedDishes.forEach((d) => {
+      const qty = itemQuantities[d.id] || 1;
+      const unit = d.pricePerHead || 0;
+      items.push({
+        item_name: d.name,
+        quantity: guestCount * qty,
+        unit_price: unit,
+        total_price: unit * guestCount * qty,
+      });
+    });
+
+    LIVE_COUNTERS.forEach((lc) => {
+      if (!selectedLiveCounters[lc.id]) return;
+      items.push({
+        item_name: `Live Counter — ${lc.name}`,
+        quantity: guestCount,
+        unit_price: lc.pricePerHead,
+        total_price: lc.pricePerHead * guestCount,
+      });
+    });
+
+    PREMIUM_ADDONS.forEach((pa) => {
+      if (!selectedAddons[pa.id]) return;
+      const qty = addonQuantities[pa.id] || 1;
+      items.push({
+        item_name: `Add-on — ${pa.name}`,
+        quantity: qty,
+        unit_price: pa.price,
+        total_price: pa.price * qty,
+      });
+    });
+
+    return items;
+  };
+
+  const handleWhatsApp = async () => {
+    setSubmitError(null);
+
+    /* The backend requires name, phone and event_date. Fail loudly here
+       rather than showing a success screen for an enquiry we never saved. */
+    if (!contactName.trim() || !contactPhone.trim() || !eventDate) {
+      setSubmitError("Please fill in your name, phone number and event date.");
+      return;
+    }
+
+    setSubmitting(true);
+
+    /* 1. PERSIST FIRST. This is what puts the enquiry in the CRM. */
+    try {
+      await publicAPI.submitEnquiry({
+        name: contactName,
+        phone: contactPhone,
+        email: contactEmail || null,
+        event_type: eventType,
+        event_date: eventDate,
+        venue,
+        guests: guestCount,
+        package: menuStyle,
+        special_requests: [
+          mealType && `Meal: ${mealType}`,
+          specialInstructions,
+        ].filter(Boolean).join(" | "),
+        items: buildEnquiryItems(),
+        total_amount: estimatedCost,
+      });
+    } catch (err) {
+      setSubmitting(false);
+      setSubmitError(
+        "We couldn't save your request. Please check your connection and try again, or call us on +91 99403 96005.",
+      );
+      return;   // do NOT show the success screen for an enquiry we lost
+    }
+
+    /* 2. Then hand off to WhatsApp exactly as before. */
     const dishNames = selectedDishes.map((d) => d.name).join(", ");
     const counters = LIVE_COUNTERS.filter((lc) => selectedLiveCounters[lc.id]).map((lc) => lc.name).join(", ");
     const addons = PREMIUM_ADDONS.filter((pa) => selectedAddons[pa.id]).map((pa) => pa.name).join(", ");
@@ -174,6 +276,7 @@ export default function MenuCustomizer() {
       `*Special Instructions:* ${specialInstructions || "None"}\n\n` +
       `Estimated Budget: ₹${estimatedCost.toLocaleString("en-IN")}\n\nPlease share a formal quotation!`;
     window.open(`https://wa.me/919940396005?text=${encodeURIComponent(text)}`, "_blank");
+    setSubmitting(false);
     setSubmitted(true);
   };
 
@@ -370,7 +473,7 @@ export default function MenuCustomizer() {
       </section>
 
       {/* STEP PROGRESS BAR */}
-      <div className="bg-white border-b border-[#E4DACB] overflow-x-auto">
+        <div ref={stepRailRef} className="bg-white border-b border-[#E4DACB] overflow-x-auto">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex items-center gap-0 min-w-max py-3">
             {STEPS.map((step, idx) => {
@@ -398,7 +501,7 @@ export default function MenuCustomizer() {
                     }`}>
                       {isCompleted ? <Check className="w-3 h-3" /> : step.id}
                     </div>
-                    <span className="hidden sm:inline">{step.label}</span>
+                    <span>{step.label}</span>
                   </button>
                   {idx < STEPS.length - 1 && (
                     <div className={`w-6 h-[2px] mx-1 ${isCompleted ? "bg-[#2E5D34]" : "bg-[#E4DACB]"}`} />
@@ -415,7 +518,7 @@ export default function MenuCustomizer() {
         <div className="flex flex-col lg:flex-row gap-6">
 
           {/* LEFT SIDEBAR (Steps Navigation) */}
-          <div className="lg:w-56 shrink-0">
+          <div className="hidden lg:block lg:w-56 shrink-0">
             <div className="bg-white rounded-2xl border border-[#E4DACB] p-3 space-y-1 sticky top-24">
               {STEPS.map((step) => {
                 const Icon = step.icon;
@@ -604,6 +707,8 @@ export default function MenuCustomizer() {
                     specialInstructions={specialInstructions}
                     setSpecialInstructions={setSpecialInstructions}
                     submitted={submitted}
+                    submitError={submitError}
+                    submitting={submitting}
                     handleSubmit={handleWhatsApp}
                     onBack={() => goToStep(6)}
                   />
@@ -1426,14 +1531,15 @@ function StepContactDetails({
   contactName, setContactName, contactPhone, setContactPhone,
   contactEmail, setContactEmail, venue, setVenue,
   specialInstructions, setSpecialInstructions, submitted,
-  handleSubmit, onBack,
+  submitError, submitting, handleSubmit, onBack,
 }: {
   contactName: string; setContactName: (v: string) => void;
   contactPhone: string; setContactPhone: (v: string) => void;
   contactEmail: string; setContactEmail: (v: string) => void;
   venue: string; setVenue: (v: string) => void;
   specialInstructions: string; setSpecialInstructions: (v: string) => void;
-  submitted: boolean; handleSubmit: () => void;
+  submitted: boolean; submitError: string | null; submitting: boolean;
+  handleSubmit: () => void;
   onBack: () => void;
 }) {
   if (submitted) {
@@ -1546,25 +1652,33 @@ function StepContactDetails({
       <div className="flex flex-col sm:flex-row justify-between gap-3 pt-2">
         <button
           onClick={onBack}
-          className="px-6 py-3 rounded-xl border border-[#E4DACB] text-[#3A1029] text-xs font-bold uppercase tracking-wider hover:bg-[#F2ECE1] transition-all"
+          disabled={submitting}
+          className="px-6 py-3 rounded-xl border border-[#E4DACB] text-[#3A1029] text-xs font-bold uppercase tracking-wider hover:bg-[#F2ECE1] transition-all disabled:opacity-50"
         >
           Back
         </button>
-        <div className="flex gap-2">
-          <button
-            onClick={handleSubmit}
-            disabled={!contactName || !contactPhone}
-            className="px-6 py-3 rounded-xl bg-[#25D366] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:bg-[#1DA851] transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <MessageCircle className="w-4 h-4" /> WhatsApp Quote
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={!contactName || !contactPhone}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#2E5D34] to-[#3A7A42] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Send className="w-4 h-4" /> Get My Quote
-          </button>
+        <div className="space-y-2">
+          {submitError && (
+            <div role="alert" className="px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs">
+              {submitError}
+            </div>
+          )}
+          <div className="flex gap-2">
+            <button
+              onClick={handleSubmit}
+              disabled={!contactName || !contactPhone || submitting}
+              className="px-6 py-3 rounded-xl bg-[#25D366] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:bg-[#1DA851] transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <MessageCircle className="w-4 h-4" /> {submitting ? "Saving..." : "WhatsApp Quote"}
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={!contactName || !contactPhone || submitting}
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#2E5D34] to-[#3A7A42] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Send className="w-4 h-4" /> {submitting ? "Saving..." : "Get My Quote"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

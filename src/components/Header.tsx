@@ -102,8 +102,6 @@ export default function Header() {
               <span>
                 Support:{" "}
                 <a href="tel:+919940396005" className="hover:text-gold-dark font-bold text-zinc-700">+91 99403 96005</a>
-                {" / "}
-                <a href="tel:+919940832988" className="hover:text-gold-dark font-bold text-zinc-700">+91 99408 32988</a>
               </span>
             </div>
             <div className="w-px h-3 bg-zinc-200" />
@@ -139,9 +137,9 @@ export default function Header() {
       </div>
 
       {/* Mobile Navbar Row */}
-      <div className="lg:hidden max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between">
+      <div className="lg:hidden max-w-7xl mx-auto px-4 py-1 flex items-center justify-between">
         <Link to="/" className="flex items-center group relative z-10">
-          <div className="w-16 h-16 flex items-center justify-center">
+          <div className="w-24 h-24 flex items-center justify-center">
             <img src={logoImg} alt="My Chennai Catering" className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
           </div>
         </Link>
@@ -165,7 +163,7 @@ export default function Header() {
       {/* Desktop Absolutely Positioned Logo Overlay */}
       <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${scrolled ? "top-0" : "top-[10px] md:top-[12px]"}`}>
         <Link to="/" className="group block">
-              <div className={`flex items-center justify-center transition-all duration-300 ${scrolled ? "w-14 h-14 md:w-16 md:h-16" : "w-[200px] h-[200px]"}`}>
+              <div className={`flex items-center justify-center transition-all duration-300 ${scrolled ? "w-24 h-24 md:w-28 md:h-28" : "w-[200px] h-[200px]"}`}>
             <img src={logoImg} alt="My Chennai Catering" className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
           </div>
         </Link>
@@ -200,10 +198,6 @@ export default function Header() {
                 <a href="tel:+919940396005" className="text-center px-5 py-3 rounded-full bg-gold text-plum-dark text-[10px] font-bold uppercase tracking-[0.18em] shadow-md hover:bg-gold-dark transition-colors flex items-center justify-center gap-2">
                   <Phone className="w-3.5 h-3.5 fill-current text-plum-dark" />
                   <span>Call: +91 99403 96005</span>
-                </a>
-                <a href="tel:+919940832988" className="text-center px-5 py-3 rounded-full bg-gold text-plum-dark text-[10px] font-bold uppercase tracking-[0.18em] shadow-md hover:bg-gold-dark transition-colors flex items-center justify-center gap-2">
-                  <Phone className="w-3.5 h-3.5 fill-current text-plum-dark" />
-                  <span>Call: +91 99408 32988</span>
                 </a>
               </div>
             </div>

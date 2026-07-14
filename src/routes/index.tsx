@@ -63,6 +63,7 @@ import { FoodPeekEdge } from "@/components/FoodPeekEdge";
 import { SlideIn } from "@/components/SlideIn";
 import { AnimatedFoodDoodles } from "@/components/AnimatedFoodDoodles";
 import { ScrollCutouts } from "@/components/ScrollCutouts";
+import { SikkuKolam } from "@/components/SikkuKolam";
 import HowItWorks from "@/components/HowItWorks";
 import cutLeafPlatter from "@/assets/cutout-leaf-platter.png";
 import cutBiryani from "@/assets/cutout-biryani.png";
@@ -277,7 +278,7 @@ const SlideContent = ({ slide, currentSlide, onScrollToBook }: SlideContentProps
         )}
       </div>
 
-      <h1 className="font-serif text-6xl text-[#e0bb9b] leading-tight tracking-wide font-medium mt-2 max-w-4xl flex flex-wrap justify-center gap-x-3 overflow-hidden py-1 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
+      <h1 className="font-serif text-3xl md:text-6xl text-[#e0bb9b] leading-tight tracking-wide font-medium mt-2 max-w-4xl flex flex-wrap justify-center gap-x-3 overflow-hidden py-1 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
         {slide.title.split(" ").map((word: string, wIdx: number) => (
           <span key={wIdx} className="inline-block overflow-hidden">
             <span className="hero-title-word inline-block transform translate-y-[115%] opacity-0">
@@ -532,12 +533,12 @@ function Index() {
   return (
     <>
       {/* Mobile */}
-      <div className="block xl:hidden">
+      <div className="block lg:hidden">
         <MobileAppHome />
       </div>
 
       {/* Desktop */}
-      <div className="hidden xl:block relative overflow-x-hidden w-full">
+      <div className="hidden lg:block relative overflow-x-hidden w-full">
         {/* Scroll-Driven Floating Spices & Floral Elements */}
         <FloatingDecorElement
           type="branch"
@@ -758,11 +759,11 @@ function Index() {
         <section id="stats-banner" className="bg-[#FAF6F0] pt-6 pb-12 px-8 relative">
           <div className="max-w-6xl mx-auto">
               <div className="bg-gradient-to-r from-[#4d1234] via-[#541539] to-[#3f0e2b] rounded-3xl shadow-xl text-white py-6 px-10 border border-amber-400/30">
-              <div className="grid grid-cols-4 gap-0 divide-x divide-amber-400/20 text-center">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-amber-400/20 text-center">
                 {/* Stat 1 */}
                 <div className="flex flex-col items-center justify-center py-0 px-4">
                   <Target className="w-5 h-5 text-amber-300 mb-1.5 opacity-90" />
-                  <span className="stat-val-1 font-serif text-4xl font-bold tracking-tight text-white">
+                  <span className="stat-val-1 font-serif text-3xl md:text-4xl font-bold tracking-tight text-white">
                     0+
                   </span>
                   <span className="text-xs font-semibold tracking-wider text-amber-200/90 uppercase mt-1">
@@ -775,7 +776,7 @@ function Index() {
                 {/* Stat 2 */}
                 <div className="flex flex-col items-center justify-center py-0 px-4">
                   <Crown className="w-5 h-5 text-amber-300 mb-1.5 opacity-90" />
-                  <span className="stat-val-2 font-serif text-4xl font-bold tracking-tight text-white">
+                  <span className="stat-val-2 font-serif text-3xl md:text-4xl font-bold tracking-tight text-white">
                     0+
                   </span>
                   <span className="text-xs font-semibold tracking-wider text-amber-200/90 uppercase mt-1">
@@ -788,7 +789,7 @@ function Index() {
                 {/* Stat 3 */}
                 <div className="flex flex-col items-center justify-center py-0 px-4">
                   <UtensilsCrossed className="w-5 h-5 text-amber-300 mb-1.5 opacity-90" />
-                  <span className="stat-val-3 font-serif text-4xl font-bold tracking-tight text-white">
+                  <span className="stat-val-3 font-serif text-3xl md:text-4xl font-bold tracking-tight text-white">
                     0+
                   </span>
                   <span className="text-xs font-semibold tracking-wider text-amber-200/90 uppercase mt-1">
@@ -801,7 +802,7 @@ function Index() {
                 {/* Stat 4 */}
                 <div className="flex flex-col items-center justify-center py-0 px-4">
                   <Sparkles className="w-5 h-5 text-amber-300 mb-1.5 opacity-90" />
-                  <span className="stat-val-4 font-serif text-4xl font-bold tracking-tight text-white">
+                  <span className="stat-val-4 font-serif text-3xl md:text-4xl font-bold tracking-tight text-white">
                     0+
                   </span>
                   <span className="text-xs font-semibold tracking-wider text-amber-200/90 uppercase mt-1">
@@ -847,7 +848,7 @@ function Index() {
             { src: cutSweets, side: "right", top: "10%", size: 220, rotate: -8 },
           ]} />
           <div className="max-w-6xl mx-auto px-6 relative z-10">
-            <div className="grid grid-cols-2 gap-10 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
               <div className="space-y-5 text-left lg:pl-4">
                 <Reveal>
                   <div className="flex items-center justify-start gap-3">
@@ -859,7 +860,7 @@ function Index() {
                     </span>
                   </div>
 
-                  <h2 className="font-serif text-5xl text-[#3A1029] font-bold mt-2">
+                  <h2 className="font-serif text-3xl md:text-5xl text-[#3A1029] font-bold mt-2">
                     Welcome to My Chennai Catering
                   </h2>
 
@@ -912,12 +913,12 @@ function Index() {
           <ScrollCutouts variant="background" cutouts={[
             { src: cutSweets, side: "right", top: "-5%", size: 180, rotate: -6 },
           ]} />
-          <div className="max-w-7xl mx-auto px-8 relative z-10">
+          <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
                 OUR SERVICES
               </span>
-              <h2 className="font-serif text-5xl text-[#3A1029] font-bold mt-2">
+              <h2 className="font-serif text-3xl md:text-5xl text-[#3A1029] font-bold mt-2">
                 Our Catering Services
               </h2>
 
@@ -928,7 +929,7 @@ function Index() {
               </div>
             </div>
 
-            <div className="grid grid-cols-6 gap-6 relative z-10">
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-6 relative z-10">
               {SERVICES_OFFERED.map((service, index) => {
                 const Icon = service.icon;
                 return (
@@ -985,12 +986,12 @@ function Index() {
             { src: cutLeafPlatter, side: "right", top: "5%", size: 260, rotate: -6 },
             { src: cutSpices, side: "left", top: "65%", size: 240, rotate: 8 },
           ]} />
-          <div className="max-w-7xl mx-auto px-8">
+          <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
                 OUR MENU
               </span>
-              <h2 className="font-serif text-5xl text-[#3A1029] font-bold mt-2">
+              <h2 className="font-serif text-3xl md:text-5xl text-[#3A1029] font-bold mt-2">
                 Our Signature Menu
               </h2>
               <p className="text-slate-600 text-sm mt-3 max-w-lg mx-auto font-normal">
@@ -1007,7 +1008,7 @@ function Index() {
 
             <FloatingFoodDoodles section="menu" />
 
-            <div className="grid grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-4 md:gap-6">
               {MENU_CATEGORIES.map((menu, index) => (
                 <Reveal key={index} delay={index * 0.05}>
                   <Link
@@ -1072,7 +1073,7 @@ function Index() {
           </div>
 
           <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_80%_30%,rgba(212,175,55,0.25),transparent_60%)]" />
-          <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center z-10">
+          <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center z-10">
             {/* PORTRAIT CAROUSEL WITH ENHANCED BACKGROUND */}
             <Reveal>
               <div className="relative group">
@@ -1278,7 +1279,9 @@ function Index() {
 
         {/* TESTIMONIALS */}
         <SectionDoodleDivider variant="kolam" />
-        <section id="testimonials" className="py-24 bg-plum text-cream">
+        <section id="testimonials" className="py-24 bg-plum text-cream relative overflow-hidden">
+          <SikkuKolam grid={4} side="left"  top="50%" rotate={-14} opacity={0.16} />
+          <SikkuKolam grid={4} side="right" top="50%" rotate={14} mirrored opacity={0.16} />
           <ScrollCutouts variant="prominent" cutouts={[
             { src: cutSweets, side: "left", top: "20%", size: 280, rotate: 8 },
             { src: lmRotunda, side: "right", top: "65%", size: 260, rotate: -6 },

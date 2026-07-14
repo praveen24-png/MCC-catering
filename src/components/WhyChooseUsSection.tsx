@@ -1,10 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useId } from "react";
 import { Leaf, Utensils, ShieldCheck, ChefHat } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import buffetCounterImage from "@/assets/banner 3.jpg";
 
 export default function WhyChooseUsSection() {
   const containerRef = useRef<HTMLElement>(null);
+  const uid = useId();
+  const g1 = `leafGrad1-${uid}`;
+  const g2 = `leafGrad2-${uid}`;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -113,30 +116,30 @@ export default function WhyChooseUsSection() {
         {/* Leaf Branch */}
         <motion.div
           style={{ y: leafY, rotate: leafRotate }}
-          className="absolute left-[45%] lg:left-[48%] top-[35%] w-28 sm:w-36 md:w-44 h-auto filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.15)]"
+          className="hidden lg:block absolute left-[45%] lg:left-[48%] top-[35%] w-28 sm:w-36 md:w-44 h-auto filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.15)]"
         >
           <svg viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
             {/* Stem */}
             <path d="M60,180 Q55,100 65,10" stroke="#15803d" strokeWidth="3" strokeLinecap="round" />
             {/* Leaf 1 (Top Left) */}
-            <path d="M62,60 C40,40 20,50 30,80 C38,100 55,90 62,75 Z" fill="url(#leafGrad1)" />
+            <path d="M62,60 C40,40 20,50 30,80 C38,100 55,90 62,75 Z" fill={`url(#${g1})`} />
             <path d="M62,75 Q50,75 30,80" stroke="#14532d" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
             {/* Leaf 2 (Top Right) */}
-            <path d="M63,40 C85,20 105,30 95,60 C87,80 70,70 63,55 Z" fill="url(#leafGrad2)" />
+            <path d="M63,40 C85,20 105,30 95,60 C87,80 70,70 63,55 Z" fill={`url(#${g2})`} />
             <path d="M63,55 Q75,55 95,60" stroke="#14532d" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
             {/* Leaf 3 (Bottom Left) */}
-            <path d="M60,110 C35,90 15,100 25,130 C33,150 50,140 60,125 Z" fill="url(#leafGrad1)" />
+            <path d="M60,110 C35,90 15,100 25,130 C33,150 50,140 60,125 Z" fill={`url(#${g1})`} />
             <path d="M60,125 Q48,125 25,130" stroke="#14532d" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
             {/* Leaf 4 (Bottom Right) */}
-            <path d="M61,90 C83,70 103,80 93,110 C85,130 68,120 61,105 Z" fill="url(#leafGrad2)" />
+            <path d="M61,90 C83,70 103,80 93,110 C85,130 68,120 61,105 Z" fill={`url(#${g2})`} />
             <path d="M61,105 Q73,105 93,110" stroke="#14532d" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
 
             <defs>
-              <linearGradient id="leafGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient id={g1} x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#4ade80" />
                 <stop offset="100%" stopColor="#15803d" />
               </linearGradient>
-              <linearGradient id="leafGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <linearGradient id={g2} x1="100%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stopColor="#86efac" />
                 <stop offset="100%" stopColor="#166534" />
               </linearGradient>
@@ -147,7 +150,7 @@ export default function WhyChooseUsSection() {
         {/* Spice Seed 1 (Crimson Peppercorn) */}
         <motion.div
           style={{ y: seed1Y, x: seed1X, rotate: seed1Rotate }}
-          className="absolute left-[42%] lg:left-[45%] top-[40%] w-3 sm:w-4 h-3 sm:h-4 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]"
+          className="hidden lg:block absolute left-[42%] lg:left-[45%] top-[40%] w-3 sm:w-4 h-3 sm:h-4 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]"
         >
           <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
             <circle cx="10" cy="10" r="8" fill="url(#seedGrad1)" />
@@ -164,7 +167,7 @@ export default function WhyChooseUsSection() {
         {/* Spice Seed 2 (Gold Pepper Seed) */}
         <motion.div
           style={{ y: seed2Y, x: seed2X, rotate: seed2Rotate }}
-          className="absolute left-[54%] lg:left-[56%] top-[30%] w-2 sm:w-3 h-2 sm:h-3 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]"
+          className="hidden lg:block absolute left-[54%] lg:left-[56%] top-[30%] w-2 sm:w-3 h-2 sm:h-3 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]"
         >
           <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
             <circle cx="10" cy="10" r="8" fill="url(#seedGrad2)" />
@@ -181,7 +184,7 @@ export default function WhyChooseUsSection() {
         {/* Spice Seed 3 (Small Crimson Peppercorn) */}
         <motion.div
           style={{ y: seed3Y, x: seed3X }}
-          className="absolute left-[48%] lg:left-[51%] top-[50%] w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]"
+          className="hidden lg:block absolute left-[48%] lg:left-[51%] top-[50%] w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.15)]"
         >
           <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
             <circle cx="10" cy="10" r="8" fill="url(#seedGrad1)" />

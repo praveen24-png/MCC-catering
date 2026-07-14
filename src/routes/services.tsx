@@ -271,7 +271,7 @@ export function ServicesPage() {
           behind
         />
         <FloatingFoodDoodles section="services" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 space-y-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 space-y-20 relative z-10">
           {EXPANDED_SERVICES.map((s, idx) => (
             <Reveal key={s.id} delay={idx * 0.1}>
               <div
@@ -357,7 +357,7 @@ export function ServicesPage() {
           { src: cutTiffin, side: "left", top: "10%", size: 260, rotate: -8 },
           { src: lmGopuram, side: "right", top: "55%", size: 280, rotate: 6 },
         ]} />
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-6 relative z-10">
           <Reveal>
             <div className="relative overflow-hidden rounded-2xl shadow-lg">
               <img
@@ -378,7 +378,7 @@ export function ServicesPage() {
           { src: cutLeafPlatter, side: "left", top: "10%", size: 280, rotate: -8 },
           { src: cutBiryani, side: "right", top: "50%", size: 260, rotate: 6 },
         ]} />
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
           <Reveal>
             <div className="text-center max-w-3xl mx-auto space-y-4 mb-14">
               <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">
@@ -442,7 +442,7 @@ export function ServicesPage() {
 
       {/* CALL TO ACTION / FREE CONSULTATION FORM */}
       <section className="py-16 bg-cream border-t border-plum/10">
-        <div className="max-w-4xl mx-auto px-6 text-center space-y-6">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-6 relative z-10">
           <span className="text-xs font-bold uppercase tracking-[0.25em] text-gold">
             Get a Free Consultation
           </span>

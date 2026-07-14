@@ -94,7 +94,7 @@ function Contact() {
         />
         <DoodleLayer section="contact" />
         <FloatingFoodDoodles section="contact" />
-        <div className="max-w-7xl mx-auto px-4 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
+        <div className="max-w-7xl mx-auto px-4 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 relative z-10">
           <Reveal>
             <span className="text-[11px] uppercase tracking-[0.3em] text-gold">Get in touch</span>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-plum mt-4 leading-[1.1]">

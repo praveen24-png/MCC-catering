@@ -327,7 +327,7 @@ export function About() {
           { src: cutSweets, side: "right", top: "12%", size: 260, rotate: -6 },
           { src: cutTiffin, side: "left", top: "58%", size: 280, rotate: 8 },
         ]} />
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-800">
               Uncompromising Standards
@@ -442,7 +442,7 @@ export function About() {
           className="absolute inset-0 w-full h-full object-cover opacity-10"
           loading="lazy"
         />
-        <div className="max-w-7xl mx-auto space-y-8 text-center">
+        <div className="max-w-7xl mx-auto space-y-8 text-center relative z-10">
           <Reveal>
             <div className="space-y-3 max-w-3xl mx-auto">
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-300">

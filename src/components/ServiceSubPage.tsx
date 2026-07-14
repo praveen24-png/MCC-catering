@@ -150,7 +150,7 @@ export default function ServiceSubPage({
             rotate={peekSide === "left" ? 8 : -8}
           />
         )}
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-800">
               Why Choose MCC Catering
@@ -192,7 +192,7 @@ export default function ServiceSubPage({
 
       {/* 3. INTERNAL LINKING & REINFORCING BRAND NARRATIVE */}
       <section className="bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-amber-500/10 py-12 px-4 sm:px-8 border-y border-amber-900/10">
-        <div className="max-w-5xl mx-auto text-center space-y-4">
+        <div className="max-w-5xl mx-auto text-center space-y-4 relative z-10">
           <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#3A1029]">
             Over Two Decades of Premium Culinary Legacy
           </h3>

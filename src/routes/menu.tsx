@@ -244,7 +244,7 @@ function MenuPage() {
           speed={0.13}
           rotate={7}
         />
-        <div className="max-w-6xl mx-auto px-6 lg:px-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-6xl mx-auto px-6 lg:px-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
           {SECTIONS.map((s) => (
             <Reveal key={s.t}>
               <div className="p-7 rounded-3xl border border-plum/10 bg-white h-full hover:border-gold hover:shadow-glow-gold transition-all">

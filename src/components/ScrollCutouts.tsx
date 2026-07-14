@@ -50,10 +50,12 @@ export function ScrollCutouts({
         const p = Math.min(1, Math.max(0, raw));
         const html = el as HTMLElement;
         const side = html.dataset.side === "left" ? 1 : -1;
-        const speed = 0.12;
+        const isPhone = window.innerWidth < 768;
+        const peek = isPhone ? 16 : 60;
+        const speed = isPhone ? 0.05 : 0.12;
         const spin = parseFloat(html.dataset.spin ?? "6");
         const baseRot = parseFloat(html.dataset.rot ?? "0");
-        const peekOffset = side * p * 60;
+        const peekOffset = side * p * peek;
         const y = -(p - 0.5) * 2 * (vh * speed);
         const r = baseRot + (p - 0.5) * 2 * spin;
         const o = variant === "prominent" ? 1 : Math.min(maxO, p * 2.5);
@@ -107,13 +109,14 @@ export function ScrollCutouts({
           data-side={c.side}
           data-rot={c.rotate}
           data-spin="6"
-          style={{
-            top: c.top,
-            [c.side]: "-60px",
-            width: c.size,
-            opacity: variant === "prominent" ? 1 : 0,
-            transform: `rotate(${c.rotate}deg)`,
-          }}
+          style={
+            {
+              top: c.top,
+              "--sc-size": `${c.size}px`,
+              opacity: variant === "prominent" ? 1 : 0,
+              transform: `rotate(${c.rotate}deg)`,
+            } as React.CSSProperties
+          }
         >
           <img src={c.src} alt="" loading="lazy" decoding="async" />
         </div>
