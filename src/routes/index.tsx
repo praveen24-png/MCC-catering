@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { animate, stagger, remove } from "animejs";
 import {
   Award,
@@ -45,7 +46,7 @@ import banner3 from "@/assets/banner 3.jpg";
 import {
   HERO_SLIDES, PORTRAIT_SLIDES, TAMIL_MESSAGES, SERVICES_OFFERED,
   MENU_CATEGORIES, FAQS, FOOD_PEEK_ITEMS, GALLERY_ITEMS, TESTIMONIALS,
-  PHILOSOPHY_BADGES,
+  PHILOSOPHY_BADGES, VENUES,
 } from "@/data/homeContent";
 import CateringMenusSection from "@/components/CateringMenusSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
@@ -391,6 +392,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const SCROLL_MT = "scroll-mt-[180px]";
   const ref = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLElement>(null);
 
@@ -664,7 +666,7 @@ function Index() {
         {/* ========================================================================= */}
         <section
           ref={ref}
-          className="relative -mt-[132px] min-h-screen text-cream flex items-center justify-center pt-[250px] pb-24 overflow-hidden bg-black select-none"
+          className="relative min-h-screen text-cream flex items-center justify-center pt-[120px] pb-24 overflow-hidden bg-black select-none"
         >
           <DoodleLayer section="hero" />
           {/* Background Image Carousel */}
@@ -978,6 +980,61 @@ function Index() {
         </section>
 
         {/* ========================================================================= */}
+        {/* 3b. WE CATER WHEREVER YOU CELEBRATE                                     */}
+        {/* ========================================================================= */}
+        <section className="py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+          <div className="max-w-6xl mx-auto px-6 lg:px-10 text-center relative z-10">
+            <Reveal>
+              <h2 className="font-serif text-3xl md:text-5xl text-[#3A1029] font-bold">
+                {VENUES.heading}
+              </h2>
+              <p className="mt-5 text-foreground/70 leading-relaxed max-w-2xl mx-auto">
+                {VENUES.subheading}
+              </p>
+            </Reveal>
+
+            <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-5">
+              {VENUES.items.map((venue, i) => {
+                const Icon = venue.icon;
+                return (
+                  <Reveal key={venue.label} delay={i * 0.05}>
+                    <div className="bg-white rounded-2xl overflow-hidden border border-amber-900/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+                      <div className="relative h-36 overflow-hidden">
+                        <img
+                          src={venue.img}
+                          alt={venue.label}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#2A163F]/70 via-transparent to-transparent" />
+                        <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shrink-0">
+                            <Icon className="w-4 h-4 text-[#541539]" />
+                          </div>
+                          <span className="text-sm font-bold text-white tracking-wide drop-shadow">
+                            {venue.label}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+
+            <div className="mt-12">
+              <Link
+                to="/"
+                hash="book"
+                className="inline-flex items-center gap-2 px-10 py-3.5 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                <span>{VENUES.ctaLabel}</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
         {/* 4. EXPLORE OUR MENUS SECTION                                             */}
         {/* ========================================================================= */}
         <section className="py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
@@ -1279,7 +1336,7 @@ function Index() {
 
         {/* TESTIMONIALS */}
         <SectionDoodleDivider variant="kolam" />
-        <section id="testimonials" className="py-24 bg-plum text-cream relative overflow-hidden">
+        <section id="testimonials" className={`py-24 bg-plum text-cream relative overflow-hidden ${SCROLL_MT}`}>
           <SikkuKolam grid={4} side="left"  top="50%" rotate={-14} opacity={0.16} />
           <SikkuKolam grid={4} side="right" top="50%" rotate={14} mirrored opacity={0.16} />
           <ScrollCutouts variant="prominent" cutouts={[
@@ -1301,7 +1358,7 @@ function Index() {
                   <div className="bg-plum-dark/60 backdrop-blur rounded-3xl p-7 border border-gold/20 h-full">
                     <div className="flex gap-1 text-gold mb-4">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-gold" />
+                        <Star key={i} className="w-[18px] h-[18px] fill-gold text-gold" />
                       ))}
                     </div>
                     <p className="text-cream/85 leading-relaxed italic font-serif text-lg">
@@ -1318,7 +1375,7 @@ function Index() {
         </section>
 
         {/* GALLERY SECTION */}
-        <section id="gallery" className="py-24 bg-cream relative overflow-hidden">
+        <section id="gallery" className={`py-24 bg-cream relative overflow-hidden ${SCROLL_MT}`}>
           <AnimatedFoodDoodles section="gallery" />
           <ScrollCutouts variant="prominent" cutouts={[
             { src: cutTiffin, side: "left", top: "12%", size: 280, rotate: -6 },
@@ -1509,7 +1566,7 @@ function Index() {
 
         {/* CTA / BOOKING & BOTTOM QUALITY BANNER */}
         <SectionDoodleDivider variant="kolam" />
-        <section id="book" ref={bookRef} tabIndex={-1} className="py-24 bg-cream scroll-mt-24 md:scroll-mt-28 outline-none">
+        <section id="book" ref={bookRef} tabIndex={-1} className={`py-24 bg-cream outline-none ${SCROLL_MT}`}>
           <div className="max-w-6xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
             <Reveal>
               <span className="text-[11px] tracking-[0.3em] uppercase text-gold">

@@ -5,7 +5,11 @@ interface GarlandProps {
   count?: number; // Number of arches
 }
 
-export default function MarigoldGarland({ className = "", count = 12 }: GarlandProps) {
+export default function MarigoldGarland(_: GarlandProps) {
+  return null;
+}
+
+function MarigoldGarlandDisabled({ className = "", count = 12 }: GarlandProps) {
   return (
     <div className={`w-full overflow-hidden pointer-events-none select-none flex justify-around ${className}`}>
       {Array.from({ length: count }).map((_, archIndex) => (

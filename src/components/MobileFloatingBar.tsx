@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 
 export default function MobileFloatingBar() {
   return (
-    <div className="xl:hidden fixed bottom-3 left-4 right-4 z-40 bg-plum-dark/95 backdrop-blur-md border border-gold/30 rounded-full p-2 shadow-2xl flex items-center justify-between text-cream">
+    <div className="lg:hidden fixed bottom-3 left-4 right-4 z-40 bg-plum-dark/95 backdrop-blur-md border border-gold/30 rounded-full p-2 shadow-2xl flex items-center justify-between text-cream">
       {/* Call Direct */}
       <a
         href="tel:+919940396005"

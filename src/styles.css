@@ -229,6 +229,11 @@
   }
 }
 
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
 @keyframes leafFloat {
   0% {
     transform: translateY(0px) rotate(0deg);
@@ -277,6 +282,10 @@
 
 .animate-leaf-sway {
   animation: leafSway 6s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 12s linear infinite;
 }
 
 .animate-leaf-sway-reverse {
@@ -365,7 +374,6 @@ html, body {
 
 img, video, svg, canvas {
   max-width: 100%;
-  height: auto;
   display: block;
 }
 

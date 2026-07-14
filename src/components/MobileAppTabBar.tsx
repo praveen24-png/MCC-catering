@@ -1,11 +1,12 @@
 import { Link, useRouter } from "@tanstack/react-router";
-import { Home, UtensilsCrossed, ChefHat, Image as ImageIcon, PhoneCall } from "lucide-react";
+import { Home, UtensilsCrossed, ChefHat, Image as ImageIcon, Star, PhoneCall } from "lucide-react";
 
 const TABS = [
   { to: "/", label: "Home", icon: Home, exact: true },
   { to: "/services", label: "Services", icon: UtensilsCrossed, exact: false },
   { to: "/builder", label: "Build", icon: ChefHat, exact: false, center: true },
   { to: "/gallery", label: "Gallery", icon: ImageIcon, exact: false },
+  { to: "/#testimonials", label: "Reviews", icon: Star, hash: "testimonials", exact: false },
   { to: "/contact", label: "Contact", icon: PhoneCall, exact: false },
 ];
 
@@ -17,14 +18,36 @@ export default function MobileAppTabBar() {
     exact ? currentPath === to : currentPath.startsWith(to);
 
   return (
-    <div className="xl:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/97 backdrop-blur-lg border-t border-neutral-100 shadow-2xl">
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/97 backdrop-blur-lg border-t border-neutral-100 shadow-2xl">
       <div className="flex items-end justify-around h-[60px] max-w-md mx-auto px-2 relative">
         {TABS.map((tab) => {
           const active = isActive(tab.to, tab.exact ?? false);
           const Icon = tab.icon;
 
-          if (tab.center) {
+          if (tab.hash) {
             return (
+              <Link
+                key={tab.label}
+                to="/"
+                hash={tab.hash}
+                resetScroll={false}
+                className="flex-1 flex flex-col items-center justify-center py-2 h-full relative active:scale-90 transition-transform"
+              >
+                <div className="relative flex flex-col items-center gap-1 transition-all duration-200">
+                  <Icon
+                    className="w-[18px] h-[18px] text-neutral-400"
+                    strokeWidth={1.8}
+                  />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">
+                    {tab.label}
+                  </span>
+                </div>
+              </Link>
+            );
+          }
+
+          if (tab.center) {
+          return (
               <div key={tab.label} className="relative -top-5 flex flex-col items-center">
                 <Link
                   to={tab.to}

@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -14,6 +15,7 @@ import { reportAppError } from "../lib/error-reporting";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CateringChatbot from "../components/CateringChatbot";
+import MobileAppTabBar from "../components/MobileAppTabBar";
 
 import { SkylineDivider } from "../components/site/SkylineDivider";
 import { GrainOverlay } from "../components/GrainDivider";
@@ -123,6 +125,36 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function HashScroller() {
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log("[HashScroller] location.hash:", location.hash, "location.pathname:", location.pathname);
+    console.log("[HashScroller] window.location.hash:", window.location.hash);
+    if (!location.hash) return;
+
+    const id = location.hash.substring(1);
+    console.log("[HashScroller] looking for element id:", id);
+
+    const scroll = () => {
+      const el = document.getElementById(id);
+      if (!el) {
+        requestAnimationFrame(scroll);
+        return;
+      }
+      console.log("[HashScroller] found element, scrolling to", el.getBoundingClientRect().top + window.scrollY - 180);
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY - 180,
+        behavior: "smooth",
+      });
+    };
+
+    requestAnimationFrame(scroll);
+  }, [location.pathname, location.hash]);
+
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -132,7 +164,8 @@ function RootComponent() {
         <GrainOverlay />
         <KolamVine />
         <Header />
-        <main className="flex-1" style={{ paddingTop: "clamp(140px, 13vw, 170px)" }}>
+        <HashScroller />
+        <main className="flex-1 pt-[172px] lg:pt-[clamp(140px,13vw,170px)] pb-[72px] lg:pb-0">
           <Outlet />
           <SkylineDivider />
         </main>
@@ -145,6 +178,7 @@ function RootComponent() {
           />
         )}
         <CateringChatbot />
+        <MobileAppTabBar />
       </div>
     </QueryClientProvider>
   );
