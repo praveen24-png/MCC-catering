@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { ScrollCutouts } from "@/components/ScrollCutouts";
+import { KolamLineArt } from "@/components/KolamLineArt";
 import { FoodPeekEdge } from "@/components/FoodPeekEdge";
 import lmChurch from "@/assets/cutout-landmark-gothic-church.png";
 import cutBiryani from "@/assets/cutout-biryani.png";
@@ -16,8 +17,13 @@ import bananaLeafFeastBlended from "@/assets/banana-leaf-feast-blended.png";
 import liveCounter from "@/assets/images-31.jpeg";
 import buffetCounter from "@/assets/images-32.jpeg";
 import gulabJamun from "@/assets/IMG-20260327-WA0010.jpg.jpeg";
-import founder from "@/assets/IMG-20260331-WA0002.jpg.jpeg";
 import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
+import vipWeddingSetup from "@/assets/VIP Wedding Couple Catering Setup.jpg";
+import liveDosaCounter from "@/assets/Live Dosa & Chaat Counter.jpg";
+import chandelierBuffet from "@/assets/Chandelier Buffet Setup.webp";
+import pureGheeSweets from "@/assets/Pure Ghee Traditional Sweets.jpg";
+import brassLampsDecor from "@/assets/Traditional Brass Lamps & Decor.jpg";
+import goppuram2 from "@/assets/goppuram-2.png";
 import { FloatingFoodDoodles } from "@/components/FloatingDoodles";
 import { DoodleLayer } from "@/components/DoodleLayer";
 import { AnimatedFoodDoodles } from "@/components/AnimatedFoodDoodles";
@@ -25,21 +31,12 @@ import { BananaLeafDivider } from "@/components/GrainDivider";
 import { FoodPeek } from "@/components/FoodPeek";
 import { Camera } from "lucide-react";
 
-const VENUE_TABS = [
-  "All",
-  "Marriage Halls",
-  "Homes & Villas",
-  "Corporate Offices",
-  "Outdoor Venues",
-  "Temples",
-] as const;
-
 const GALLERY_ITEMS = [
   {
     title: "VIP Wedding Couple Catering Setup",
     category: "Wedding Dinners",
     venue: "Marriage Halls",
-    img: weddingHall,
+    img: vipWeddingSetup,
     desc: "Luxury flower & silk curtain dining table arrangement for newlyweds.",
   },
   {
@@ -60,35 +57,28 @@ const GALLERY_ITEMS = [
     title: "Live Dosa & Chaat Counter",
     category: "Live Counters",
     venue: "Marriage Halls",
-    img: liveCounter,
+    img: liveDosaCounter,
     desc: "Hot chef stations with piping hot mini dosas and tiffins.",
   },
   {
     title: "Chandelier Buffet Setup",
     category: "Reception Buffets",
     venue: "Marriage Halls",
-    img: buffetCounter,
+    img: chandelierBuffet,
     desc: "Modern luxury buffet line with gold-chafing dishes and floral decor.",
   },
   {
     title: "Pure Ghee Traditional Sweets",
     category: "Desserts & Sweets",
     venue: "Marriage Halls",
-    img: gulabJamun,
+    img: pureGheeSweets,
     desc: "Stone-ground Gulab Jamun, Elaneer Payasam & traditional sweets.",
-  },
-  {
-    title: "Founder D. Venkat & Team",
-    category: "Our Legacy",
-    venue: "",
-    img: founder,
-    desc: "Master caterer D. Venkat supervising pure Sattvik cooking.",
   },
   {
     title: "Traditional Brass Lamps & Decor",
     category: "Event Styling",
     venue: "Outdoor Venues",
-    img: brassLamps,
+    img: brassLampsDecor,
     desc: "Sacred brass lamps, marigold garlands and traditional mandapam styling.",
   },
 ];
@@ -145,33 +135,30 @@ export const Route = createFileRoute("/gallery")({
 
 function GalleryPage() {
   const { venue: urlVenue } = useSearch({ from: "/gallery" });
-  const [activeVenue, setActiveVenue] = useState("All");
-
-  useEffect(() => {
-    if (urlVenue) {
-      const match = VENUE_TABS.find(
-        (v) => v.toLowerCase().replace(/[^a-z]/g, "") === urlVenue.toLowerCase().replace(/[^a-z]/g, "")
-      );
-      if (match) setActiveVenue(match);
-    }
-  }, [urlVenue]);
-
-  const availableVenues = useMemo(() => {
-    const venueSet = new Set(GALLERY_ITEMS.map((i) => i.venue).filter(Boolean));
-    return VENUE_TABS.filter((v) => v === "All" || venueSet.has(v));
-  }, []);
 
   const filteredItems = useMemo(() => {
-    if (activeVenue === "All") return GALLERY_ITEMS;
-    return GALLERY_ITEMS.filter((item) => item.venue === activeVenue);
-  }, [activeVenue]);
+    if (!urlVenue) return GALLERY_ITEMS;
+    return GALLERY_ITEMS.filter(
+      (item) => item.venue?.toLowerCase().replace(/[^a-z]/g, "") === urlVenue.toLowerCase().replace(/[^a-z]/g, "")
+    );
+  }, [urlVenue]);
 
   return (
     <>
       <FloatingFoodDoodles section="gallery" />
       <section className="relative py-24 bg-plum-dark text-cream overflow-hidden">
         <DoodleLayer section="gallery" blendOverride="soft-light" />
-        <ScrollCutouts cutouts={[
+        {/* Large center kolam background decoration */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.10] pointer-events-none">
+          <KolamLineArt type="sikku" size={500} color="#C8951E" />
+        </div>
+        <div className="absolute top-8 left-8 opacity-[0.22] pointer-events-none">
+          <KolamLineArt type="sikku" size={220} color="#C8951E" />
+        </div>
+        <div className="absolute bottom-8 right-8 opacity-[0.22] pointer-events-none">
+          <KolamLineArt type="pulli" size={200} color="#C8951E" />
+        </div>
+        <ScrollCutouts variant="prominent" cutouts={[
           { src: cutBiryani, side: "left", top: "10%", size: 260, rotate: -8 },
           { src: cutSweets, side: "right", top: "50%", size: 280, rotate: 6 },
         ]} />
@@ -199,8 +186,7 @@ function GalleryPage() {
 
       <section className="py-8 bg-gradient-to-r from-amber-50 via-white to-amber-50 overflow-hidden">
         <ScrollCutouts variant="prominent" cutouts={[
-          { src: cutTiffin, side: "left", top: "10%", size: 240, rotate: -7 },
-          { src: cutSpices, side: "right", top: "55%", size: 250, rotate: 5 },
+          { src: cutSpices, side: "right", top: "35%", size: 250, rotate: 5 },
         ]} />
         <div className="flex items-center justify-center gap-5 max-w-4xl mx-auto px-6">
           <FoodPeek src={realFeastMeal} alt="Traditional menu" size={56} />
@@ -225,24 +211,17 @@ function GalleryPage() {
           maxOpacity={0.45}
           behind
         />
+        <ScrollCutouts
+          variant="prominent"
+          className="[--sc-inset:-25px]"
+          cutouts={[
+            { src: goppuram2, side: "right", top: "35%", size: 260, rotate: -3 },
+          ]}
+        />
+        <div className="absolute right-[-20px] top-[30%] opacity-[0.03] text-plum pointer-events-none">
+          <CenterKolam size={120} />
+        </div>
         <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
-          {/* Venue filter tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
-            {availableVenues.map((venue) => (
-              <button
-                key={venue}
-                onClick={() => setActiveVenue(venue)}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-                  activeVenue === venue
-                    ? "bg-plum text-gold shadow-md"
-                    : "bg-white text-slate-600 border border-slate-200 hover:border-amber-400 hover:text-plum"
-                }`}
-              >
-                {venue}
-              </button>
-            ))}
-          </div>
-
           {filteredItems.length === 0 ? (
             <Reveal>
               <div className="text-center py-16">
@@ -267,7 +246,7 @@ function GalleryPage() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredItems.map((item, index) => (
-                <Reveal key={`${activeVenue}-${index}`} delay={index * 0.05}>
+                <Reveal key={`${urlVenue || "all"}-${index}`} delay={index * 0.05}>
                   <div className="group bg-white rounded-2xl overflow-hidden border border-gold/20 shadow-md hover:shadow-xl transition-all duration-300">
                     <div className="aspect-[4/3] overflow-hidden relative">
                       <img

@@ -2,6 +2,10 @@ import React, { useRef, useId } from "react";
 import { Leaf, Utensils, ShieldCheck, ChefHat } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import buffetCounterImage from "@/assets/banner 3.jpg";
+import { ScrollCutouts } from "@/components/ScrollCutouts";
+import { CenterKolam } from "@/components/Kolam";
+import cutBiryani from "@/assets/cutout-biryani.png";
+import cutTiffin from "@/assets/cutout-tiffin.png";
 
 export default function WhyChooseUsSection() {
   const containerRef = useRef<HTMLElement>(null);
@@ -53,6 +57,9 @@ export default function WhyChooseUsSection() {
       ref={containerRef}
       className="py-20 bg-[#FAF7F2] text-slate-800 relative overflow-hidden border-y border-amber-900/5"
     >
+      <div className="absolute right-[-20px] top-[30%] opacity-[0.03] text-plum pointer-events-none">
+        <CenterKolam size={120} />
+      </div>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 

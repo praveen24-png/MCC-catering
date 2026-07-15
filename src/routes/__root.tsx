@@ -129,24 +129,35 @@ function HashScroller() {
   const location = useLocation();
 
   useEffect(() => {
-    console.log("[HashScroller] location.hash:", location.hash, "location.pathname:", location.pathname);
-    console.log("[HashScroller] window.location.hash:", window.location.hash);
-    if (!location.hash) return;
+    const rawHash = location.hash || window.location.hash;
+    if (!rawHash) return;
+    const id = rawHash.startsWith("#") ? rawHash.substring(1) : rawHash;
+    if (!id) return;
 
-    const id = location.hash.substring(1);
-    console.log("[HashScroller] looking for element id:", id);
+    const findVisible = (): HTMLElement | null => {
+      const matches = document.querySelectorAll<HTMLElement>(`[id="${CSS.escape(id)}"]`);
+      for (const el of matches) {
+        if (el.getClientRects().length > 0) return el;
+      }
+      return null;
+    };
+
+    let attempts = 0;
+    const maxAttempts = 120;
 
     const scroll = () => {
-      const el = document.getElementById(id);
-      if (!el) {
-        requestAnimationFrame(scroll);
+      const el = findVisible();
+      if (el) {
+        window.scrollTo({
+          top: el.getBoundingClientRect().top + window.scrollY - 120,
+          behavior: "smooth",
+        });
         return;
       }
-      console.log("[HashScroller] found element, scrolling to", el.getBoundingClientRect().top + window.scrollY - 180);
-      window.scrollTo({
-        top: el.getBoundingClientRect().top + window.scrollY - 180,
-        behavior: "smooth",
-      });
+      attempts++;
+      if (attempts < maxAttempts) {
+        requestAnimationFrame(scroll);
+      }
     };
 
     requestAnimationFrame(scroll);

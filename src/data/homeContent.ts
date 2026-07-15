@@ -27,6 +27,12 @@ import banner1 from "@/assets/banner1.jpg";
 import banner2 from "@/assets/banner 2.jpg";
 import banner3 from "@/assets/banner 3.jpg";
 import feastFood2 from "@/assets/feast-food-2.png";
+import corporateOffices from "@/assets/Corporate Offices.webp";
+import outdoorVenues from "@/assets/Outdoor Venues.jpg";
+import templesImg from "@/assets/Temples.jpg";
+import conventionCenters from "@/assets/Convention Centers.webp";
+import marriageHallImg from "@/assets/marriagehall.jpg";
+import homesVillasImg from "@/assets/house.jpg";
 
 /* ── shared image handles ──────────────────────────────────────────────── */
 export const LOTUS_ICON = lotusIcon;
@@ -197,12 +203,12 @@ export const VENUES = {
     "From intimate family gatherings to grand wedding receptions, our team brings authentic South Indian catering to your chosen venue across Chennai and surrounding areas.",
   ctaLabel: "Book Your Event",
   items: [
-    { label: "Marriage Halls", icon: Landmark, img: weddingHall },
-    { label: "Homes & Villas", icon: Home, img: bananaLeafFeastBlended },
-    { label: "Corporate Offices", icon: Briefcase, img: corporateCatering },
-    { label: "Outdoor Venues", icon: TreePine, img: banner1 },
-    { label: "Temples", icon: Church, img: brassLamps },
-    { label: "Convention Centers", icon: PartyPopper, img: banner3 },
+    { label: "Marriage Halls", icon: Landmark, img: marriageHallImg, venue: "Marriage Halls" },
+    { label: "Homes & Villas", icon: Home, img: homesVillasImg, venue: "Homes & Villas" },
+    { label: "Corporate Offices", icon: Briefcase, img: corporateOffices, venue: "Corporate Offices" },
+    { label: "Outdoor Venues", icon: TreePine, img: outdoorVenues, venue: "Outdoor Venues" },
+    { label: "Temples", icon: Church, img: templesImg, venue: "Temples" },
+    { label: "Convention Centers", icon: PartyPopper, img: conventionCenters, venue: "Convention Centers" },
   ],
 };
 

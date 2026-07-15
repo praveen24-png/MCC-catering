@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect, useMemo } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useRef, useState, useEffect } from "react";
 import { animate, stagger, remove } from "animejs";
 import {
   Award,
@@ -53,7 +52,7 @@ import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import BookingForm from "@/components/BookingForm";
 import { Reveal } from "@/components/Reveal";
 import { leafDraw } from "@/lib/animations";
-import { CenterKolam } from "@/components/Kolam";
+import { CenterKolam, KolamDivider } from "@/components/Kolam";
 import MarigoldGarland from "@/components/MarigoldGarland";
 import MobileAppHome from "@/components/MobileAppHome";
 import { FloatingFoodDoodles, SectionDoodleDivider } from "@/components/FloatingDoodles";
@@ -64,6 +63,9 @@ import { FoodPeekEdge } from "@/components/FoodPeekEdge";
 import { SlideIn } from "@/components/SlideIn";
 import { AnimatedFoodDoodles } from "@/components/AnimatedFoodDoodles";
 import { ScrollCutouts } from "@/components/ScrollCutouts";
+import { VenueLineArt } from "@/components/VenueLineArt";
+import { KolamLineArt } from "@/components/KolamLineArt";
+import VideoTestimonials from "@/components/VideoTestimonials";
 import { SikkuKolam } from "@/components/SikkuKolam";
 import HowItWorks from "@/components/HowItWorks";
 import cutLeafPlatter from "@/assets/cutout-leaf-platter.png";
@@ -484,7 +486,12 @@ function Index() {
 
   // Stats number counting animation with anime.js & IntersectionObserver
   useEffect(() => {
-    const statsSection = document.getElementById("stats-banner");
+    // Both layouts render id="stats-banner"; observe the visible one, or the
+    // hidden mobile copy is watched and never intersects (numbers stay 0+).
+    const statsSection =
+      Array.from(document.querySelectorAll<HTMLElement>('[id="stats-banner"]')).find(
+        (el) => el.getClientRects().length > 0,
+      ) ?? null;
     if (!statsSection) return;
 
     const observer = new IntersectionObserver(
@@ -669,6 +676,12 @@ function Index() {
           className="relative min-h-screen text-cream flex items-center justify-center pt-[120px] pb-24 overflow-hidden bg-black select-none"
         >
           <DoodleLayer section="hero" />
+              <div className="absolute top-20 left-10 opacity-[0.18] pointer-events-none z-10">
+                <KolamLineArt type="sikku" size={250} color="#C8951E" />
+              </div>
+              <div className="absolute bottom-20 right-10 opacity-[0.18] pointer-events-none z-10">
+                <KolamLineArt type="neli" size={220} color="#C8951E" />
+              </div>
           {/* Background Image Carousel */}
           <div className="absolute inset-0 z-0 select-none pointer-events-none">
             <AnimatePresence mode="wait">
@@ -818,8 +831,8 @@ function Index() {
           </div>
         </section>
 
-        {/* FOOD PEEK STRIP */}
-        <section className="py-6 bg-gradient-to-r from-amber-50/80 via-white to-amber-50/80 overflow-hidden relative z-10">
+        {/* FOOD PEEK STRIP — mobile only */}
+        <section className="lg:hidden py-6 bg-gradient-to-r from-amber-50/80 via-white to-amber-50/80 overflow-hidden relative z-10">
           <div className="flex items-center justify-center gap-6 max-w-5xl mx-auto px-4">
             <FoodPeek src={aiWeddingFeast} alt="Wedding menu" size={56} />
             <FoodPeek src={aiTiffinFeast} alt="Tiffin menu" size={48} />
@@ -913,7 +926,8 @@ function Index() {
         {/* ========================================================================= */}
         <section className="py-20 bg-[#FAF7F2] relative overflow-hidden z-10">
           <ScrollCutouts variant="background" cutouts={[
-            { src: cutSweets, side: "right", top: "-5%", size: 180, rotate: -6 },
+            { src: cutSpices, side: "right", top: "-5%", size: 160, rotate: -8 },
+            { src: cutSweets, side: "left", top: "75%", size: 150, rotate: 10 },
           ]} />
           <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
             <div className="text-center max-w-2xl mx-auto mb-12">
@@ -993,33 +1007,8 @@ function Index() {
               </p>
             </Reveal>
 
-            <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-5">
-              {VENUES.items.map((venue, i) => {
-                const Icon = venue.icon;
-                return (
-                  <Reveal key={venue.label} delay={i * 0.05}>
-                    <div className="bg-white rounded-2xl overflow-hidden border border-amber-900/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
-                      <div className="relative h-36 overflow-hidden">
-                        <img
-                          src={venue.img}
-                          alt={venue.label}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#2A163F]/70 via-transparent to-transparent" />
-                        <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shrink-0">
-                            <Icon className="w-4 h-4 text-[#541539]" />
-                          </div>
-                          <span className="text-sm font-bold text-white tracking-wide drop-shadow">
-                            {venue.label}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
+            <div className="mt-10 mx-auto w-full max-w-4xl px-4">
+              <VenueLineArt />
             </div>
 
             <div className="mt-12">
@@ -1340,8 +1329,8 @@ function Index() {
           <SikkuKolam grid={4} side="left"  top="50%" rotate={-14} opacity={0.16} />
           <SikkuKolam grid={4} side="right" top="50%" rotate={14} mirrored opacity={0.16} />
           <ScrollCutouts variant="prominent" cutouts={[
-            { src: cutSweets, side: "left", top: "20%", size: 280, rotate: 8 },
-            { src: lmRotunda, side: "right", top: "65%", size: 260, rotate: -6 },
+            { src: cutSweets, side: "left", top: "5%", size: 280, rotate: 8 },
+            { src: lmRotunda, side: "right", top: "75%", size: 260, rotate: -6 },
           ]} />
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
             <Reveal>
@@ -1372,9 +1361,13 @@ function Index() {
               ))}
             </div>
           </div>
-        </section>
 
-        {/* GALLERY SECTION */}
+          <div className="my-8">
+            <KolamDivider className="text-gold/40" />
+          </div>
+
+          <VideoTestimonials />
+        </section>
         <section id="gallery" className={`py-24 bg-cream relative overflow-hidden ${SCROLL_MT}`}>
           <AnimatedFoodDoodles section="gallery" />
           <ScrollCutouts variant="prominent" cutouts={[
@@ -1431,6 +1424,7 @@ function Index() {
             <div className="text-center mt-12">
               <Link
                 to="/gallery"
+                search={{ venue: "" }}
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg active:scale-95 transition-all duration-300 group"
               >
                 <span>View Gallery</span>

@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Phone, Mail, MapPin, Clock, Home, UtensilsCrossed, Image as ImageIcon, PhoneCall } from "lucide-react";
 import footerLogo from "@/assets/mcc-logo.png";
 import lotusIcon from "@/assets/lotus icon.png";
@@ -14,12 +14,14 @@ const SPECIALTIES = ["Wedding", "Reception", "Corporate", "Virundhu", "Live Coun
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { pathname } = useLocation();
+  const isContactPage = pathname === "/contact";
 
   return (
     <footer className="w-full font-sans relative z-10">
 
       {/* ── CTA BANNER ── */}
-      <section className="bg-gradient-to-br from-[#541539] to-[#3A1029] py-14 px-6 text-center">
+      <section className={`${isContactPage ? "block" : "hidden lg:block"} bg-gradient-to-br from-[#541539] to-[#3A1029] py-14 px-6 text-center`}>
         <span className="text-gold text-xs uppercase tracking-[0.25em] font-bold block">
           Ready to Plan Your Feast?
         </span>
@@ -36,7 +38,7 @@ export default function Footer() {
       </section>
 
       {/* ── MOBILE FOOTER ── */}
-      <div className="lg:hidden bg-[#FFF8EE]">
+      <div className={`${isContactPage ? "block" : "hidden"} lg:hidden bg-[#FFF8EE]`}>
         <div className="px-6 py-12 space-y-10">
 
           {/* Logo + Brand Story */}

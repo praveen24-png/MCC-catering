@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search, X, Check, ChevronDown, ChevronRight, Users, Calendar,
@@ -11,8 +11,14 @@ import {
   MEAL_TYPES, MENU_STYLES,
 } from "@/data/menuData";
 import type { FoodItem } from "@/data/menuData";
-import bananaLeafFeast from "@/assets/banana-leaf-feast.png";
+import { PACKAGES } from "@/data/homeContent";
 import pageHeaderImg from "@/assets/page-header2.png";
+import { ScrollCutouts } from "@/components/ScrollCutouts";
+import cutBiryani from "@/assets/cutout-biryani.png";
+import cutSweets from "@/assets/cutout-sweets.png";
+import cutTiffin from "@/assets/cutout-tiffin.png";
+import cutSpices from "@/assets/cutout-spices.png";
+import { KolamLineArt } from "@/components/KolamLineArt";
 import { useNavigate } from "@tanstack/react-router";
 import { publicAPI, type EnquiryItem } from "@/services/api";
 
@@ -82,6 +88,64 @@ export default function MenuCustomizer() {
   const [venue, setVenue] = useState("");
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
+  /* ── Package pre-selection from URL ─────────────────────────────────── */
+  const [packageName, setPackageName] = useState<string | null>(null);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const pkgSlug = params.get("package");
+    if (!pkgSlug) return;
+
+    const pkg = PACKAGES.find(
+      (p) => p.name.toLowerCase().replace(/\s+/g, "-") === pkgSlug,
+    );
+    if (!pkg) return;
+    setPackageName(pkg.name);
+
+    /* Map package includes → menu categories and pre-select items */
+    const pkgMap: Record<string, Record<string, number>> = {
+      Silver: {
+        "welcome-drinks": 1, soups: 0, starters: 1, breakfast: 0,
+        rice: 2, gravies: 3, poriyal: 1, kootu: 1,
+        "sambar-rasam": 1, "curd-extras": 1, desserts: 1, sweets: 2,
+        "ice-cream": 1, fruits: 1, beverages: 1, mocktails: 0,
+      },
+      Gold: {
+        "welcome-drinks": 1, soups: 1, starters: 2, breakfast: 0,
+        rice: 2, gravies: 5, poriyal: 2, kootu: 2,
+        "sambar-rasam": 1, "curd-extras": 1, desserts: 2, sweets: 3,
+        "ice-cream": 2, fruits: 1, beverages: 1, mocktails: 1,
+      },
+      Premium: {
+        "welcome-drinks": 2, soups: 2, starters: 3, breakfast: 0,
+        rice: 3, gravies: 6, poriyal: 3, kootu: 2,
+        "sambar-rasam": 2, "curd-extras": 2, desserts: 3, sweets: 4,
+        "ice-cream": 2, fruits: 1, beverages: 2, mocktails: 2,
+      },
+    };
+    const catCounts = pkgMap[pkg.name] || pkgMap.Gold;
+
+    const nextSelected: Record<string, boolean> = {};
+    const nextQty: Record<string, number> = {};
+    MENU_CATEGORIES.forEach((cat) => {
+      const n = catCounts[cat.id] || 0;
+      cat.items.slice(0, Math.min(n, cat.items.length)).forEach((item) => {
+        nextSelected[item.id] = true;
+        nextQty[item.id] = 1;
+      });
+    });
+    setSelectedItems(nextSelected);
+    setItemQuantities(nextQty);
+
+    /* Set menu style to match the package */
+    const styleMap: Record<string, string> = {
+      Silver: "Banana Leaf Virundhu",
+      Gold: "Premium Buffet",
+      Premium: "Royal Thali",
+    };
+    setMenuStyle(styleMap[pkg.name] || "Banana Leaf Virundhu");
+    setGuestCount(200);
+  }, []);
 
   const toggleCategory = useCallback((catId: string) => {
     setOpenCategories((prev) =>
@@ -301,26 +365,29 @@ export default function MenuCustomizer() {
   return (
     <div className="min-h-screen bg-[#FAF8F2]">
       {/* PREMIUM HERO HEADER */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#FAF8F2] via-[#F5F0E6] to-[#EDE7D9] min-h-[600px] lg:min-h-[680px]">
-        {/* Floating decorative leaves */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FAF8F2] via-[#F5F0E6] to-[#EDE7D9] min-h-[300px] sm:min-h-[600px] lg:min-h-[680px]">
+        <ScrollCutouts variant="prominent" cutouts={[
+          { src: cutBiryani, side: "left", top: "70%", size: 120, rotate: 10 },
+        ]} />
+        {/* Floating decorative leaves — hidden on mobile */}
         <motion.div
           animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-12 left-[8%] text-[#2E5D34]/15 pointer-events-none select-none"
+          className="hidden sm:block absolute top-12 left-[8%] text-[#2E5D34]/15 pointer-events-none select-none"
         >
           <Leaf className="w-20 h-20" />
         </motion.div>
         <motion.div
           animate={{ y: [0, 12, 0], rotate: [0, -8, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-24 right-[12%] text-[#2E5D34]/10 pointer-events-none select-none"
+          className="hidden sm:block absolute top-24 right-[12%] text-[#2E5D34]/10 pointer-events-none select-none"
         >
           <Leaf className="w-16 h-16 rotate-45" />
         </motion.div>
         <motion.div
           animate={{ y: [0, -10, 0], rotate: [0, 10, 0] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-16 left-[15%] text-[#DCA46A]/15 pointer-events-none select-none"
+          className="hidden sm:block absolute bottom-16 left-[15%] text-[#DCA46A]/15 pointer-events-none select-none"
         >
           <Leaf className="w-12 h-12 -rotate-45" />
         </motion.div>
@@ -328,54 +395,69 @@ export default function MenuCustomizer() {
         <motion.div
           animate={{ y: [0, -8, 0], rotate: [-5, 5, -5] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-          className="absolute top-8 right-[30%] pointer-events-none select-none opacity-[0.06]"
+          className="hidden sm:block absolute top-8 right-[30%] pointer-events-none select-none opacity-[0.06]"
         >
           <Leaf className="w-28 h-28 -rotate-30" />
         </motion.div>
         <motion.div
           animate={{ y: [0, 6, 0], rotate: [3, -3, 3] }}
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute bottom-12 right-[8%] pointer-events-none select-none opacity-[0.05]"
+          className="hidden sm:block absolute bottom-12 right-[8%] pointer-events-none select-none opacity-[0.05]"
         >
           <Leaf className="w-24 h-24 rotate-60" />
         </motion.div>
         {/* Gold botanical line */}
-        <div className="absolute top-[20%] left-[5%] w-px h-32 bg-gradient-to-b from-transparent via-[#DCA46A]/20 to-transparent pointer-events-none" />
-        <div className="absolute top-[30%] right-[5%] w-px h-24 bg-gradient-to-b from-transparent via-[#2E5D34]/15 to-transparent pointer-events-none" />
-        <div className="absolute bottom-[20%] left-[20%] w-20 h-px bg-gradient-to-r from-transparent via-[#DCA46A]/15 to-transparent pointer-events-none" />
+        <div className="hidden sm:block absolute top-[20%] left-[5%] w-px h-32 bg-gradient-to-b from-transparent via-[#DCA46A]/20 to-transparent pointer-events-none" />
+        <div className="hidden sm:block absolute top-[30%] right-[5%] w-px h-24 bg-gradient-to-b from-transparent via-[#2E5D34]/15 to-transparent pointer-events-none" />
+        <div className="hidden sm:block absolute bottom-[20%] left-[20%] w-20 h-px bg-gradient-to-r from-transparent via-[#DCA46A]/15 to-transparent pointer-events-none" />
         {/* Gold sparkle dots */}
         <motion.div
           animate={{ opacity: [0.2, 0.6, 0.2], scale: [1, 1.3, 1] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-16 left-[30%] w-2 h-2 rounded-full bg-[#DCA46A]/30 pointer-events-none"
+          className="hidden sm:block absolute top-16 left-[30%] w-2 h-2 rounded-full bg-[#DCA46A]/30 pointer-events-none"
         />
         <motion.div
           animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.2, 1] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-          className="absolute top-32 right-[25%] w-1.5 h-1.5 rounded-full bg-[#2E5D34]/25 pointer-events-none"
+          className="hidden sm:block absolute top-32 right-[25%] w-1.5 h-1.5 rounded-full bg-[#2E5D34]/25 pointer-events-none"
         />
         <motion.div
           animate={{ opacity: [0.15, 0.5, 0.15], scale: [1, 1.4, 1] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-          className="absolute bottom-20 right-[35%] w-2.5 h-2.5 rounded-full bg-[#DCA46A]/20 pointer-events-none"
+          className="hidden sm:block absolute bottom-20 right-[35%] w-2.5 h-2.5 rounded-full bg-[#DCA46A]/20 pointer-events-none"
         />
         <motion.div
           animate={{ opacity: [0.1, 0.4, 0.1], scale: [1, 1.5, 1] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2.2 }}
-          className="absolute top-[45%] left-[22%] w-1.5 h-1.5 rounded-full bg-[#DCA46A]/25 pointer-events-none"
+          className="hidden sm:block absolute top-[45%] left-[22%] w-1.5 h-1.5 rounded-full bg-[#DCA46A]/25 pointer-events-none"
         />
         <motion.div
           animate={{ opacity: [0.2, 0.55, 0.2], scale: [1, 1.3, 1] }}
           transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-[30%] right-[18%] w-2 h-2 rounded-full bg-[#2E5D34]/20 pointer-events-none"
+          className="hidden sm:block absolute bottom-[30%] right-[18%] w-2 h-2 rounded-full bg-[#2E5D34]/20 pointer-events-none"
         />
         {/* Soft blurred circles */}
-        <div className="absolute top-0 right-[10%] w-72 h-72 bg-[#2E5D34]/[0.04] rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-[5%] w-96 h-96 bg-[#DCA46A]/[0.06] rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-[40%] right-[40%] w-64 h-64 bg-[#2E5D34]/[0.03] rounded-full blur-3xl pointer-events-none" />
+        <div className="hidden sm:block absolute top-0 right-[10%] w-72 h-72 bg-[#2E5D34]/[0.04] rounded-full blur-3xl pointer-events-none" />
+        <div className="hidden sm:block absolute bottom-0 left-[5%] w-96 h-96 bg-[#DCA46A]/[0.06] rounded-full blur-3xl pointer-events-none" />
+        <div className="hidden sm:block absolute top-[40%] right-[40%] w-64 h-64 bg-[#2E5D34]/[0.03] rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-6">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-16 lg:py-24 relative z-10">
+          {/* Animated kolam art corners */}
+          <motion.div
+            animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
+            transition={{ rotate: { duration: 80, repeat: Infinity, ease: "linear" }, scale: { duration: 6, repeat: Infinity, ease: "easeInOut" } }}
+            className="absolute top-4 left-4 sm:top-8 sm:left-8 opacity-[0.12] pointer-events-none"
+          >
+            <KolamLineArt type="padi" size={120} color="#C8951E" />
+          </motion.div>
+          <motion.div
+            animate={{ rotate: [360, 0], scale: [1, 1.15, 1] }}
+            transition={{ rotate: { duration: 70, repeat: Infinity, ease: "linear" }, scale: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 } }}
+            className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 opacity-[0.12] pointer-events-none"
+          >
+            <KolamLineArt type="neli" size={110} color="#C8951E" />
+          </motion.div>
+          <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-6">
 
             {/* Left Side: Text */}
             <motion.div
@@ -388,19 +470,23 @@ export default function MenuCustomizer() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#2E5D34]/10 border border-[#2E5D34]/20 text-[#2E5D34] text-[10px] font-bold uppercase tracking-[0.25em] mb-5"
+                className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-[#2E5D34]/10 border border-[#2E5D34]/20 text-[#2E5D34] text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.25em] mb-3 sm:mb-5"
               >
                 <Sparkles className="w-3 h-3" />
                 Menu Customization
               </motion.span>
 
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#2A163F] leading-[1.1] tracking-tight">
-                Create Your Dream{" "}
-                <br className="hidden sm:block" />
-                <span className="text-[#2E5D34]">Wedding Menu</span>
+              <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#2A163F] leading-[1.1] tracking-tight">
+                {packageName ? (
+                  <>{packageName} <span className="text-[#2E5D34]">Feast Menu</span></>
+                ) : (
+                  <>Create Your Dream{" "}
+                  <br className="hidden sm:block" />
+                  <span className="text-[#2E5D34]">Wedding Menu</span></>
+                )}
               </h1>
 
-              <p className="mt-5 text-[#5C4D40]/80 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="mt-3 sm:mt-5 text-[#5C4D40]/80 text-xs sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 Build your perfect Tamil wedding menu in just a few minutes. Choose your favorite dishes, live counters, sweets, beverages and more.
               </p>
 
@@ -444,18 +530,18 @@ export default function MenuCustomizer() {
               </motion.div>
             </motion.div>
 
-            {/* Right Side: Image — no frame, oversized, floating naturally */}
+            {/* Right Side: Image */}
             <motion.div
               initial={{ opacity: 0, x: 40, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="flex-1 flex justify-center lg:justify-end w-full max-w-lg lg:max-w-none relative"
+              className="flex flex-1 justify-end w-full lg:max-w-none relative"
             >
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                 style={{ marginTop: "-3rem", marginBottom: "-4rem" }}
-                className="relative w-full max-w-[580px] lg:max-w-[800px] lg:-mr-8"
+                className="relative w-full max-w-[160px] sm:max-w-[400px] lg:max-w-[800px]"
               >
                 <img
                   src={pageHeaderImg}
@@ -474,8 +560,8 @@ export default function MenuCustomizer() {
 
       {/* STEP PROGRESS BAR */}
         <div ref={stepRailRef} className="bg-white border-b border-[#E4DACB] overflow-x-auto">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10">
-          <div className="flex items-center gap-0 min-w-max py-3">
+        <div className="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-10">
+          <div className="flex items-center gap-0 min-w-max py-2 sm:py-3">
             {STEPS.map((step, idx) => {
               const Icon = step.icon;
               const isActive = currentStep === step.id;
@@ -484,7 +570,7 @@ export default function MenuCustomizer() {
                 <div key={step.id} className="flex items-center">
                   <button
                     onClick={() => goToStep(step.id)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                    className={`flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all whitespace-nowrap ${
                       isActive
                         ? "bg-[#3A1029] text-[#DCA46A] shadow-md"
                         : isCompleted
@@ -492,19 +578,19 @@ export default function MenuCustomizer() {
                           : "text-[#7A6A5C] hover:bg-[#F2ECE1]"
                     }`}
                   >
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-extrabold ${
+                    <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-extrabold ${
                       isActive
                         ? "bg-[#DCA46A] text-[#3A1029]"
                         : isCompleted
                           ? "bg-[#2E5D34] text-white"
                           : "bg-[#E4DACB] text-[#7A6A5C]"
                     }`}>
-                      {isCompleted ? <Check className="w-3 h-3" /> : step.id}
+                      {isCompleted ? <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> : step.id}
                     </div>
-                    <span>{step.label}</span>
+                    <span className="hidden sm:inline">{step.label}</span>
                   </button>
                   {idx < STEPS.length - 1 && (
-                    <div className={`w-6 h-[2px] mx-1 ${isCompleted ? "bg-[#2E5D34]" : "bg-[#E4DACB]"}`} />
+                    <div className={`w-4 sm:w-6 h-[2px] mx-0.5 sm:mx-1 ${isCompleted ? "bg-[#2E5D34]" : "bg-[#E4DACB]"}`} />
                   )}
                 </div>
               );
@@ -514,10 +600,27 @@ export default function MenuCustomizer() {
       </div>
 
       {/* MAIN CONTENT AREA */}
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-6">
-        <div className="flex flex-col lg:flex-row gap-6">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-6 relative overflow-hidden">
+        {/* MOBILE-ONLY QUICK SUMMARY BAR */}
+        {packageName && (
+          <div className="lg:hidden mb-4 bg-gradient-to-r from-[#3A1029] to-[#541539] rounded-2xl p-4 text-white flex items-center justify-between">
+            <div>
+              <span className="text-[10px] uppercase tracking-wider text-cream/60 font-bold">Package</span>
+              <p className="font-serif text-sm font-bold text-gold">{packageName} Feast</p>
+            </div>
+            <div className="text-center px-3">
+              <span className="font-serif text-lg font-bold">{totalSelectedCount}</span>
+              <span className="block text-[9px] text-cream/60">Items</span>
+            </div>
+            <div className="text-right">
+              <span className="font-serif text-sm font-bold text-gold">₹{estimatedCost.toLocaleString("en-IN")}</span>
+              <span className="block text-[9px] text-cream/60">estimated</span>
+            </div>
+          </div>
+        )}
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
 
-          {/* LEFT SIDEBAR (Steps Navigation) */}
+          {/* LEFT SIDEBAR (Steps Navigation) — desktop only */}
           <div className="hidden lg:block lg:w-56 shrink-0">
             <div className="bg-white rounded-2xl border border-[#E4DACB] p-3 space-y-1 sticky top-24">
               {STEPS.map((step) => {
@@ -717,9 +820,9 @@ export default function MenuCustomizer() {
             </AnimatePresence>
           </div>
 
-          {/* RIGHT SIDEBAR (Sticky Summary) */}
+          {/* RIGHT SIDEBAR (Sticky Summary) — beside on desktop, below on mobile */}
           <div className="lg:w-80 shrink-0">
-            <div className="bg-white rounded-2xl border border-[#E4DACB] p-5 sticky top-24 space-y-4">
+            <div className="bg-white rounded-2xl border border-[#E4DACB] p-4 sm:p-5 lg:sticky lg:top-24 space-y-3 sm:space-y-4">
               <div className="flex items-center justify-between border-b border-[#E4DACB] pb-3">
                 <h3 className="font-serif text-base font-bold text-[#3A1029]">Menu Summary</h3>
                 <span className="px-2 py-0.5 rounded-full bg-[#DCA46A]/15 text-[#B88E56] text-[10px] font-bold">
