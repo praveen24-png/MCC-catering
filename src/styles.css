@@ -354,6 +354,12 @@
 html {
   overflow-x: clip;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes scrollHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

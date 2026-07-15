@@ -1,8 +1,11 @@
 import { useRef, useEffect, useState } from "react";
 import { Reveal } from "@/components/Reveal";
+import { ScrollCutouts } from "@/components/ScrollCutouts";
+import { CenterKolam } from "@/components/Kolam";
 import cutLeafPlatter from "@/assets/cutout-leaf-platter.png";
 import cutBiryani from "@/assets/cutout-biryani.png";
 import cutWeddingFeast from "@/assets/cutout-wedding-feast.png";
+import cutSweets from "@/assets/cutout-sweets.png";
 
 const STEPS = [
   {
@@ -265,6 +268,13 @@ export default function HowItWorks() {
       data-how-it-works
       className="relative py-24 sm:py-32 bg-[#FAF7F2] overflow-hidden"
     >
+      <ScrollCutouts cutouts={[
+        { src: cutSweets, side: "right", top: "8%", size: 180, rotate: -8 },
+        { src: cutLeafPlatter, side: "left", top: "55%", size: 160, rotate: 10 },
+      ]} />
+      <div className="absolute left-[-30px] top-[40%] opacity-[0.03] text-plum pointer-events-none">
+        <CenterKolam size={140} />
+      </div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* ── heading ─────────────────────────────────────────── */}
         <Reveal>

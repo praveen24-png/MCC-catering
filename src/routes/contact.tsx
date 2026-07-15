@@ -4,6 +4,7 @@ import { FoodPeekEdge } from "@/components/FoodPeekEdge";
 import lmClockTower from "@/assets/cutout-landmark-clock-tower.png";
 import cutTiffin from "@/assets/cutout-tiffin.png";
 import cutBiryani from "@/assets/cutout-biryani.png";
+import { CenterKolam } from "@/components/Kolam";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import BookingForm from "@/components/BookingForm";
 import { Reveal } from "@/components/Reveal";
@@ -92,6 +93,9 @@ function Contact() {
           maxOpacity={0.5}
           behind
         />
+        <div className="absolute left-[-20px] top-[45%] opacity-[0.03] text-plum pointer-events-none">
+          <CenterKolam size={120} />
+        </div>
         <DoodleLayer section="contact" />
         <FloatingFoodDoodles section="contact" />
         <div className="max-w-7xl mx-auto px-4 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 relative z-10">
@@ -151,7 +155,7 @@ function Contact() {
       <BananaLeafDivider />
 
       <section className="py-16 bg-gradient-to-r from-plum-dark via-[#3A1029] to-plum-dark text-white overflow-hidden relative">
-        <ScrollCutouts cutouts={[
+        <ScrollCutouts variant="prominent" cutouts={[
           { src: cutTiffin, side: "left", top: "10%", size: 260, rotate: -8 },
           { src: cutBiryani, side: "right", top: "50%", size: 280, rotate: 6 },
         ]} />

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ScrollCutouts } from "@/components/ScrollCutouts";
+import { KolamLineArt } from "@/components/KolamLineArt";
 import { FoodPeekEdge } from "@/components/FoodPeekEdge";
 import cutTiffin from "@/assets/cutout-tiffin.png";
 import cutBiryani from "@/assets/cutout-biryani.png";
@@ -149,7 +150,13 @@ function MenuPage() {
       <section className="relative py-24 overflow-hidden">
         <DoodleLayer section="menu" />
         <AnimatedFoodDoodles section="menu" />
-        <ScrollCutouts cutouts={[
+        <div className="absolute top-12 left-12 opacity-[0.18] pointer-events-none">
+          <KolamLineArt type="neli" size={200} color="#C8951E" />
+        </div>
+        <div className="absolute bottom-12 right-12 opacity-[0.18] pointer-events-none">
+          <KolamLineArt type="kambi" size={180} color="#C8951E" />
+        </div>
+        <ScrollCutouts variant="prominent" cutouts={[
           { src: cutBiryani, side: "right", top: "10%", size: 280, rotate: -8 },
           { src: cutSpices, side: "left", top: "50%", size: 260, rotate: 6 },
         ]} />

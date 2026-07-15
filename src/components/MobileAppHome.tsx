@@ -14,9 +14,31 @@ import CateringMenusSection from "./CateringMenusSection";
 import HowItWorks from "./HowItWorks";
 import WhyChooseUsSection from "./WhyChooseUsSection";
 import { BananaLeafDivider } from "./GrainDivider";
-import { CenterKolam } from "./Kolam";
+import { CenterKolam, KolamDivider } from "./Kolam";
+import { KolamLineArt } from "./KolamLineArt";
 import { Reveal } from "./Reveal";
 import { SectionDoodleDivider } from "./FloatingDoodles";
+import { ScrollCutouts } from "./ScrollCutouts";
+import { VenueLineArt } from "./VenueLineArt";
+import VideoTestimonials from "./VideoTestimonials";
+import MobileCategoryShortcuts from "./MobileCategoryShortcuts";
+import cutLeafPlatter from "@/assets/cutout-leaf-platter.png";
+import cutBiryani from "@/assets/cutout-biryani.png";
+import cutSweets from "@/assets/cutout-sweets.png";
+import cutTiffin from "@/assets/cutout-tiffin.png";
+import cutWeddingFeast from "@/assets/cutout-wedding-feast.png";
+import cutSpices from "@/assets/cutout-spices.png";
+import lmGopuram from "@/assets/cutout-landmark-gopuram.png";
+import lmGoldDome from "@/assets/cutout-landmark-gold-dome.png";
+import aiWeddingFeast from "@/assets/ai-wedding-feast.png";
+import aiTiffinFeast from "@/assets/ai-tiffin-feast.png";
+import aiSweetsFeast from "@/assets/ai-sweets-feast.png";
+
+const PACKAGE_IMAGES: Record<string, string> = {
+  Silver: aiTiffinFeast,
+  Gold: aiWeddingFeast,
+  Premium: aiSweetsFeast,
+};
 
 /* Mobile header is ~158px tall (promo strip + main row + quick actions).
    Anchored sections must clear it or the heading hides underneath. */
@@ -78,6 +100,12 @@ export default function MobileAppHome() {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
+              <div className="absolute top-8 right-4 opacity-[0.20] pointer-events-none z-10">
+                <KolamLineArt type="sikku" size={180} color="#C8951E" />
+              </div>
+              <div className="absolute bottom-8 left-4 opacity-[0.20] pointer-events-none z-10">
+                <KolamLineArt type="neli" size={160} color="#C8951E" />
+              </div>
         <div className="absolute inset-0 z-0 pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.div
@@ -179,8 +207,14 @@ export default function MobileAppHome() {
         </button>
       </section>
 
+      <MobileCategoryShortcuts />
+
       {/* ═══ 2. ABOUT MCC ═══════════════════════════════════════════════ */}
-      <section id="about-mcc" className="py-10 px-4 bg-[#FAF7F2] border-t border-amber-900/5">
+      <section id="about-mcc" className="py-10 px-4 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <ScrollCutouts cutouts={[
+          { src: cutLeafPlatter, side: "right", top: "10%", size: 180, rotate: -6 },
+          { src: cutSpices, side: "left", top: "60%", size: 160, rotate: 10 },
+        ]} />
         <div className="text-center space-y-4">
           <Reveal>
             <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
@@ -208,8 +242,11 @@ export default function MobileAppHome() {
         </div>
       </section>
 
+      <SectionDoodleDivider variant="lamp" />
+
       {/* ═══ 3. STATS PILL BANNER ═══════════════════════════════════════ */}
-      <section id="stats-banner" className={`bg-[#FAF6F0] pt-6 pb-10 px-4 ${SCROLL_MT}`}>
+      <section id="stats-banner" className={`bg-[#FAF6F0] pt-6 pb-10 px-4 relative overflow-hidden ${SCROLL_MT}`}>
+        <ScrollCutouts cutouts={[{ src: cutSpices, side: "right", top: "5%", size: 150, rotate: -10 }]} />
         <Reveal>
           <p className="text-center text-xs uppercase tracking-[0.25em] text-slate-500 font-bold mb-4">
             Trusted by Families Across Chennai
@@ -234,6 +271,8 @@ export default function MobileAppHome() {
         </div>
       </section>
 
+      <SectionDoodleDivider variant="garland" />
+
       {/* CTA: Request Quote */}
       <div className="px-4 py-6 bg-[#FAF6F0] text-center">
         <Link
@@ -247,15 +286,19 @@ export default function MobileAppHome() {
 
       {/* ═══ 4. WEDDING MENU BUILDER TEASER ═════════════════════════════ */}
       <section className="py-12 px-4 bg-gradient-to-br from-[#541539] to-[#3A1029] relative overflow-hidden text-center">
+        <ScrollCutouts variant="prominent" cutouts={[
+          { src: cutWeddingFeast, side: "right", top: "15%", size: 200, rotate: -8 },
+          { src: cutTiffin, side: "left", top: "55%", size: 160, rotate: 6 },
+        ]} />
         <div className="absolute right-[-40px] top-[-20px] opacity-[0.06] text-gold pointer-events-none">
           <CenterKolam size={180} />
         </div>
         <Reveal>
           <span className="text-gold text-xs uppercase tracking-[0.25em] font-bold block">
-            Your Menu, Your Way
+            Core Feature
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl text-cream font-bold mt-2">
-            Build Your Wedding Menu
+            Customize Your Own Saapadu Menu
           </h2>
 
           <div className="mt-5 space-y-2 max-w-xs mx-auto">
@@ -279,14 +322,14 @@ export default function MobileAppHome() {
             className="inline-flex items-center gap-2 mt-5 px-8 py-3.5 bg-gold text-plum-dark text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-lg active:scale-95 transition-all"
           >
             <Sparkles className="w-4 h-4 shrink-0" />
-            <span>Start Building</span>
+            <span>Launch Saapadu Customizer</span>
           </Link>
         </Reveal>
       </section>
 
       {/* ═══ 5. POPULAR PACKAGES ═════════════════════════════════════════ */}
-      <section className="py-12 px-4 bg-[#FAF7F2] border-t border-amber-900/5">
-        <div className="text-center mb-8">
+      <section className="py-12 px-4 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <div className="text-center mb-8 relative z-10">
           <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
             POPULAR PACKAGES
           </span>
@@ -296,92 +339,92 @@ export default function MobileAppHome() {
           <GoldRule />
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5 relative z-10">
           {PACKAGES.map((pkg, i) => (
-            <Reveal key={pkg.name} delay={i * 0.05}>
+            <Reveal key={pkg.name} delay={i * 0.08}>
               <div
-                className={`rounded-2xl p-5 border shadow-sm ${
+                className={`rounded-3xl overflow-hidden border shadow-lg ${
                   pkg.highlight
-                    ? "bg-[#3A1029] border-gold/40 shadow-lg"
-                    : "bg-white border-amber-900/10"
+                    ? "border-gold/50 shadow-xl"
+                    : "border-amber-900/10"
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`font-serif text-lg font-bold ${
-                          pkg.highlight ? "text-gold" : "text-[#3A1029]"
-                        }`}
-                      >
-                        {pkg.name}
+                {/* Image header */}
+                <div className="relative h-44 overflow-hidden">
+                  <img
+                    src={PACKAGE_IMAGES[pkg.name]}
+                    alt={`${pkg.name} feast package`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                  {/* Badges */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                    {pkg.highlight && (
+                      <span className="text-[9px] uppercase tracking-wider font-bold bg-gold text-plum-dark px-2.5 py-1 rounded-full flex items-center gap-1 shadow">
+                        <Sparkles className="w-2.5 h-2.5" /> Most Popular
                       </span>
-                      {pkg.highlight && (
-                        <span className="text-[9px] uppercase tracking-wider font-bold bg-gold text-plum-dark px-2 py-0.5 rounded-full">
-                          Most Popular
-                        </span>
-                      )}
-                    </div>
-                    <span
-                      className={`text-xs ${pkg.highlight ? "text-cream/60" : "text-slate-500"}`}
-                    >
-                      {pkg.tagline}
-                    </span>
+                    )}
                   </div>
-                  <div className="text-right">
-                    <span
-                      className={`font-serif text-xl font-bold ${
-                        pkg.highlight ? "text-cream" : "text-[#3A1029]"
-                      }`}
-                    >
-                      ₹{pkg.pricePerHead}
-                    </span>
-                    <span
-                      className={`block text-[10px] ${pkg.highlight ? "text-cream/50" : "text-slate-400"}`}
-                    >
-                      per person
-                    </span>
+
+                  {/* Title overlay */}
+                  <div className="absolute bottom-3 left-4 right-4">
+                    <h3 className="font-serif text-xl font-bold text-white drop-shadow">
+                      {pkg.name} Feast
+                    </h3>
+                    <p className="text-[11px] text-white/70 mt-0.5">{pkg.tagline}</p>
                   </div>
                 </div>
 
-                <ul className="mt-4 space-y-1.5">
-                  {pkg.includes.map((item) => (
-                    <li
-                      key={item}
-                      className={`flex items-center gap-2 text-xs ${
-                        pkg.highlight ? "text-cream/80" : "text-slate-60"
-                      }`}
-                    >
-                      <Check
-                        className={`w-3.5 h-3.5 shrink-0 ${pkg.highlight ? "text-gold" : "text-emerald-600"}`}
-                      />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Content body */}
+                <div className={`p-4 ${pkg.highlight ? "bg-[#3A1029]" : "bg-white"}`}>
+                  <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5 mb-4">
+                    {pkg.includes.map((item) => (
+                      <li
+                        key={item}
+                        className={`flex items-center gap-1.5 text-[11px] ${
+                          pkg.highlight ? "text-cream/80" : "text-slate-600"
+                        }`}
+                      >
+                        <Check
+                          className={`w-3 h-3 shrink-0 ${pkg.highlight ? "text-gold" : "text-emerald-600"}`}
+                        />
+                        <span className="truncate">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                <Link
-                  to="/builder"
-                  className={`mt-5 flex items-center justify-center gap-2 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.15em] active:scale-95 transition-all ${
-                    pkg.highlight
-                      ? "bg-gold text-plum-dark"
-                      : "bg-[#541539] text-white"
-                  }`}
-                >
-                  Select {pkg.name}
-                </Link>
+                  <Link
+                    to="/builder"
+                    search={{ package: pkg.name.toLowerCase().replace(/\s+/g, "-") }}
+                    className={`w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-xs font-bold uppercase tracking-[0.15em] active:scale-[0.97] transition-all shadow-md ${
+                      pkg.highlight
+                        ? "bg-gold text-plum-dark"
+                        : "bg-[#541539] text-white"
+                    }`}
+                  >
+                    Customize {pkg.name}
+                  </Link>
+                </div>
               </div>
             </Reveal>
           ))}
         </div>
 
-        <p className="text-center text-[10px] text-slate-400 mt-5 italic">
+        <p className="text-center text-[10px] text-slate-400 mt-5 italic relative z-10">
           Indicative pricing per person. Final quote depends on menu, guest count & season.
         </p>
       </section>
 
+      <SectionDoodleDivider variant="leaf" />
+
       {/* ═══ 6. OUR CATERING SERVICES ═══════════════════════════════════ */}
-      <section className="py-12 px-4 bg-[#FAF7F2]">
+      <section className="py-12 px-4 bg-[#FAF7F2] relative overflow-hidden">
+        <ScrollCutouts cutouts={[
+          { src: cutSpices, side: "right", top: "3%", size: 130, rotate: -8 },
+          { src: cutSweets, side: "left", top: "70%", size: 120, rotate: 10 },
+        ]} />
         <div className="text-center mb-8">
           <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
             OUR SERVICES
@@ -448,8 +491,10 @@ export default function MobileAppHome() {
         </Link>
       </div>
 
+      <SectionDoodleDivider variant="kolam" />
+
       {/* ═══ 7. WE CATER WHEREVER YOU CELEBRATE ═════════════════════════ */}
-      <section className="py-12 px-4 bg-[#FAF7F2] border-t border-amber-900/5">
+      <section className="py-12 px-4 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
         <div className="text-center mb-8">
           <h2 className="font-serif text-2xl sm:text-3xl text-[#3A1029] font-bold">
             {VENUES.heading}
@@ -460,33 +505,8 @@ export default function MobileAppHome() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          {VENUES.items.map((venue, i) => {
-            const Icon = venue.icon;
-            return (
-              <Reveal key={venue.label} delay={i * 0.05}>
-                <div className="bg-white rounded-2xl overflow-hidden border border-amber-900/10 shadow-sm flex flex-col">
-                  <div className="relative h-28 overflow-hidden">
-                    <img
-                      src={venue.img}
-                      alt={venue.label}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#2A163F]/70 via-transparent to-transparent" />
-                    <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center shrink-0">
-                        <Icon className="w-3.5 h-3.5 text-[#541539]" />
-                      </div>
-                      <span className="text-[11px] font-bold text-white tracking-wide leading-tight drop-shadow">
-                        {venue.label}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
+        <div className="mt-10 mx-auto w-full max-w-4xl px-4 relative z-10">
+          <VenueLineArt />
         </div>
 
         <div className="text-center mt-8">
@@ -499,6 +519,8 @@ export default function MobileAppHome() {
           </Link>
         </div>
       </section>
+
+      <SectionDoodleDivider variant="leaf" />
 
       {/* ═══ 8. GALLERY ════════════════════════════════════════════════ */}
       <section id="gallery" className={`py-12 px-4 bg-cream relative overflow-hidden ${SCROLL_MT}`}>
@@ -555,6 +577,7 @@ export default function MobileAppHome() {
           <div className="text-center mt-8">
             <Link
               to="/gallery"
+              search={{ venue: "" }}
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#541539] active:scale-95 text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md transition-all"
             >
               <span>View Gallery</span>
@@ -566,6 +589,8 @@ export default function MobileAppHome() {
         </div>
       </section>
 
+      <SectionDoodleDivider variant="garland" />
+
       {/* ═══ 9. WHY CHOOSE US ═══════════════════════════════════════════ */}
       <WhyChooseUsSection />
 
@@ -574,8 +599,11 @@ export default function MobileAppHome() {
       {/* ═══ 10. HOW IT WORKS ════════════════════════════════════════════ */}
       <HowItWorks />
 
+      <SectionDoodleDivider variant="leaf" />
+
       {/* ═══ 11. TESTIMONIALS ═══════════════════════════════════════════ */}
-      <section id="testimonials" className={`py-12 px-4 bg-plum text-cream ${SCROLL_MT}`}>
+      <section id="testimonials" className={`py-12 px-4 bg-plum text-cream relative overflow-hidden ${SCROLL_MT}`}>
+        <ScrollCutouts variant="prominent" cutouts={[{ src: cutBiryani, side: "right", top: "55%", size: 190, rotate: 8 }]} />
         <Reveal>
           <div className="text-center mb-8">
             <span className="text-xs tracking-[0.3em] uppercase text-gold">
@@ -603,6 +631,12 @@ export default function MobileAppHome() {
             </div>
           ))}
         </div>
+
+        <div className="my-6">
+          <KolamDivider className="text-gold/40" />
+        </div>
+
+        <VideoTestimonials />
       </section>
 
       {/* CTA: Contact Us */}
@@ -618,8 +652,11 @@ export default function MobileAppHome() {
       {/* ═══ 12. MENUS ══════════════════════════════════════════════════ */}
       <CateringMenusSection />
 
+      <SectionDoodleDivider variant="kolam" />
+
       {/* ═══ 13. FAQ ════════════════════════════════════════════════════ */}
-      <section className="py-12 px-4 bg-[#FAF7F2] border-t border-amber-900/5">
+      <section className="py-12 px-4 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <ScrollCutouts cutouts={[{ src: cutSweets, side: "right", top: "8%", size: 140, rotate: -6 }]} />
         <Reveal>
           <div className="text-center mb-8">
             <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
@@ -689,8 +726,12 @@ export default function MobileAppHome() {
         id="book"
         ref={bookRef}
         tabIndex={-1}
-        className={`py-12 px-4 bg-cream outline-none ${SCROLL_MT}`}
+        className={`py-12 px-4 bg-cream outline-none relative overflow-hidden ${SCROLL_MT}`}
       >
+        <ScrollCutouts cutouts={[
+          { src: cutBiryani, side: "left", top: "10%", size: 160, rotate: 8 },
+          { src: lmGopuram, side: "right", top: "55%", size: 130, rotate: -5 },
+        ]} />
         <Reveal>
           <span className="text-xs tracking-[0.3em] uppercase text-gold">{BOOKING.eyebrow}</span>
           <h2 className="font-serif text-2xl sm:text-3xl text-plum mt-3 leading-tight">

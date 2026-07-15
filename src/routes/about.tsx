@@ -322,8 +322,15 @@ export function About() {
       <OurStorySection />
 
       {/* 3. MISSION & VISION */}
-      <section className="py-16 bg-white border-y border-amber-900/10">
-        <div className="max-w-5xl mx-auto px-6 lg:px-12">
+      <section className="py-16 bg-white border-y border-amber-900/10 relative overflow-hidden">
+        <ScrollCutouts cutouts={[
+          { src: cutTiffin, side: "right", top: "10%", size: 160, rotate: -8 },
+          { src: cutBiryani, side: "left", top: "55%", size: 150, rotate: 10 },
+        ]} />
+        <div className="absolute left-[-30px] top-[40%] opacity-[0.03] text-plum pointer-events-none">
+          <CenterKolam size={120} />
+        </div>
+        <div className="max-w-5xl mx-auto px-6 lg:px-12 relative z-10">
           <Reveal>
             <div className="text-center mb-12 space-y-3">
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-800">

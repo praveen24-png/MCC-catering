@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ScrollCutouts } from "@/components/ScrollCutouts";
+import { KolamLineArt } from "@/components/KolamLineArt";
 import { FoodPeekEdge } from "@/components/FoodPeekEdge";
 import lmRipon from "@/assets/cutout-landmark-ripon.png";
 import cutLeafPlatter from "@/assets/cutout-leaf-platter.png";
@@ -209,6 +210,12 @@ export function ServicesPage() {
       {/* HERO SECTION */}
       <section className="relative py-24 bg-plum-dark text-cream overflow-hidden">
         <DoodleLayer section="services" blendOverride="soft-light" />
+        <div className="absolute top-10 right-10 opacity-[0.20] pointer-events-none">
+          <KolamLineArt type="padi" size={200} color="#C8951E" />
+        </div>
+        <div className="absolute bottom-10 left-10 opacity-[0.20] pointer-events-none">
+          <KolamLineArt type="kambi" size={180} color="#C8951E" />
+        </div>
         <img
           src={brassLamps}
           alt=""
@@ -355,7 +362,6 @@ export function ServicesPage() {
       <section className="py-12 bg-white">
         <ScrollCutouts cutouts={[
           { src: cutTiffin, side: "left", top: "10%", size: 260, rotate: -8 },
-          { src: lmGopuram, side: "right", top: "55%", size: 280, rotate: 6 },
         ]} />
         <div className="max-w-5xl mx-auto px-6 relative z-10">
           <Reveal>
@@ -376,7 +382,6 @@ export function ServicesPage() {
       <section className="py-20 bg-white border-t border-plum/10">
         <ScrollCutouts cutouts={[
           { src: cutLeafPlatter, side: "left", top: "10%", size: 280, rotate: -8 },
-          { src: cutBiryani, side: "right", top: "50%", size: 260, rotate: 6 },
         ]} />
         <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
           <Reveal>

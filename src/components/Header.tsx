@@ -140,7 +140,7 @@ export default function Header() {
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
-            <Link to="/" className="flex items-center justify-center w-9 h-9 rounded-full bg-amber-50 border-2 border-amber-400/70 p-0.5 shrink-0 hover:scale-105 active:scale-95 transition-all">
+            <Link to="/" className="flex items-center justify-center w-14 h-14 rounded-full bg-amber-50 border-[3px] border-amber-400/80 p-1 shrink-0 hover:scale-105 active:scale-95 transition-all shadow-md">
               <img src={lotusIcon} alt="Temple Symbol" className="w-full h-full object-contain rounded-full" />
             </Link>
           </div>
@@ -180,7 +180,7 @@ export default function Header() {
         <div className="bg-[#FFFDF8] h-10 px-3 flex items-center justify-center gap-2">
           <a
             href="tel:+919940396005"
-            className="flex items-center justify-center gap-1 h-8 px-3 rounded-full bg-[#2A170E] hover:bg-[#1a0e08] text-white text-[9px] font-bold uppercase tracking-wider active:scale-95 transition-all shadow-md"
+            className="flex items-center justify-center gap-1 h-8 px-3 rounded-full bg-red-600 hover:bg-red-700 text-white text-[9px] font-bold uppercase tracking-wider active:scale-95 transition-all shadow-md"
           >
             <Phone className="w-3 h-3" />
             <span>Call Now</span>
@@ -196,10 +196,10 @@ export default function Header() {
           </a>
           <Link
             to="/builder"
-            className="flex items-center justify-center gap-1 h-8 px-3 rounded-full bg-[#E5B742] hover:bg-[#d4a635] text-[#2A170E] text-[9px] font-bold uppercase tracking-wider active:scale-95 transition-all shadow-md"
+            className="flex items-center justify-center gap-1 h-8 px-3 rounded-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white text-[9px] font-bold uppercase tracking-wider active:scale-95 transition-all shadow-md"
           >
             <Sparkles className="w-3 h-3" />
-            <span>Build</span>
+            <span>Customize Menu</span>
           </Link>
         </div>
       </div>
@@ -309,9 +309,9 @@ export default function Header() {
       </div>
 
       {/* Desktop Absolutely Positioned Logo Overlay */}
-      <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${scrolled ? "top-0" : "top-[10px] md:top-[12px]"}`}>
-        <Link to="/" className="group block">
-          <div className={`flex items-center justify-center transition-all duration-300 ${scrolled ? "w-24 h-24 md:w-28 md:h-28" : "w-[200px] h-[200px]"}`}>
+      <div className={`hidden lg:block absolute left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 ${scrolled ? "top-[-15px]" : "top-[10px] md:top-[12px]"}`}>
+        <Link to="/" className="group block pointer-events-auto">
+          <div className={`flex items-center justify-center transition-all duration-300 ${scrolled ? "w-20 h-20 md:w-24 md:h-24" : "w-[200px] h-[200px]"}`}>
             <img src={headerLogo} alt="My Chennai Catering" className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
           </div>
         </Link>

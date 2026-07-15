@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, ArrowRight, Check, Sparkles } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+import { ScrollCutouts } from "@/components/ScrollCutouts";
+import { CenterKolam } from "@/components/Kolam";
+import cutSpices from "@/assets/cutout-spices.png";
+import cutWeddingFeast from "@/assets/cutout-wedding-feast.png";
 import realFeastMeal from "@/assets/2_20260624_020643_0001.png";
 import liveCounter from "@/assets/images-31.jpeg";
 import weddingHall from "@/assets/IMG_4558.webp";
@@ -126,7 +130,8 @@ export default function CateringMenusSection() {
     }
 
     setSelectedMenu(null);
-    const bookEl = document.getElementById("book");
+    const bookMatches = document.querySelectorAll<HTMLElement>('[id="book"]');
+    const bookEl = Array.from(bookMatches).find((el) => el.getClientRects().length > 0) ?? bookMatches[0];
     if (bookEl) {
       bookEl.scrollIntoView({ behavior: "smooth" });
     } else {
@@ -136,6 +141,13 @@ export default function CateringMenusSection() {
 
   return (
     <section id="menus" className="py-24 bg-[#FAF7F2] text-[#3E3127] relative overflow-hidden">
+      <ScrollCutouts cutouts={[
+        { src: cutSpices, side: "left", top: "5%", size: 140, rotate: -10 },
+        { src: cutWeddingFeast, side: "right", top: "50%", size: 130, rotate: 8 },
+      ]} />
+      <div className="absolute left-1/2 -translate-x-1/2 top-[20%] opacity-[0.025] text-plum pointer-events-none">
+        <CenterKolam size={160} />
+      </div>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
         
         {/* Section Header */}

@@ -1,18 +1,17 @@
-import { Link, useRouter } from "@tanstack/react-router";
-import { Home, UtensilsCrossed, ChefHat, Image as ImageIcon, Star, PhoneCall } from "lucide-react";
+import { Link, useLocation } from "@tanstack/react-router";
+import { Home, UtensilsCrossed, ChefHat, Camera, PhoneCall } from "lucide-react";
 
 const TABS = [
   { to: "/", label: "Home", icon: Home, exact: true },
   { to: "/services", label: "Services", icon: UtensilsCrossed, exact: false },
   { to: "/builder", label: "Build", icon: ChefHat, exact: false, center: true },
-  { to: "/gallery", label: "Gallery", icon: ImageIcon, exact: false },
-  { to: "/#testimonials", label: "Reviews", icon: Star, hash: "testimonials", exact: false },
+  { to: "/gallery", label: "Gallery", icon: Camera, exact: false },
   { to: "/contact", label: "Contact", icon: PhoneCall, exact: false },
 ];
 
 export default function MobileAppTabBar() {
-  const router = useRouter();
-  const currentPath = router.state.location.pathname;
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const isActive = (to: string, exact: boolean) =>
     exact ? currentPath === to : currentPath.startsWith(to);
@@ -23,28 +22,6 @@ export default function MobileAppTabBar() {
         {TABS.map((tab) => {
           const active = isActive(tab.to, tab.exact ?? false);
           const Icon = tab.icon;
-
-          if (tab.hash) {
-            return (
-              <Link
-                key={tab.label}
-                to="/"
-                hash={tab.hash}
-                resetScroll={false}
-                className="flex-1 flex flex-col items-center justify-center py-2 h-full relative active:scale-90 transition-transform"
-              >
-                <div className="relative flex flex-col items-center gap-1 transition-all duration-200">
-                  <Icon
-                    className="w-[18px] h-[18px] text-neutral-400"
-                    strokeWidth={1.8}
-                  />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">
-                    {tab.label}
-                  </span>
-                </div>
-              </Link>
-            );
-          }
 
           if (tab.center) {
           return (
