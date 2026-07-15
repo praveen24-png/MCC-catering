@@ -931,7 +931,7 @@ export default function CateringCRM({ onSwitchToCustomizer }: { onSwitchToCustom
 
               <div>
                 <label className="font-bold text-slate-700 block mb-1">Office Address</label>
-                <input readOnly value="No 49, South Bazar, Pattabiram, Chennai - 600072" className="w-full p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-medium" />
+                <input readOnly value="No 49, South Bazaar, Thandurai, Pattabiram, Chennai – 600 072" className="w-full p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-medium" />
               </div>
             </div>
           </div>
@@ -1261,7 +1261,7 @@ function PrintInvoiceModal({ invoice, onClose }: { invoice: InvoiceItem; onClose
             <img src={logoImg} alt="MCC Logo" className="w-16 h-16 object-contain" />
             <div>
               <h2 className="font-serif text-2xl font-bold text-[#3A1029]">MY CHENNAI CATERING SERVICES</h2>
-              <p className="text-xs text-slate-600">No 49, South Bazar, Pattabiram, Chennai - 600072</p>
+              <p className="text-xs text-slate-600">No 49, South Bazaar, Thandurai, Pattabiram, Chennai – 600 072</p>
               <p className="text-[11px] text-slate-500">GSTIN: 33AAAFM1234F1Z5 | FSSAI: 12421002000456</p>
             </div>
           </div>

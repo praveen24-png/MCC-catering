@@ -140,8 +140,8 @@ export default function Header() {
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
-            <Link to="/" className="flex items-center justify-center w-14 h-14 rounded-full bg-amber-50 border-[3px] border-amber-400/80 p-1 shrink-0 hover:scale-105 active:scale-95 transition-all shadow-md">
-              <img src={lotusIcon} alt="Temple Symbol" className="w-full h-full object-contain rounded-full" />
+            <Link to="/" className="flex items-center justify-center w-14 h-14 shrink-0 hover:scale-105 active:scale-95 transition-all">
+              <img src={lotusIcon} alt="Temple Symbol" className="w-full h-full object-contain" />
             </Link>
           </div>
 
@@ -257,7 +257,7 @@ export default function Header() {
           <div className="flex items-center gap-4 text-[10px] text-zinc-500 font-medium tracking-wide uppercase">
             <div className="flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-gold-dark shrink-0" />
-              <span>No 49, South Bazar, Pattabiram, Chennai</span>
+              <span>No 49, South Bazaar, Thandurai, Pattabiram, Chennai – 600 072</span>
             </div>
             <div className="w-px h-3 bg-zinc-200" />
             <div className="flex items-center gap-1.5">
@@ -281,8 +281,8 @@ export default function Header() {
               Request a Quote
             </Link>
             <div className="relative group/lotus cursor-pointer pl-2 shrink-0">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-amber-50/80 border-2 border-amber-400/80 p-1 shadow-md hover:scale-105 transition-all duration-300 flex items-center justify-center overflow-hidden">
-                <img src={lotusIcon} alt="Lotus Auspicious Symbol" className="w-full h-full object-contain rounded-full filter drop-shadow-sm" />
+              <div className="w-14 h-14 md:w-16 md:h-16 hover:scale-105 transition-all duration-300 flex items-center justify-center">
+                <img src={lotusIcon} alt="Lotus Auspicious Symbol" className="w-full h-full object-contain" />
               </div>
             </div>
           </div>

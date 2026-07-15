@@ -354,7 +354,6 @@
 html {
   overflow-x: clip;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes scrollHint {
@@ -510,7 +509,9 @@ img, video, svg, canvas {
 .skyline-divider {
   position: relative;
   width: 100%;
+  height: 200px;
   overflow: hidden;
+  padding-bottom: 0;
   background: var(--cream);
   line-height: 0;
 }
@@ -518,16 +519,12 @@ img, video, svg, canvas {
 .skyline-divider-img {
   display: block;
   width: 100%;
-  height: auto;
-  /* the sketch is 1663x624 — uncapped it swallows a whole viewport on wide screens */
-  max-height: 220px;
+  height: 100%;
   object-fit: cover;
   object-position: bottom;
-  /* white background of the sketch drops out; only the graphite lines remain */
-  mix-blend-mode: multiply;
-  /* warm it to match the plum/gold palette instead of cold grey */
-  filter: sepia(0.35) saturate(0.85) contrast(1.05) brightness(1.02);
-  opacity: 0.62;
+  mix-blend-mode: normal;
+  filter: sepia(0.2) saturate(0.7) contrast(1.05) brightness(1.02);
+  opacity: 0.55;
 }
 
 /* fades the top of the sketch into the cream page so it doesn't sit as a hard block */
@@ -538,9 +535,17 @@ img, video, svg, canvas {
   background: linear-gradient(
     to bottom,
     var(--cream) 0%,
-    rgba(250, 247, 240, 0.65) 22%,
-    rgba(250, 247, 240, 0) 55%
+    rgba(250, 247, 240, 0.5) 18%,
+    rgba(250, 247, 240, 0) 45%,
+    rgba(250, 247, 240, 0) 85%,
+    var(--cream) 100%
   );
+}
+
+@media (max-width: 480px) {
+  .skyline-divider {
+    height: 120px;
+  }
 }
 
 /* ========================================================================= */
@@ -613,7 +618,7 @@ img, video, svg, canvas {
 .grain-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 1;
   pointer-events: none;
   opacity: 1;
   mix-blend-mode: overlay;
