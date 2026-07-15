@@ -112,9 +112,27 @@ function Contact() {
             <div className="mt-8 space-y-3">
               <ContactCard
                 icon={Phone}
-                label="Call us"
-                value="+91 99403 96005"
+                label="Proprietor"
+                value="99403 96005, 95516 39651"
                 href="tel:+919940396005"
+              />
+              <ContactCard
+                icon={Phone}
+                label="Manager"
+                value="9600034612"
+                href="tel:+919600034612"
+              />
+              <ContactCard
+                icon={Phone}
+                label="Office"
+                value="9840608236"
+                href="tel:+919840608236"
+              />
+              <ContactCard
+                icon={Phone}
+                label="Landline"
+                value="044-26850005"
+                href="tel:+9104426850005"
               />
               <ContactCard
                 icon={MessageCircle}
@@ -131,7 +149,7 @@ function Contact() {
               <ContactCard
                 icon={MapPin}
                 label="Visit our office"
-                value="No 49, South Bazar, Thandurai, Pattabiram, Chennai 600072"
+                value="No 49, South Bazaar, Thandurai, Pattabiram, Chennai – 600 072"
               />
             </div>
 

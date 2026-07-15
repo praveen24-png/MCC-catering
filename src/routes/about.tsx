@@ -1,13 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ScrollCutouts } from "@/components/ScrollCutouts";
-import aboutImage from "@/assets/1.jpg";
-import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
-import cutBiryani from "@/assets/cutout-biryani.png";
-import cutLeafPlatter from "@/assets/cutout-leaf-platter.png";
-import cutSweets from "@/assets/cutout-sweets.png";
-import cutTiffin from "@/assets/cutout-tiffin.png";
-import lmGopuram from "@/assets/cutout-landmark-gopuram.png";
-import lmGoldDome from "@/assets/cutout-landmark-gold-dome.png";
 import { Reveal } from "@/components/Reveal";
 import MarigoldGarland from "@/components/MarigoldGarland";
 import { CenterKolam } from "@/components/Kolam";
@@ -34,7 +25,7 @@ import { DoodleLayer } from "@/components/DoodleLayer";
 import { AnimatedFoodDoodles } from "@/components/AnimatedFoodDoodles";
 import { BananaLeafDivider } from "@/components/GrainDivider";
 import OurStorySection from "@/components/OurStorySection";
-import feastHero from "@/assets/feast-hero.png";
+import chennaiSkylineSketch from "@/assets/chennai-skyline-sketch.png";
 import weddingHallImg from "@/assets/IMG_4558.webp";
 
 export const Route = createFileRoute("/about")({
@@ -194,9 +185,10 @@ export function About() {
           50%      { opacity: 0.6; }
         }
         .mcc-hero-img {
-          filter: saturate(1.1) contrast(1.05) brightness(1.05);
+          filter: saturate(0.6) contrast(1.1) brightness(0.95);
           animation: mccHeroDrift 26s ease-in-out infinite alternate;
           will-change: transform;
+          mix-blend-mode: multiply;
         }
         .mcc-hero-glow { animation: mccGlowPulse 7s ease-in-out infinite; }
         @media (prefers-reduced-motion: reduce) {
@@ -205,27 +197,27 @@ export function About() {
       `}</style>
 
       {/* 1. HERO SECTION — rich, warm, appetising */}
-      <section className="relative h-[88vh] h-[88dvh] min-h-[620px] flex items-center overflow-hidden bg-[#1A0710]">
+      <section className="relative h-[88vh] h-[88dvh] min-h-[620px] flex items-center overflow-hidden bg-[#FAF7F0]">
         {/* Background image */}
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src={feastHero}
-            alt="Traditional South Indian banana leaf menu"
-            className="mcc-hero-img w-full h-full object-cover"
+            src={chennaiSkylineSketch}
+            alt="Chennai skyline sketch"
+            className="mcc-hero-img w-full h-full object-cover object-bottom"
             fetchPriority="high"
           />
         </div>
 
-        {/* Layer A — warm scrim: dark at top/bottom for contrast, OPEN in the middle so the food shows */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#2A0E1E]/55 via-[#1A0710]/12 to-[#12050A]/70" />
+        {/* Layer A — warm scrim: dark at top for text contrast, transparent in middle for sketch visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#2A0E1E]/80 via-[#1A0710]/30 to-[#FAF7F0]/60" />
 
-        {/* Layer B — soft spotlight behind the copy (keeps text legible without blanketing the photo) */}
+        {/* Layer B — soft spotlight behind the copy */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_42%_at_50%_44%,rgba(12,5,9,0.72)_0%,rgba(12,5,9,0.45)_45%,transparent_72%)]" />
 
-        {/* Layer C — amber / saffron bloom for warmth (screen blend = glow, not grey) */}
+        {/* Layer C — amber / saffron bloom for warmth */}
         <div
           className="mcc-hero-glow absolute inset-0 mix-blend-screen pointer-events-none
-                     bg-[radial-gradient(circle_at_15%_82%,rgba(251,191,36,0.30),transparent_46%),radial-gradient(circle_at_88%_18%,rgba(217,119,6,0.26),transparent_42%),radial-gradient(circle_at_70%_95%,rgba(239,68,68,0.14),transparent_38%)]"
+                     bg-[radial-gradient(circle_at_15%_82%,rgba(251,191,36,0.20),transparent_46%),radial-gradient(circle_at_88%_18%,rgba(217,119,6,0.18),transparent_42%),radial-gradient(circle_at_70%_95%,rgba(239,68,68,0.10),transparent_38%)]"
         />
 
         {/* Layer D — gentle fade into the cream page below */}
@@ -323,10 +315,6 @@ export function About() {
 
       {/* 3. MISSION & VISION */}
       <section className="py-16 bg-white border-y border-amber-900/10 relative overflow-hidden">
-        <ScrollCutouts cutouts={[
-          { src: cutTiffin, side: "right", top: "10%", size: 160, rotate: -8 },
-          { src: cutBiryani, side: "left", top: "55%", size: 150, rotate: 10 },
-        ]} />
         <div className="absolute left-[-30px] top-[40%] opacity-[0.03] text-plum pointer-events-none">
           <CenterKolam size={120} />
         </div>
@@ -382,10 +370,6 @@ export function About() {
 
       {/* 4. WHY CHOOSE US? (EXACT LIST PRESERVED WITHOUT CHANGES) */}
       <section className="py-20 bg-white border-y border-amber-900/10">
-        <ScrollCutouts cutouts={[
-          { src: cutSweets, side: "right", top: "12%", size: 260, rotate: -6 },
-          { src: cutTiffin, side: "left", top: "58%", size: 280, rotate: 8 },
-        ]} />
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-800">
@@ -427,10 +411,6 @@ export function About() {
       {/* 5. OUR EXPERTISE */}
       <section className="py-20 px-6 lg:px-12 max-w-7xl mx-auto relative">
         <AnimatedFoodDoodles section="services" />
-        <ScrollCutouts cutouts={[
-          { src: cutBiryani, side: "left", top: "10%", size: 260, rotate: -8 },
-          { src: cutLeafPlatter, side: "right", top: "50%", size: 280, rotate: 6 },
-        ]} />
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-800">
@@ -491,10 +471,6 @@ export function About() {
 
       {/* 6. PROUDLY SERVING CHENNAI */}
       <section className="relative bg-gradient-to-r from-[#2A163F] via-[#3A1029] to-[#2B1028] text-white py-16 px-6 lg:px-12 border-y-2 border-amber-400/30 overflow-hidden">
-        <ScrollCutouts variant="prominent" cutouts={[
-          { src: lmGopuram, side: "left", top: "10%", size: 280, rotate: -8 },
-          { src: lmGoldDome, side: "right", top: "55%", size: 260, rotate: 6 },
-        ]} />
         <img
           src={weddingHallImg}
           alt=""

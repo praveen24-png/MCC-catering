@@ -17,7 +17,6 @@ import Footer from "../components/Footer";
 import CateringChatbot from "../components/CateringChatbot";
 import MobileAppTabBar from "../components/MobileAppTabBar";
 
-import { SkylineDivider } from "../components/site/SkylineDivider";
 import { GrainOverlay } from "../components/GrainDivider";
 import { KolamVine } from "../components/KolamVine";
 import { PageFeedbackToolbarCSS as Agentation } from 'agentation';
@@ -178,7 +177,6 @@ function RootComponent() {
         <HashScroller />
         <main className="flex-1 pt-[172px] lg:pt-[clamp(140px,13vw,170px)] pb-[72px] lg:pb-0">
           <Outlet />
-          <SkylineDivider />
         </main>
         <Footer />
         {process.env.NODE_ENV === 'development' && (
