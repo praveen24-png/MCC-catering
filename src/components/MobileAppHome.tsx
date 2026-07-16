@@ -726,7 +726,7 @@ export default function MobileAppHome() {
         id="book"
         ref={bookRef}
         tabIndex={-1}
-        className={`py-12 px-4 bg-cream outline-none relative overflow-hidden ${SCROLL_MT}`}
+        className={`py-6 md:py-12 px-4 bg-cream outline-none relative overflow-hidden ${SCROLL_MT}`}
       >
         <ScrollCutouts cutouts={[
           { src: cutBiryani, side: "left", top: "10%", size: 160, rotate: 8 },

@@ -83,10 +83,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full font-sans relative z-10">
+    <footer className="w-full font-sans relative z-10 pb-[72px] lg:pb-0">
 
       {/* ── SKYLINE (immediately above CTA) ── */}
-      <div className="relative w-full h-[120px] lg:h-[200px] overflow-hidden bg-[#FAF7F0]" aria-hidden="true">
+      <div className="relative w-full h-[150px] lg:h-[200px] overflow-hidden bg-[#FAF7F0]" aria-hidden="true">
         <img
           src={skylineSketch}
           alt=""
@@ -94,7 +94,7 @@ export default function Footer() {
           loading="lazy"
           decoding="async"
         />
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#FAF7F0] via-transparent to-[#2A163F]/80" />
+        <div className="absolute inset-0 pointer-events-none skyline-fade" />
       </div>
 
       {/* ── CTA BANNER (unified mobile + desktop) ── */}
@@ -230,8 +230,8 @@ export default function Footer() {
               <div className="w-12 h-12 rounded-full bg-amber-50 border-2 border-amber-300 p-1 flex items-center justify-center shrink-0">
                 <img src={lotusIcon} alt="Lotus" className="w-full h-full object-contain" />
               </div>
-              <div className="w-24 h-24 rounded-full bg-white shadow-lg border-2 border-amber-400 p-1.5 flex items-center justify-center">
-                <img src={footerLogo} alt="My Chennai Catering" className="w-full h-full object-contain rounded-full" />
+              <div className="w-24 h-24 rounded-full overflow-hidden shrink-0">
+                <img src={footerLogo} alt="My Chennai Catering" className="w-full h-full object-cover" />
               </div>
             </div>
             <div className="space-y-1">
