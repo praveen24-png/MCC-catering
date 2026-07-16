@@ -71,11 +71,15 @@
 /* ========================================================================= */
 @media (max-width: 767px) {
   .scroll-cutouts-layer {
-    --sc-scale: 0.34;   /* 430/1280 — same visual weight as desktop */
-    --sc-inset: -6vw;
+    --sc-scale: 0.55;
+    --sc-inset: -3vw;
+  }
+  .scroll-cutouts-layer--background .scroll-cutout {
+    --sc-target-opacity: 0.22;
+    opacity: 0.22 !important;
   }
   .scroll-cutouts-layer--prominent .scroll-cutout {
-    opacity: 0.9 !important;
+    opacity: 1 !important;
   }
 }
 

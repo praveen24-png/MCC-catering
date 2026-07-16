@@ -848,7 +848,7 @@ function Index() {
         {/* ========================================================================= */}
         {/* WELCOME SECTION                                                           */}
         {/* ========================================================================= */}
-        <section className="py-14 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <section className="py-6 md:py-14 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
           <FoodPeekEdge
             src={lmGopuram}
             side="left"
@@ -924,7 +924,7 @@ function Index() {
         {/* ========================================================================= */}
         {/* 3. SERVICES WE OFFER SECTION                                             */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-[#FAF7F2] relative overflow-hidden z-10">
+        <section className="py-8 md:py-20 bg-[#FAF7F2] relative overflow-hidden z-10">
           <ScrollCutouts variant="background" cutouts={[
             { src: cutSpices, side: "right", top: "-5%", size: 160, rotate: -8 },
             { src: cutSweets, side: "left", top: "75%", size: 150, rotate: 10 },
@@ -996,7 +996,7 @@ function Index() {
         {/* ========================================================================= */}
         {/* 3b. WE CATER WHEREVER YOU CELEBRATE                                     */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <section className="py-8 md:py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
           <div className="max-w-6xl mx-auto px-6 lg:px-10 text-center relative z-10">
             <Reveal>
               <h2 className="font-serif text-3xl md:text-5xl text-[#3A1029] font-bold">
@@ -1026,7 +1026,7 @@ function Index() {
         {/* ========================================================================= */}
         {/* 4. EXPLORE OUR MENUS SECTION                                             */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <section className="py-8 md:py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
           <AnimatedFoodDoodles section="menu" />
           <ScrollCutouts variant="prominent" cutouts={[
             { src: cutLeafPlatter, side: "right", top: "5%", size: 260, rotate: -6 },
@@ -1439,7 +1439,7 @@ function Index() {
         {/* ========================================================================= */}
         {/* EVENT PLANNING RESOURCES SECTION                                         */}
         {/* ========================================================================= */}
-        <section className="relative py-20 bg-plum-dark text-cream overflow-hidden border-t border-gold/15">
+        <section className="relative py-8 md:py-20 bg-plum-dark text-cream overflow-hidden border-t border-gold/15">
           <ScrollCutouts variant="prominent" cutouts={[
             { src: cutBiryani, side: "right", top: "15%", size: 300, rotate: -8 },
             { src: cutLeafPlatter, side: "left", top: "70%", size: 280, rotate: 6 },
@@ -1482,7 +1482,7 @@ function Index() {
         {/* ========================================================================= */}
         {/* FAQ SECTION                                                               */}
         {/* ========================================================================= */}
-        <section className="py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <section className="py-8 md:py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
           <AnimatedFoodDoodles section="default" />
           <ScrollCutouts variant="prominent" cutouts={[
             { src: cutBiryani, side: "left", top: "15%", size: 280, rotate: -6 },

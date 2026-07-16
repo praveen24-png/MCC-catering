@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, Phone, X, MapPin, Clock, Sparkles, MessageCircle } from "lucide-react";
 import headerLogo from "@/assets/mcc-logo.png";
@@ -18,6 +18,8 @@ const NAV = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -140,9 +142,11 @@ export default function Header() {
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
-            <Link to="/" className="flex items-center justify-center w-14 h-14 shrink-0 hover:scale-105 active:scale-95 transition-all">
-              <img src={lotusIcon} alt="Temple Symbol" className="w-full h-full object-contain" />
-            </Link>
+            {isHome && (
+              <Link to="/" className="flex items-center justify-center w-14 h-14 shrink-0 hover:scale-105 active:scale-95 transition-all">
+                <img src={lotusIcon} alt="Temple Symbol" className="w-full h-full object-contain" />
+              </Link>
+            )}
           </div>
 
           {/* Center: Brand Logo — 72×72 */}

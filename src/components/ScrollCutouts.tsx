@@ -51,8 +51,8 @@ export function ScrollCutouts({
         const html = el as HTMLElement;
         const side = html.dataset.side === "left" ? 1 : -1;
         const isPhone = window.innerWidth < 768;
-        const peek = isPhone ? 16 : 60;
-        const speed = isPhone ? 0.05 : 0.12;
+        const peek = isPhone ? 30 : 60;
+        const speed = isPhone ? 0.08 : 0.12;
         const spin = parseFloat(html.dataset.spin ?? "6");
         const baseRot = parseFloat(html.dataset.rot ?? "0");
         const peekOffset = side * p * peek;

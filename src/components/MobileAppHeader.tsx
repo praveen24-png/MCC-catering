@@ -1,9 +1,12 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Phone, MessageCircle, MapPin, ChevronDown } from "lucide-react";
 import logoImg from "@/assets/mcc-logo.png";
 import lotusIcon from "@/assets/lotus icon.png";
 
 export default function MobileAppHeader() {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+
   return (
     <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       {/* Top Promo Strip */}
@@ -14,14 +17,18 @@ export default function MobileAppHeader() {
       {/* Main Header Row */}
       <div className="px-3 py-2 flex items-center justify-between gap-2 border-b border-neutral-100">
 
-        {/* LEFT: Lotus Guru */}
-        <Link to="/" className="shrink-0 active:scale-95 transition-transform">
-          <img
-            src={lotusIcon}
-            alt="Guru Blessings — My Chennai Catering"
-            className="w-[68px] h-[68px] object-contain drop-shadow-md"
-          />
-        </Link>
+        {/* LEFT: Lotus Guru — home page only */}
+        {isHome ? (
+          <Link to="/" className="shrink-0 active:scale-95 transition-transform">
+            <img
+              src={lotusIcon}
+              alt="Guru Blessings — My Chennai Catering"
+              className="w-[68px] h-[68px] object-contain drop-shadow-md"
+            />
+          </Link>
+        ) : (
+          <div className="w-[68px] shrink-0" aria-hidden="true" />
+        )}
 
         {/* CENTER: MCC Logo + Location badge */}
         <Link to="/" className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform flex-1">
