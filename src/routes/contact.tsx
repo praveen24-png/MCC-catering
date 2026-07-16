@@ -156,7 +156,7 @@ function Contact() {
             <div className="mt-8 rounded-2xl overflow-hidden border border-plum/10 w-full aspect-[16/9]">
               <iframe
                 title="MCC Catering — Pattabiram"
-                src="https://www.google.com/maps?q=Pattabiram,+Chennai&output=embed"
+                src="https://www.google.com/maps?q=13.117162,80.063652&z=17&hl=en&output=embed"
                 className="w-full h-full"
                 loading="lazy"
               />
