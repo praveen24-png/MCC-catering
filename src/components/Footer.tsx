@@ -266,12 +266,12 @@ export default function Footer() {
                 <span className="text-slate-400 text-[10px] uppercase tracking-wider">Call Us</span>
               </div>
             </a>
-            <a href="tel:+919840608236" className="flex items-center gap-3 group">
+            <a href="tel:+919940832988" className="flex items-center gap-3 group">
               <div className="w-10 h-10 rounded-full bg-[#541539] flex items-center justify-center shrink-0">
                 <Phone className="w-4 h-4 text-gold" />
               </div>
               <div>
-                <span className="text-[#3A1029] font-bold text-sm block">Office: 9840608236</span>
+                <span className="text-[#3A1029] font-bold text-sm block">Office: 9840608236 / 9940832988 / 9940009985</span>
                 <span className="text-slate-400 text-[10px] uppercase tracking-wider">Call Us</span>
               </div>
             </a>
@@ -290,6 +290,24 @@ export default function Footer() {
               </div>
               <div className="min-w-0">
                 <span className="text-[#3A1029] font-bold text-xs sm:text-sm block truncate">mychennaicateringservices@gmail.com</span>
+                <span className="text-slate-400 text-[10px] uppercase tracking-wider">Email Us</span>
+              </div>
+            </a>
+            <a href="mailto:info@cateringinchennai.com" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 rounded-full bg-[#541539] flex items-center justify-center shrink-0">
+                <Mail className="w-4 h-4 text-gold" />
+              </div>
+              <div className="min-w-0">
+                <span className="text-[#3A1029] font-bold text-xs sm:text-sm block truncate">info@cateringinchennai.com</span>
+                <span className="text-slate-400 text-[10px] uppercase tracking-wider">Email Us</span>
+              </div>
+            </a>
+            <a href="mailto:cateringchennai1967@gmail.com" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 rounded-full bg-[#541539] flex items-center justify-center shrink-0">
+                <Mail className="w-4 h-4 text-gold" />
+              </div>
+              <div className="min-w-0">
+                <span className="text-[#3A1029] font-bold text-xs sm:text-sm block truncate">cateringchennai1967@gmail.com</span>
                 <span className="text-slate-400 text-[10px] uppercase tracking-wider">Email Us</span>
               </div>
             </a>
@@ -441,9 +459,11 @@ export default function Footer() {
               <h4 className="text-[#541539] font-bold text-xs uppercase tracking-widest mb-4">Contact</h4>
               <a href="tel:+919940396005" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Phone className="w-4 h-4 text-[#541539]" />Proprietor: 99403 96005, 95516 39651</a>
               <a href="tel:+919600034612" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Phone className="w-4 h-4 text-[#541539]" />Manager: 9600034612</a>
-              <a href="tel:+919840608236" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Phone className="w-4 h-4 text-[#541539]" />Office: 9840608236</a>
+              <a href="tel:+919940832988" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Phone className="w-4 h-4 text-[#541539]" />Office: 9840608236 / 9940832988 / 9940009985</a>
               <a href="tel:+9104426850005" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Phone className="w-4 h-4 text-[#541539]" />Landline: 044-26850005</a>
-              <a href="mailto:mychennaicateringservices@gmail.com" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Mail className="w-4 h-4 text-[#541539]" />Email Us</a>
+              <a href="mailto:mychennaicateringservices@gmail.com" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Mail className="w-4 h-4 text-[#541539]" />mychennaicateringservices@gmail.com</a>
+              <a href="mailto:info@cateringinchennai.com" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Mail className="w-4 h-4 text-[#541539]" />info@cateringinchennai.com</a>
+              <a href="mailto:cateringchennai1967@gmail.com" className="flex items-center gap-2 text-slate-700 hover:text-[#541539]"><Mail className="w-4 h-4 text-[#541539]" />cateringchennai1967@gmail.com</a>
               <div className="flex items-center gap-2 text-slate-700"><MapPin className="w-4 h-4 text-[#541539]" />No 49, South Bazaar, Thandurai, Pattabiram, Chennai – 600 072</div>
               <div className="flex items-center gap-2 text-slate-700"><Clock className="w-4 h-4 text-[#541539]" />8 AM – 9 PM Daily</div>
             </div>

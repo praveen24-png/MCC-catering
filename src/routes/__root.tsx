@@ -16,6 +16,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CateringChatbot from "../components/CateringChatbot";
 import MobileAppTabBar from "../components/MobileAppTabBar";
+import EnquiryPopup from "../components/EnquiryPopup";
 
 import { GrainOverlay } from "../components/GrainDivider";
 import { KolamVine } from "../components/KolamVine";
@@ -187,6 +188,7 @@ function RootComponent() {
           />
         )}
         <CateringChatbot />
+        <EnquiryPopup />
         <MobileAppTabBar />
       </div>
     </QueryClientProvider>

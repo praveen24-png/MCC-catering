@@ -125,8 +125,8 @@ function Contact() {
               <ContactCard
                 icon={Phone}
                 label="Office"
-                value="9840608236"
-                href="tel:+919840608236"
+                value="9840608236 / 9940832988 / 9940009985"
+                href="tel:+919940832988"
               />
               <ContactCard
                 icon={Phone}
@@ -145,6 +145,18 @@ function Contact() {
                 label="Email"
                 value="mychennaicateringservices@gmail.com"
                 href="mailto:mychennaicateringservices@gmail.com"
+              />
+              <ContactCard
+                icon={Mail}
+                label="Email"
+                value="info@cateringinchennai.com"
+                href="mailto:info@cateringinchennai.com"
+              />
+              <ContactCard
+                icon={Mail}
+                label="Email"
+                value="cateringchennai1967@gmail.com"
+                href="mailto:cateringchennai1967@gmail.com"
               />
               <ContactCard
                 icon={MapPin}
