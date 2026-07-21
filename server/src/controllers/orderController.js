@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const { sendEnquiryEmail } = require('../utils/mailer');
 
 
 async function generateOrderNumber(conn, prefix) {
@@ -155,6 +156,14 @@ const createPublic = async (req, res) => {
     }
 
     await conn.commit();
+
+    sendEnquiryEmail({
+      order_number: orderNumber,
+      name, phone, email, city,
+      event_type, event_date, venue, guests,
+      package: pkg, special_requests, total_amount: computedTotal,
+    }).catch((err) => console.error('[enquiry email] failed:', err.message));
+
     res.status(201).json({
       success: true,
       message: 'Enquiry submitted',

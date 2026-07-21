@@ -507,7 +507,7 @@ function Index() {
 
             stats.forEach((stat) => {
               const obj = { val: 0 };
-              const el = document.querySelector(stat.selector);
+              const el = entry.target.querySelector(stat.selector);
               if (el) {
                 animate(obj, {
                   val: stat.target,
