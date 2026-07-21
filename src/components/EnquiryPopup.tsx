@@ -116,33 +116,8 @@ export default function EnquiryPopup() {
       console.warn("CRM save failed, continuing with email submission");
     }
 
-    /* ── 2. Send email notification ── */
-    try {
-      await fetch(
-        "https://formsubmit.co/ajax/info@cateringinchennai.com",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            _subject: `Quick Enquiry: ${occasion || "Event"} — ${name}`,
-            name,
-            phone,
-            eventDate: date,
-            guests,
-            occasion,
-            _replyto: "mychennaicateringservices@gmail.com",
-          }),
-        },
-      );
-      setSubmitted(true);
-    } catch {
-      setError("Something went wrong. Please try again or call us directly.");
-    } finally {
-      setSubmitting(false);
-    }
+    setSubmitted(true);
+    setSubmitting(false);
   };
 
   const reset = () => {

@@ -392,29 +392,8 @@ function QuoteModal({
     e.preventDefault();
     setSubmitting(true);
 
-    try {
-      await fetch("https://formsubmit.co/ajax/info@cateringinchennai.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          _subject: `Custom Menu Proposal: ${title} - ${name}`,
-          name,
-          phone,
-          packageTitle: title,
-          itemsCount,
-          guestsCount: guests,
-          _replyto: "mychennaicateringservices@gmail.com",
-        }),
-      });
-    } catch (err) {
-      console.warn("API proposal submission attempt finished.", err);
-    } finally {
-      setSubmitting(false);
-      setSubmitted(true);
-    }
+    setSubmitting(false);
+    setSubmitted(true);
   };
 
   return (

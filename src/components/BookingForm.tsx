@@ -132,32 +132,6 @@ export default function BookingForm() {
       return;   // don't show a success screen for an enquiry we lost
     }
 
-    /* ── 2. Email notification. Best-effort; never blocks the success screen,
-           because the enquiry is already safely in the CRM. ── */
-    try {
-      await fetch("https://formsubmit.co/ajax/info@cateringinchennai.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          _subject: `New Catering Inquiry: ${form.eventType} - ${form.name}`,
-          name: form.name,
-          phone: form.phone,
-          eventType: form.eventType,
-          date: form.date,
-          guests: form.guests,
-          budget: form.budget,
-          venue: form.venue,
-          package: form.package || "Not specified",
-          _replyto: "mychennaicateringservices@gmail.com",
-        }),
-      });
-    } catch (err) {
-      console.warn("Email notification failed (enquiry already saved):", err);
-    }
-
     setSubmitting(false);
     setSubmitted(true);
     celebrate();
