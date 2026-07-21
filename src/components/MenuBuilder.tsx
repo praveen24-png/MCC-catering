@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, Sparkles, X, Leaf, GlassWater, Send, Users } from "lucide-react";
+import { publicAPI } from "@/services/api";
 
 type PackageKey = "tiffin" | "moderate" | "executive";
 
@@ -391,6 +392,17 @@ function QuoteModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+
+    try {
+      await publicAPI.submitEnquiry({
+        name,
+        phone,
+        event_type: "Custom Menu",
+        special_requests: `Package: ${title} | Items: ${itemsCount} | Guests: ${guests}`,
+      });
+    } catch {
+      console.warn("CRM save failed");
+    }
 
     setSubmitting(false);
     setSubmitted(true);
