@@ -135,7 +135,7 @@ export default function BookingForm() {
     /* ── 2. Email notification. Best-effort; never blocks the success screen,
            because the enquiry is already safely in the CRM. ── */
     try {
-      await fetch("https://formsubmit.co/ajax/mychennaicateringservices@gmail.com", {
+      await fetch("https://formsubmit.co/ajax/info@cateringinchennai.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

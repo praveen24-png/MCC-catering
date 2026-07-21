@@ -393,7 +393,7 @@ function QuoteModal({
     setSubmitting(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/mychennaicateringservices@gmail.com", {
+      await fetch("https://formsubmit.co/ajax/info@cateringinchennai.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -119,7 +119,7 @@ export default function EnquiryPopup() {
     /* ── 2. Send email notification ── */
     try {
       await fetch(
-        "https://formsubmit.co/ajax/mychennaicateringservices@gmail.com",
+        "https://formsubmit.co/ajax/info@cateringinchennai.com",
         {
           method: "POST",
           headers: {
