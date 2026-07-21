@@ -176,7 +176,7 @@ function RootComponent() {
         <KolamVine />
         <Header />
         <HashScroller />
-        <main className="flex-1 pt-[172px] lg:pt-[clamp(140px,13vw,170px)] pb-0">
+        <main className="flex-1 pt-[136px] lg:pt-[clamp(140px,13vw,170px)] pb-0">
           <Outlet />
         </main>
         <Footer />

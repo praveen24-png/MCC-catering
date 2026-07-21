@@ -267,7 +267,7 @@ const SlideContent = ({ slide, currentSlide, onScrollToBook }: SlideContentProps
 
   return (
     <div ref={containerRef} className="flex flex-col items-center max-w-3xl">
-      <div className="h-[180px] flex items-center justify-center mb-4">
+      <div className="h-[100px] sm:h-[140px] lg:h-[180px] flex items-center justify-center mb-4">
         {slide.logo ? (
           <img
             src={slide.logo}
@@ -275,7 +275,7 @@ const SlideContent = ({ slide, currentSlide, onScrollToBook }: SlideContentProps
             className="h-36 object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
           />
         ) : (
-          <span             className="font-script text-white text-[9rem] tracking-wide select-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+          <span className="font-script text-white text-[3.25rem] sm:text-[5rem] lg:text-[9rem] leading-none tracking-wide select-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
             {slide.t}
           </span>
         )}
@@ -707,7 +707,7 @@ function Index() {
           <MarigoldGarland count={12} className="absolute top-0 left-0 right-0 z-20 h-5" />
 
           {/* Slide Content */}
-          <div             className="max-w-7xl mx-auto px-10 flex flex-col items-center justify-center relative z-10 w-full text-center mt-8 min-h-[60vh]">
+          <div className="max-w-7xl mx-auto px-10 flex flex-col items-center justify-center relative z-10 w-full text-center mt-20 lg:mt-8 min-h-[60vh]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}

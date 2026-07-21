@@ -80,7 +80,7 @@ export default function BookingForm() {
         `• Venue Location: ${form.venue}\n\n` +
         `Please send me a detailed proposal and availability.\n\nThank you!`
     );
-    return `mailto:mychennaicateringservices@gmail.com?subject=${subject}&body=${body}`;
+    return `mailto:cateringchennai1967@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const getWhatsappUrl = () => {
@@ -149,7 +149,7 @@ export default function BookingForm() {
         </div>
         <h3 className="font-serif text-2xl text-plum mb-3">Event Inquiry Received</h3>
         <p className="text-foreground/70 text-sm mb-4 max-w-md mx-auto">
-          Dhanyavadah! Your request has been dispatched to <strong>mychennaicateringservices@gmail.com</strong>.
+          Thank you! Your request has been dispatched to <strong>cateringchennai1967@gmail.com</strong>.
           MCC & team will review your <strong>{form.eventType}</strong> for <strong>{form.date}</strong> and contact you at <strong>{form.phone}</strong>.
         </p>
 
